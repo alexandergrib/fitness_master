@@ -1,0 +1,39 @@
+body{
+    max-width: 100%;
+}
+
+#headline_img{
+    width: 100%;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.flashes h4 {
+    line-height: 2;
+}
+
+.btn-small {
+    margin: 5px;
+}
+
+.collapsible-header .col strong {
+    margin: 5px;
+    line-height: 42px;
+}
+
+.workout-wrapper{
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+
+.workout--row{
+    border: 1px solid black;
+}
+
+.workout--row span{
+    font-size: 1.2rem;
+}
