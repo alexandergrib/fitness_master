@@ -37,3 +37,9 @@ body{
 .workout--row span{
     font-size: 1.2rem;
 }
+.workout--row i{
+    position: relative;
+    right: 5px;
+    top: 10px;
+    font-size: 24px;
+}

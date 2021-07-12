@@ -4,25 +4,30 @@
     <!-- Cards container -->
     <div class="workout-wrapper">
         <div class="row">
-            <div class="col s12 right-align">Create new workout <i class="fas fa-plus-circle"></i></div>
-        </div>
-    <!--Generate list of workouts -->
-        {% for workout in workout_lsit %}
-        <div class="row workout--row">
-            <div class="col s11">
-                <span>{{ workout.workout_name }}</span><br>
-                <span>{{ workout.exercise_list | length }} exercises (
-                {% for exercise in workout.exercise_list %}
-
-                    {{ exercise }},
-                 {% endfor %})
-                </span><br>
-                <span>current weight</span><br>
-                <span>last workout {{ workout.created_date }}</span><br>
-                <span>Created by {{ workout.created_by }}</span>
+            <div class="col s12 m6">
+                <div class="switch">
+                    <label>Show completed:<input type="checkbox"><span class="lever"></span></label>
+                </div>
             </div>
-            <div class="col s1 right-align"><i class="far fa-edit"></i></div>
+            <div class="col s12 m6 right-align">Create new workout <i class="fas fa-plus-circle"></i></div>
         </div>
+        <!--Generate list of workouts -->
+        {% for workout in workout_lsit %}
+            <div class="row workout--row">
+                <div class="col s10">
+                    <span>{{ workout.workout_name }}</span><br>
+                    <span>{{ workout.exercise_list | length }} exercises (
+                        {% for exercise in workout.exercise_list %}
+
+                            {{ exercise }},
+                        {% endfor %})
+                </span><br>
+                    <span>current weight 80kg</span><br>
+                    <span>last workout {{ workout.created_date }}</span><br>
+                    <span>Created by {{ workout.created_by }}</span>
+                </div>
+                <div class="col s2 right-align"><i class="far fa-edit"></i></div>
+            </div>
         {% endfor %}
     </div>
 
