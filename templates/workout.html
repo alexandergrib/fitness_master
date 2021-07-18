@@ -12,12 +12,12 @@
             <div class="col s12 m6 right-align">Create new workout <i class="fas fa-plus-circle"></i></div>
         </div>
         <!--Generate list of workouts -->
-        {% for workout in workout_lsit %}
+        {% for workout in workout_list %}
             <div class="row workout--row">
                 <div class="col s10">
                     <span>{{ workout.workout_name }}</span><br>
-                    <span>{{ workout.exercise_list | length }} exercises (
-                        {% for exercise in workout.exercise_list %}
+                    <span>{{ workout.exercise_choices | length }} exercises (
+                        {% for exercise in workout.exercise_choices %}
 
                             {{ exercise }},
                         {% endfor %})
@@ -26,7 +26,7 @@
                     <span>last workout {{ workout.created_date }}</span><br>
                     <span>Created by {{ workout.created_by }}</span>
                 </div>
-                <div class="col s2 right-align"><i class="far fa-edit"></i></div>
+                <div class="col s2 right-align"><a href="{{ url_for('edit_workout', workout_id=workout._id) }}"><i class="far fa-edit"></i></a></div>
             </div>
         {% endfor %}
     </div>
