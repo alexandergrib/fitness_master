@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2 class="center-align">Workouts</h2>
+    <!-- Cards container -->
+    <div class="workout-wrapper">
+        <div class="row">
+            <div class="col s12 m6 right-align"><a href="#">Add new exercise <i class="fas fa-plus-circle"></i></a></div>
+        </div>
+        <!--Generate list of exercises -->
+        {% for exercise in exercise_list %}
+            <div class="row workout--row">
+                <a href="{{ url_for("get_exercise", exercise_id=exercise._id) }}">
+                    <div class="col s12 exercise--card">
+                        <span>{{ exercise.exercise_name }}</span><br>
+                        <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name }} image" class="exercise--img">
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+

@@ -9,7 +9,7 @@
                     <label>Show completed:<input type="checkbox"><span class="lever"></span></label>
                 </div>
             </div>
-            <div class="col s12 m6 right-align">Create new workout <i class="fas fa-plus-circle"></i></div>
+            <div class="col s12 m6 right-align"><a href="{{ url_for('create_workout')}}">Create new workout <i class="fas fa-plus-circle"></i></a></div>
         </div>
         <!--Generate list of workouts -->
         {% for workout in workout_list %}
@@ -22,7 +22,7 @@
                             {{ exercise }},
                         {% endfor %})
                 </span><br>
-                    <span>current weight 80kg</span><br>
+                    <span>current {{ workout.weight }}</span><br>
                     <span>last workout {{ workout.created_date }}</span><br>
                     <span>Created by {{ workout.created_by }}</span>
                 </div>
