@@ -111,10 +111,53 @@ def delete_workout():
 @app.route("/exercise")
 def get_exercise_list():
     """
-        Display list of exercises
+        Display list of all exercises
     """
     exercise_list = list(mongo.db.exercises.find().sort("exercise_name", 1))
     return render_template("exercise_all.html", exercise_list=exercise_list)
+
+
+
+
+@app.route("/exercise/create", methods=["GET", "POST"])
+def create_exercise():
+    """
+    Create new exercise
+
+    exercise_name,
+    category,
+    description,
+    img_url,
+    exercise_sets,
+    exercise_reps,
+    weigth,
+    exercise_comments,
+    yt_url,
+    steps{array}
+
+    """
+    if request.method == "POST": 
+        submit = {
+            "exercise_name": request.form.get("exercise_name"),
+            "img_url": request.form.get("img_url"),
+            "exercise_sets": request.form.get("exercise_sets"),
+            "exercise_reps": request.form.get("exercise_reps"),
+            "exercise_category": request.form.getlist("exercise_category"),
+            "modified_date": datetime.now().strftime("%d/%m/%Y"),
+            "weight": request.form.get("weight"),
+            'exercise_comments': request.form.get("exercise_comments"),
+            'yt_url': request.form.get("yt_url"),
+            'steps': request.form.getlist("steps"),
+            "created_by": "admin" #session["user"]
+        }
+
+        mongo.db.exercises.insert_one(submit)
+        flash("Workout Successfully Updated")
+        print("Workout Successfully Updated")
+        return render_template("exercise_all.html")
+
+    return render_template("create_exercise.html")
+
 
 
 @app.route("/exercise/<exercise_id>")
