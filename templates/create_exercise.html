@@ -45,6 +45,67 @@
                 </div>
             </div>
 
+
+            <!-- exercise category -->
+            <div class="input-field col s12">
+                <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                <select multiple class="icons" id="exercise_category" name="exercise_category">
+                {% for category_item in exercise_category_list %}
+                    <option value="{{ category_item.category_name }}" 
+                        data-icon="{{ category_item.img_url }}">{{ category_item.category_name }}</option>
+                {% endfor %}
+            </select>
+            <label>Pick your exercise category</label>
+            </div>
+            <!-- exercise comments -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                    <input id="exercise_comments" name="exercise_comments" minlength="3" maxlength="50"
+                        value="" type="text" class="validate" >
+                    <label for="exercise_comments">Exercise Comments</label>
+                </div>
+            </div>
+
+            <!-- Youtube URL -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                    <input id="yt_url" name="yt_url" minlength="3" maxlength="50"
+                        value="" type="text" class="validate" >
+                    <label for="yt_url">Youtube Link</label>
+                </div>
+            </div>
+
+
+            <!-- Exercise Steps -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <ul id="steps_list">
+                        <li>
+                            <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                            <input id="step1" name="steps" minlength="3" maxlength="1500"
+                                 type="text" class="validate" >
+                            <label for="step1">Step 1</label>
+                        </li>
+                        <li>
+                            <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                            <input id="step2" name="steps" minlength="3" maxlength="1500"
+                                 type="text" class="validate" >
+                            <label for="step2">Step 2</label>
+                        </li>
+                        <li>
+                            <div id="add_more">
+                                <i class="fas fa-plus light-blue-text text-darken-4"></i>
+                                <span>Add another step</span>
+                            </div>
+                        </li>
+                    </ul>                    
+
+                </div>
+            </div>
+
+
         <!-- submit button -->
                     <div class="row">
                         <div class="col s12 center-align">

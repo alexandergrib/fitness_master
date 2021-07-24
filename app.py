@@ -136,7 +136,9 @@ def create_exercise():
     steps{array}
 
     """
-    if request.method == "POST": 
+    exercise_category_list = list(
+        mongo.db.categories.find().sort("category_name", 1))
+    if request.method == "POST":
         submit = {
             "exercise_name": request.form.get("exercise_name"),
             "img_url": request.form.get("img_url"),
@@ -146,17 +148,19 @@ def create_exercise():
             "modified_date": datetime.now().strftime("%d/%m/%Y"),
             "weight": request.form.get("weight"),
             'exercise_comments': request.form.get("exercise_comments"),
-            'yt_url': request.form.get("yt_url"),
+            'yt_url': request.form.get("yt_url"),   #create validator for url
             'steps': request.form.getlist("steps"),
-            "created_by": "admin" #session["user"]
+            "created_by": "admin"   #session["user"]
         }
 
-        mongo.db.exercises.insert_one(submit)
-        flash("Workout Successfully Updated")
-        print("Workout Successfully Updated")
-        return render_template("exercise_all.html")
+        # mongo.db.exercises.insert_one(submit)
+        print(submit)
+        flash("Exercise Successfully Created")
+        print("Exercise Successfully Created")
+        return redirect(url_for("get_exercise_list"))
 
-    return render_template("create_exercise.html")
+    return render_template("create_exercise.html",
+                           exercise_category_list=exercise_category_list)
 
 
 

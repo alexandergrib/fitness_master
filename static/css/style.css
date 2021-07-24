@@ -64,3 +64,6 @@ body{
     height: 250px;
 }
 
+#add_more{
+    cursor: pointer;
+}
