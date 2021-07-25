@@ -17,22 +17,37 @@ $(document).ready(function () {
     });
 
     /*
-        insert new li item in exercise html
+        insert new li item in create_exercise.html
     */
+
+
+
+
+
     var li_count = 2;
     $('#add_more').click(function(){
         li_count += 1;
         // alert("clicked");        
         $("#steps_list li:last").before(
-            "<li> <i class='fas fa-pencil-alt prefix light-blue-text text-darken-4'></i>" +
-             "<input id=step" + li_count + " name='steps' minlength='3' maxlength='1500'"+
-                            " type='text' class='validate' ><i class='fas fa-minus-circle frefix'></i>"+
-                            "<label for=step"+li_count+">Step "+ li_count +
-                             "</label> </li>"
+            "<li style='margin-left:3rem;'><label for=step"+li_count+"><input id=step" + 
+            li_count + " name='steps' minlength='3' maxlength='1500' type='text' class='validate' required>"+
+                          " Next Step <i class=' fas fa-minus-circle ' style='color:red; float:right; font-size:1.1rem;'> Remove</i></label> </li>"
         );
+
         $( "i.fa-minus-circle" ).on( "click", function( event ) {
             $( event.target ).closest( "li" ).remove();
-            //add recalculate step number after deletion and reset counter
+            // var arraySize = $('#steps_list li').length;
+
+            // $('#steps_list li').each(function (i) {
+            //     var index = $(this).index() + 1;
+            //     if (index === arraySize-1){
+            //         li_count = index;
+            //         $(this).index() = 0;
+            //         return false;
+            //     };
+                
+            // });
+            
           });
     });
 });
