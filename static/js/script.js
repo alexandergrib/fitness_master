@@ -26,9 +26,14 @@ $(document).ready(function () {
         $("#steps_list li:last").before(
             "<li> <i class='fas fa-pencil-alt prefix light-blue-text text-darken-4'></i>" +
              "<input id=step" + li_count + " name='steps' minlength='3' maxlength='1500'"+
-                              " type='text' class='validate' >"+
-                            "<label for=step"+li_count+">Step "+ li_count + "</label> </li>"
+                            " type='text' class='validate' ><i class='fas fa-minus-circle frefix'></i>"+
+                            "<label for=step"+li_count+">Step "+ li_count +
+                             "</label> </li>"
         );
+        $( "i.fa-minus-circle" ).on( "click", function( event ) {
+            $( event.target ).closest( "li" ).remove();
+            //add recalculate step number after deletion and reset counter
+          });
     });
 });
 
