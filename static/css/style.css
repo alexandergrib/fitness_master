@@ -1,6 +1,11 @@
 body{
     max-width: 100%;
+    background-image: url("../img/tile_background_tile.png");
 }
+.background--image{
+
+}
+
 .brand-logo img{
     width: 100px;
     height: 100%;
@@ -28,14 +33,18 @@ body{
 }
 
 .workout-wrapper{
-    width: 80%;
+    width: 40%;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0px);
+
 }
 
 .workout--row{
     border: 1px solid black;
+    box-shadow: 10px 10px 14px #aaaaaa;
+    background: white;
+    border-radius: 10px;
 }
 
 .workout--row span{
@@ -49,18 +58,20 @@ body{
     font-size: 24px;
 }
 
-.workout-wrapper {
-    width: 35%;
-}
+
 
 .exercise--card{
     text-align: center;
     align-content: center;
 }
-
+.exercise--card .s12{
+    padding-top: 10px;
+    color: black;
+}
 
 .exercise--img{
-
+    object-fit: contain;
+    width:250px;
     height: 250px;
 }
 

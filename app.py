@@ -3,9 +3,11 @@ import re
 from pprint import pprint
 from datetime import datetime
 
+
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
+
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -20,6 +22,7 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
 
 # conn = mongo.db.exercises
 # exercise_coll = conn["fitness_master"]["exercises"]
@@ -97,6 +100,7 @@ def edit_workout(workout_id):
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
         flash("Workout Successfully Updated")
         print("Workout Successfully Updated")
+        return (redirect(url_for("get_workout")))
 
     # print(request.form)
     single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
@@ -144,6 +148,7 @@ def create_exercise():
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
         submit = {
             "exercise_name": request.form.get("exercise_name"),
+            "description": request.form.get("description"),
             "img_url": request.form.get("img_url"),
             "exercise_sets": request.form.get("exercise_sets"),
             "exercise_reps": request.form.get("exercise_reps"),
@@ -156,7 +161,7 @@ def create_exercise():
             "created_by": "admin"   #session["user"]
         }
 
-        # mongo.db.exercises.insert_one(submit)
+        mongo.db.exercises.insert_one(submit)
         print(submit)
         flash("Exercise Successfully Created")
         print("Exercise Successfully Created")
