@@ -33,13 +33,20 @@ body{
 }
 
 .workout-wrapper{
-    width: 40%;
+    width: 80%;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0px);
 
 }
 
+.exercise-wrapper{
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    background-color: #fff;
+}
 .workout--row{
     border: 1px solid black;
     box-shadow: 10px 10px 14px #aaaaaa;
@@ -71,10 +78,14 @@ body{
 
 .exercise--img{
     object-fit: contain;
-    width:250px;
-    height: 250px;
 }
 
 #add_more{
     cursor: pointer;
+}
+
+#edit--exercise--icon{
+    position: absolute;
+    top: 15px;
+    right: 15px;
 }

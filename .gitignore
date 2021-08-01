@@ -10,5 +10,4 @@ node_modules/
 .idea
 __pycache__
 examples
-env.py
 images_sources.txt

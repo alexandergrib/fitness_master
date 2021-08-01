@@ -139,6 +139,7 @@ def create_exercise():
     exercise_comments,
     yt_url,
     steps{array}
+    about
 
     """
     exercise_category_list = list(
@@ -149,6 +150,7 @@ def create_exercise():
         submit = {
             "exercise_name": request.form.get("exercise_name"),
             "description": request.form.get("description"),
+            "about": request.form.get("about"),
             "img_url": request.form.get("img_url"),
             "exercise_sets": request.form.get("exercise_sets"),
             "exercise_reps": request.form.get("exercise_reps"),
@@ -171,7 +173,6 @@ def create_exercise():
                            exercise_category_list=exercise_category_list)
 
 
-
 @app.route("/exercise/<exercise_id>")
 def get_exercise(exercise_id):
     """
@@ -183,8 +184,39 @@ def get_exercise(exercise_id):
 
 @app.route("/exercise/edit/<exercise_id>", methods=["GET", "POST"])
 def edit_exercise(exercise_id):
-    pass
+    """
+        Modify individual exercise
+    """
 
+    exercise_category_list = list(
+        mongo.db.categories.find().sort("category_name", 1))
+    single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    if request.method == "POST":
+        yt = request.form.get("yt_url")
+        replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
+        submit = {
+            "exercise_name": request.form.get("exercise_name"),
+            "description": request.form.get("description"),
+            "about":request.form.get("about"),
+            "img_url": request.form.get("img_url"),
+            "exercise_sets": request.form.get("exercise_sets"),
+            "exercise_reps": request.form.get("exercise_reps"),
+            "exercise_category": request.form.getlist("exercise_category"),
+            "modified_date": datetime.now().strftime("%d/%m/%Y"),
+            "weight": request.form.get("weight"),
+            'exercise_comments': request.form.get("exercise_comments"),
+            'yt_url': replace_url,  # create validator for url
+            'steps': request.form.getlist("steps"),
+            "created_by": "admin"  # session["user"]
+        }
+
+        mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
+        pprint(submit)
+        flash("Exercise Successfully Updated")
+        print("Exercise Successfully Updated")
+        return redirect(url_for("get_exercise", exercise_id=exercise_id))
+    return render_template("exercise_edit_single.html", exercise=single_exercise,
+                           exercise_category_list=exercise_category_list)
 
 
 if __name__ == "__main__":

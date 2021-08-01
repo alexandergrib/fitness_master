@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2 class="center-align">Create exercise</h2>
+<h2 class="center-align">Modify {{ exercise.exercise_name }}</h2>
     <!-- Cards container -->
     <div class="workout-wrapper">
-        <form class="col s12" method="POST" action="{{ url_for('create_exercise') }}">
+        <form class="col s12" method="POST" action="{{ url_for('edit_exercise', exercise_id=exercise._id) }}">
         <!-- Workout name -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                         <input id="exercise_name" name="exercise_name" minlength="3" maxlength="50"
-                            value="" type="text" class="validate" required>
+                            value="{{ exercise.exercise_name }}" type="text" class="validate" required>
                         <label for="exercise_name">Exercise Name</label>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="description" name="description" minlength="3" maxlength="10000"
-                        value="" type="text" class="validate" required>
+                        value="{{ exercise.description }}" type="text" class="validate" required>
                     <label for="description">Description</label>
                 </div>
             </div>
@@ -27,8 +27,8 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="about" name="about" minlength="3" maxlength="10000"
-                        value="" type="text" class="validate" >
-                    <label for="description">About</label>
+                        value="{{ exercise.about }}" type="text" class="validate" >
+                    <label for="about">About</label>
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
                 <div class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="On youtube.com click SHARE button and copy URL">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="img_url" name="img_url" minlength="3" maxlength="500"
-                        value="" type="text" class="validate " >
+                        value="{{ exercise.img_url }}" type="text" class="validate " >
                     <label for="img_url">Image URL</label>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="exercise_sets" name="exercise_sets" min="0" max="1000"
-                        type="number" class="validate" >
+                    value="{{ exercise.exercise_sets }}"    type="number" class="validate" >
                     <label for="exercise_sets">Exercise sets</label>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="exercise_reps" name="exercise_reps" min="0" max="1000"
-                         type="number" class="validate" >
+                    value="{{ exercise.exercise_reps }}"     type="number" class="validate" >
                     <label for="exercise_reps">Exercise reps</label>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="weight" name="weight" min="0" max="1000"
-                        value="" type="number" class="validate" >
+                        value="{{ exercise.weight }}" type="number" class="validate" >
                     <label for="weight">Exercise weight</label>
                 </div>
             </div>
@@ -78,8 +78,12 @@
                 <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                 <select multiple class="icons" id="exercise_category" name="exercise_category">
                 {% for category_item in exercise_category_list %}
-                    <option value="{{ category_item.category_name }}" 
-                        data-icon="{{ category_item.img_url }}">{{ category_item.category_name }}</option>
+                    {% if category_item.category_name in exercise.exercise_category  %}
+                        <option value="{{ category_item.category_name }}" selected
+                            data-icon="{{ category_item.img_url }}">{{ category_item.category_name }}</option>
+                    {% endif %}
+                    <option value="{{ category_item.category_name }}"
+                            data-icon="{{ category_item.img_url }}">{{ category_item.category_name }}</option>
                 {% endfor %}
             </select>
             <label>Pick your exercise category</label>
@@ -90,7 +94,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="exercise_comments" name="exercise_comments" minlength="3" maxlength="50"
-                        value="" type="text" class="validate" >
+                        value="{{ exercise.exercise_comments }}" type="text" class="validate" >
                     <label for="exercise_comments">Exercise Comments</label>
                 </div>
             </div>
@@ -100,7 +104,7 @@
                 <div class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="On youtube.com click SHARE button and copy URL">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                     <input id="yt_url" name="yt_url" minlength="3" maxlength="50"
-                        value="" type="text" class="validate " >
+                        value="{{ exercise.yt_url }}" type="text" class="validate " >
                     <label for="yt_url">Youtube Link</label>
                 </div>
             </div>
@@ -110,25 +114,24 @@
             <div class="row">
                 <div class="input-field col s12">
                     <ul id="steps_list">
-                        <li>
-                            <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                            <input id="step1" name="steps" minlength="3" maxlength="1500"
-                                 type="text" class="validate" required>
-                            <label for="step1">Step 1</label>
-                        </li>
-                        <li style="margin-left:3rem;">
-                            
-                            <input id="step2" name="steps" minlength="3" maxlength="1500"
-                                 type="text" class="validate" required>
-                            <label for="step2">Step 2</label>
-                        </li>
+                        {% for step in exercise.steps %}
+
+                            <li>
+                                <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
+                                <input id="step{{ loop.index }}" name="steps" minlength="3" maxlength="1500"
+                                 value="{{ step }}"    type="text" class="validate" required>
+                                <label for="step{{ loop.index }}">step{{ loop.index }}</label>
+                            </li>
+
+
+                        {% endfor %}
                         <li id="stop">
                             <div id="add_more">
                                 <i class="fas fa-plus light-blue-text text-darken-4"></i>
                                 <span>Add another step</span>
                             </div>
                         </li>
-                    </ul>                    
+                    </ul>
 
                 </div>
             </div>
@@ -142,11 +145,10 @@
                                 Cancel <i class="fas fa-times-circle right"></i>
                             </a>
                             <button type="submit" class="btn-large light-blue darken-1 text-shadow">
-                                Create Exercise <i class="fas fa-edit right"></i>
+                                Update Exercise <i class="fas fa-edit right"></i>
                             </button>
                         </div>
                     </div>
         </form>
     </div>
 {% endblock %}
-
