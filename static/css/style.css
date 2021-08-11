@@ -53,6 +53,10 @@ body{
     background: white;
     border-radius: 10px;
 }
+.workout--row > a:link, .workout--row > a:visited, .workout--row > a:hover, .workout--row > a:active {
+        text-decoration: none;
+         color: #f00;
+    }
 
 .workout--row span{
     font-size: 1.2rem;
@@ -65,7 +69,17 @@ body{
     font-size: 24px;
 }
 
-
+.add-new-button{
+    background-color: green;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 2px 10px;
+    float: right;
+    color: white;
+}
+.add-new-button a{
+    color: white;
+}
 
 .exercise--card{
     text-align: center;

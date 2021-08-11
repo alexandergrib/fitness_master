@@ -14,24 +14,27 @@
                     <label>Show completed:<input type="checkbox"><span class="lever"></span></label>
                 </div>
             </div>
-            <div class="col s12 m6 right-align"><a href="{{ url_for('create_workout')}}">Create new workout <i class="fas fa-plus-circle"></i></a></div>
+            <div class="col s12 m6 right-align "><div class="add-new-button"><a href="{{ url_for('create_workout')}}">Create new workout <i class="fas fa-plus-circle"></i></a></div></div>
         </div>
         <!--Generate list of workouts -->
         {% for workout in workout_list %}
             <div class="row workout--row">
-                <div class="col s10">
-                    <span>{{ workout.workout_name }}</span><br>
-                    <span>{{ workout.exercise_choices | length }} exercises (
-                        {% for exercise in workout.exercise_choices %}
+            <!-- link to start workout -->
+                <a href="{{ url_for('edit_workout', workout_id=workout._id) }}">
+                    <div class="col s10">
+                        <span>{{ workout.workout_name }}</span><br>
+                        <span>{{ workout.exercise_choices | length }} exercises (
+                            {% for exercise in workout.exercise_choices %}
 
-                            {{ exercise }},
-                        {% endfor %})
-                </span><br>
-                    <span>current {{ workout.weight }}</span><br>
-                    <span>last workout {{ workout.created_date }}</span><br>
-                    <span>Created by {{ workout.created_by }}</span>
-                </div>
-                <div class="col s2 right-align"><a href="{{ url_for('edit_workout', workout_id=workout._id) }}"><i class="far fa-edit"></i></a></div>
+                                {{ exercise }},
+                            {% endfor %})
+                    </span><br>
+                        <span>current {{ workout.weight }}</span><br>
+                        <span>last workout {{ workout.created_date }}</span><br>
+                        <span>Created by {{ workout.created_by }}</span>
+                    </div>
+                    <div class="col s2 right-align"><a href="{{ url_for('edit_workout', workout_id=workout._id) }}"><i class="far fa-edit"></i></a></div>
+                </a>
             </div>
         {% endfor %}
     </div>
