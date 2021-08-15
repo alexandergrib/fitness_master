@@ -108,9 +108,11 @@ def edit_workout(workout_id):
     return render_template("edit_workout.html", workout_list=single_workout, exercise_list=exercise_list)
 
 
-@app.route("/workout/<workout_id>", methods=["GET", "POST"])
-def delete_workout():
-    pass
+@app.route("/workout/delete/<workout_id>", methods=["GET", "POST"])
+def delete_workout(workout_id):
+    mongo.db.routines.remove({"_id": ObjectId(workout_id)})
+    flash("Workout Successfully Deleted")
+    return redirect(url_for("get_workout"))
 
 
 @app.route("/workout/start/<workout_id>", methods=["GET", "POST"])
@@ -251,6 +253,11 @@ def edit_exercise(exercise_id):
     return render_template("exercise_edit_single.html", exercise=single_exercise,
                            exercise_category_list=exercise_category_list)
 
+@app.route("/exercise/delete/<exercise_id>", methods=["GET", "POST"])
+def delete_exercise(exercise_id):
+    mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
+    flash("Exercise Successfully Deleted")
+    return redirect(url_for("get_exercise_list"))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
