@@ -1,128 +1,53 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2 class="center-align">Start Workout ...name...</h2>
+    <h2 class="center-align">Start Workout &quot;{{ workout_list.workout_name|truncate(26, False, '...', 0) }}&quot;</h2>
     <!-- Cards container -->
-    <div class="workout-wrapper">
-        <form class="col s12" method="POST" action="{{ url_for('edit_workout', workout_id=workout_list._id) }}">
-        <!-- Workout name -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="workout_name" name="workout_name" minlength="5" maxlength="50"
-                        value="{{ workout_list.workout_name }}" type="text" class="validate" required>
-                    <label for="workout_name">Workout Name</label>
+workout_list, exercise_list
+    {% for exercise in exercise_list %}
+        {% if exercise.exercise_name in workout_list.exercise_choices %}
+            <div class="workout-exercise-single-wrapper">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="col s12 center workout-exercise-single-card-name"><span>{{ exercise.exercise_name|truncate(26, False, '...', 0) }}</span><div class="workout-exercise-single-more-info"><i class="fas fa-info-circle right"></i></div></div>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                    <div class="col s4 workout-exercise-single-image-wrapper">
+                                        <img src="{{ exercise.img_url }}"
+                                             alt="{{  exercise.exercise_name }} image" width="150" height="150">
+                                    </div>
+                                    <div class="col s8">
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <div class="col-wrapper-single-exercise">
+                                                    <div class="sets"><span>Sets: {{ exercise.exercise_sets }}</span></div>
+                                                    <div class="reps"><span>Reps: {{ exercise.exercise_reps }}</span></div>
+                                                    <div class="weight"><span> weight: {{ exercise.weight }}kg</span></div>
+{#                                                    <div class="last_completed">completed <span>10</span> times, last time#}
+{#                                                        <span>20/06/2021</span>#}
+{#                                                    </div>#}
+{#                                                    <div class="timer"><span> timer</span></div>#}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+{#            <div class="workout-exercise-single-timer">#}
+{#                <div class="row">#}
+{#                    <div class="col s8">start timer</div>#}
+{#                    <div class="col s4"><a class="waves-effect waves-light btn disabled">PAUSE</a></div>#}
+{#                </div>#}
+{#            </div>#}
 
-        <!-- exercise selection -->
-            <div class="input-field col s12">
-                 <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                 <select multiple class="icons" id="exercise_choices" name="exercise_choices">
-                    {% for exercise in exercise_list %}
-                        {% if exercise.exercise_name in workout_list.exercise_choices %}
-                            <option selected value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
-                        {% else %}
-                              <option value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-                <label>Pick your exercises</label>
-            </div>
-
-        <!-- workout sets -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="workout_sets" name="workout_sets" min="0" max="1000"
-                        value="{{ workout_list.workout_sets }}" type="number" class="validate" >
-                    <label for="workout_sets">Workout sets</label>
-                </div>
-            </div>
-
-        <!-- workout reps -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="workout_reps" name="workout_reps" min="0" max="1000"
-                        value="{{ workout_list.workout_reps }}" type="number" class="validate" >
-                    <label for="workout_reps">Workout reps</label>
-                </div>
-            </div>
-        <!-- workout weight -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="weight" name="weight" min="0" max="1000"
-                        value="{{ workout_list.weight }}" type="number" class="validate" >
-                    <label for="weight">Workout weight</label>
-                </div>
-            </div>
-        <!-- Completed and saved options -->
-            <div class="row">
-                <div class="col s12">
-
-                    <label>
-                        {% if workout_list.completed %}
-                            <input type="checkbox" class="filled-in" checked="checked" id="is_completed" name="is_completed"/>
-                        {% else %}
-                            <input type="checkbox" class="filled-in"  id="is_completed" name="is_completed"/>
-                        {% endif %}
-                        <span>Completed</span>
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12">
-                    <label>
-                         {% if workout_list.saved %}
-                            <input type="checkbox" class="filled-in" checked="checked" id="is_saved" name="is_saved"/>
-                         {% else %}
-                             <input type="checkbox" class="filled-in" id="is_saved" name="is_saved"/>
-                         {% endif %}
-                        <span>Saved</span>
-                    </label>
-                </div>
-            </div>
-
-        <!--date, name -->
-            <div class="row">
-                <div class="col s12">
-                    <ul>
-                        <li>Date created: {{ workout_list.created_date }}</li>
-                        <li>Created by: {{ workout_list.created_by }}</li>
-                        <li>Completed date: {{ workout_list.completed_date }}</li>
-                        <li>Modified date: {{ workout_list.modified_date }}</li>
-                        <li>Saved: {{ workout_list.saved }}</li>
-                        <li>Completed date: {{ workout_list.completed }}</li>
-                    </ul>
-
-                </div>
-            </div>
-
-
-        <!-- submit button -->
-            <div class="row">
-                <div class="col s12 center-align">
-                    <!-- cancel button -->
-                    <a href="{{ url_for('get_workout') }}" class="btn-large red text-shadow">
-                        Cancel <i class="fas fa-times-circle right"></i>
-                    </a>
-                    <button type="submit" class="btn-large light-blue darken-1 text-shadow">
-                        Edit Workout <i class="fas fa-edit right"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
-
-<!--
-{'_id': ObjectId('60e4886598c529729386d020'),
- 'arhived': True,
- 'completed': True,
- 'completed_date': '06 July, 2021 18:55:01',
- 'create_date': '06 July, 2021 17:46:01',
- 'created_by': 'admin',
- 'exercise_list': ['Dip', 'Bench', 'Dumbells'],
- 'workout_name': 'upper body workout'}
--->

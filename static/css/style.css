@@ -103,3 +103,73 @@ body{
     top: 15px;
     right: 15px;
 }
+
+
+.workout-exercise-single-wrapper{
+    background-color: white;
+    /*width: 95vw;*/
+    /*height: 25vh;*/
+    border-radius: 10px;
+    box-shadow: 5px 5px 14px #aaaaaa;
+}
+
+.workout-exercise-single-card-name{
+    font-size: 2rem;
+}
+
+.workout-exercise-single-image-wrapper{
+    /*left: 50%;*/
+
+    display: flex;
+    justify-content: center;
+    /*width: 150px !important;*/
+    /*height: 150px !important;*/
+    border-radius: 50%;
+    /*background-color: antiquewhite;*/
+    object-fit: fill;
+    overflow: hidden;
+    padding: 0 !important;
+}
+.workout-exercise-single-wrapper img {
+
+    /*padding: 0 !important;*/
+    /*margin: 0 auto;*/
+    /* top: 50%; */
+    /*transform: translate(0, 30%);*/
+     border-radius: 50%;
+    /*max-width: 100%;*/
+    /*max-height: 100%;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    object-fit: fill;
+    display: block;
+}
+
+.col-wrapper-single-exercise{
+    margin-left: 10px;
+}
+
+.workout-exercise-single-more-info{
+    font-size: 16px;
+    position: relative;
+    left: 0;
+    top: -35px;
+}
+
+.workout-exercise-single-timer{
+    padding: 0;
+    background-color: #aaaaaa;
+    border: 1px solid darkblue;
+}
+
+
+
+/*Media queries*/
+
+@media only screen and (min-width: 600px) {
+
+
+
+
+
+}
