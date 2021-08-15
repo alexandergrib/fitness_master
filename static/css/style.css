@@ -1,17 +1,19 @@
-body{
+body {
     max-width: 100%;
     background-image: url("../img/tile_background_tile.png");
 }
-.background--image{
+
+.background--image {
 
 }
 
-.brand-logo img{
+.brand-logo img {
     width: 100px;
     height: 100%;
     padding: 10px;
 }
-#headline_img{
+
+#headline_img {
     width: 100%;
 }
 
@@ -32,7 +34,7 @@ body{
     line-height: 42px;
 }
 
-.workout-wrapper{
+.workout-wrapper {
     width: 80%;
     position: absolute;
     left: 50%;
@@ -40,36 +42,38 @@ body{
 
 }
 
-.exercise-wrapper{
+.exercise-wrapper {
     width: 80%;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0px);
     background-color: #fff;
 }
-.workout--row{
+
+.workout--row {
     border: 1px solid black;
     box-shadow: 10px 10px 14px #aaaaaa;
     background: white;
     border-radius: 10px;
 }
-.workout--row > a:link, .workout--row > a:visited, .workout--row > a:hover, .workout--row > a:active {
-        text-decoration: none;
-         color: #f00;
-    }
 
-.workout--row span{
+.workout--row > a:link, .workout--row > a:visited, .workout--row > a:hover, .workout--row > a:active {
+    text-decoration: none;
+    color: #f00;
+}
+
+.workout--row span {
     font-size: 1.2rem;
 }
 
-.workout--row i{
+.workout--row i {
     position: relative;
     right: 5px;
     top: 10px;
     font-size: 24px;
 }
 
-.add-new-button{
+.add-new-button {
     background-color: green;
     border-radius: 10px;
     width: fit-content;
@@ -77,99 +81,90 @@ body{
     float: right;
     color: white;
 }
-.add-new-button a{
+
+.add-new-button a {
     color: white;
 }
 
-.exercise--card{
+.exercise--card {
     text-align: center;
     align-content: center;
 }
-.exercise--card .s12{
+
+.exercise--card .s12 {
     padding-top: 10px;
     color: black;
 }
 
-.exercise--img{
+.exercise--img {
     object-fit: contain;
 }
 
-#add_more{
+#add_more {
     cursor: pointer;
 }
 
-#edit--exercise--icon{
+#edit--exercise--icon {
     position: absolute;
     top: 15px;
     right: 15px;
 }
 
 
-.workout-exercise-single-wrapper{
+.workout-exercise-single-wrapper {
     background-color: white;
-    /*width: 95vw;*/
+    width: 50vw;
     /*height: 25vh;*/
     border-radius: 10px;
     box-shadow: 5px 5px 14px #aaaaaa;
+    margin: 0 auto;
 }
 
-.workout-exercise-single-card-name{
+.workout-exercise-single-card-name {
     font-size: 2rem;
 }
 
-.workout-exercise-single-image-wrapper{
-    /*left: 50%;*/
+.workout-exercise-single-image-wrapper {
 
     display: flex;
     justify-content: center;
-    /*width: 150px !important;*/
-    /*height: 150px !important;*/
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     /*background-color: antiquewhite;*/
     object-fit: fill;
     overflow: hidden;
-    padding: 0 !important;
 }
-.workout-exercise-single-wrapper img {
 
-    /*padding: 0 !important;*/
-    /*margin: 0 auto;*/
-    /* top: 50%; */
-    /*transform: translate(0, 30%);*/
-     border-radius: 50%;
-    /*max-width: 100%;*/
-    /*max-height: 100%;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
+.workout-exercise-single-wrapper img {
+    border-radius: 50%;
+    height: 100%;
     object-fit: fill;
     display: block;
 }
 
-.col-wrapper-single-exercise{
+.col-wrapper-single-exercise {
     margin-left: 10px;
 }
 
-.workout-exercise-single-more-info{
+.workout-exercise-single-more-info {
     font-size: 16px;
     position: relative;
     left: 0;
     top: -35px;
 }
 
-.workout-exercise-single-timer{
+.workout-exercise-single-timer {
     padding: 0;
     background-color: #aaaaaa;
     border: 1px solid darkblue;
 }
 
 
-
 /*Media queries*/
 
-@media only screen and (min-width: 600px) {
-
-
-
-
-
+@media only screen and (max-width: 700px) {
+    .workout-exercise-single-wrapper {
+        width: 90vw;
+    }
 }
