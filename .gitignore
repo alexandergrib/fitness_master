@@ -11,3 +11,4 @@ node_modules/
 __pycache__
 examples
 images_sources.txt
+venv
