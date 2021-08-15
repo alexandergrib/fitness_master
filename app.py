@@ -100,7 +100,7 @@ def edit_workout(workout_id):
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
         flash("Workout Successfully Updated")
         print("Workout Successfully Updated")
-        return (redirect(url_for("get_workout")))
+        return redirect(url_for("get_workout"))
 
     # print(request.form)
     single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
@@ -112,6 +112,39 @@ def edit_workout(workout_id):
 def delete_workout():
     pass
 
+
+@app.route("/workout/start/<workout_id>", methods=["GET", "POST"])
+def start_workout(workout_id):
+    """
+    Start existing workout. Takes arguments: [workout_id], query DB,
+        :return data
+    """
+    # if request.method == "POST":
+    #     is_completed = True if request.form.get("is_completed") else False
+    #     is_saved = True if request.form.get("is_saved") else False
+    #     submit = {
+    #         "workout_name": request.form.get("workout_name"),
+    #         "workout_sets": request.form.get("workout_sets"),
+    #         "workout_reps": request.form.get("workout_reps"),
+    #         "exercise_choices": request.form.getlist("exercise_choices"),
+    #         "modified_date": datetime.now().strftime("%d/%m/%Y"),
+    #         "weight": request.form.get("weight"),
+    #         'completed': is_completed,
+    #         'saved': is_saved,
+    #         "created_by": "admin" #session["user"]
+    #     }
+    #
+    #     mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
+    #     flash("Workout Successfully Updated")
+    #     print("Workout Successfully Updated")
+    #     return redirect(url_for("get_workout"))
+
+    # print(request.form)
+    single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+    exercise_list = list(mongo.db.exercises.find())
+    return render_template("start_workout.html", workout_list=single_workout, exercise_list=exercise_list)
+
+#---------------------------------exercise section
 
 @app.route("/exercise")
 def get_exercise_list():
