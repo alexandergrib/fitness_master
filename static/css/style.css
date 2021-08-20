@@ -128,9 +128,10 @@ body {
 
     display: flex;
     justify-content: center;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    width: 150px;
+    /*height: 100px;*/
+    height: auto;
+    /*border-radius: 50%;*/
     /*background-color: antiquewhite;*/
     object-fit: fill;
     overflow: hidden;
@@ -138,9 +139,10 @@ body {
 
 .workout-exercise-single-wrapper img {
     border-radius: 50%;
-    height: 100%;
-    object-fit: fill;
+    height: auto;
+    /*object-fit: fill;*/
     display: block;
+    max-width: 100%;
 }
 
 .col-wrapper-single-exercise {
