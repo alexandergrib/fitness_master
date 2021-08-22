@@ -112,10 +112,12 @@ body {
 .workout-exercise-single-overlay{
     display: none;
     position: absolute;
-    right: 20%;
-    transform: translate(0, 50%);
-    font-size: 5rem;
+    /* right: 20%; */
+    transform: translate(0, 20%);
+    font-size: 8rem;
     color: green;
+    width: inherit;
+    text-align: center;
 }
 
 .workout-exercise-single-wrapper {
