@@ -111,6 +111,15 @@ body {
 }
 
 
+.workout-exercise-single-overlay{
+    display: none;
+    position: absolute;
+    right: 20%;
+    transform: translate(0, 50%);
+    font-size: 5rem;
+    color: green;
+}
+
 .workout-exercise-single-wrapper {
     background-color: white;
     width: 50vw;

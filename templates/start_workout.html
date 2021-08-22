@@ -2,10 +2,13 @@
 {% block content %}
     <h2 class="center-align">Start Workout &quot;{{ workout_list.workout_name|truncate(26, False, '...', 0) }}&quot;</h2>
     <!-- Cards container -->
-workout_list, exercise_list
     {% for exercise in exercise_list %}
         {% if exercise.exercise_name in workout_list.exercise_choices %}
+            
             <div class="workout-exercise-single-wrapper">
+                <div class="workout-exercise-single-overlay" id="exercise_{{loop.index}}">
+                    <i class="far fa-check-circle"></i>
+                </div>
                 <div class="row">
                     <div class="col s12">
                         <div class="row">
@@ -17,7 +20,7 @@ workout_list, exercise_list
                                     <div class="row">
                                     <div class="col s4 workout-exercise-single-image-wrapper ">
                                         <img src="{{ exercise.img_url }}"
-                                             alt="{{  exercise.exercise_name }} image" width="150" height="150">
+                                            alt="{{  exercise.exercise_name }} image" width="150" height="150">
                                     </div>
                                     <div class="col s8">
                                         <div class="row">
@@ -40,7 +43,9 @@ workout_list, exercise_list
                         </div>
                     </div>
                 </div>
+                
             </div>
+            
 {#            <div class="workout-exercise-single-timer">#}
 {#                <div class="row">#}
 {#                    <div class="col s8">start timer</div>#}
