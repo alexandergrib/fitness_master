@@ -94,6 +94,7 @@ timer_div.innerHTML= "2 min /  01.00.12"
 //     setTimeout(countDownTimer,1000);
 //   }
 
+
 // countDownTimer(elementId, 150);
 var loops = 2;
 var secs = 5;
