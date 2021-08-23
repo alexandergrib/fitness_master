@@ -1,3 +1,4 @@
+//get list of exercises from active workout anc cycle trough it
 var divs = document.getElementsByClassName("workout-exercise-single-overlay");
 for(var i = 0; i < divs.length; i++){
     //do something to each div like
