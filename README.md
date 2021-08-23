@@ -100,3 +100,9 @@ Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` f
 ---
 
 Happy coding!
+
+
+
+Sources credits
+
+image placeholders https://placehold.it/250x500

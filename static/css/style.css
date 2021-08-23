@@ -108,6 +108,11 @@ body {
     right: 15px;
 }
 
+/* start Workouts */
+
+.start-workout-btn{
+    padding-bottom: 10px;
+}
 
 .workout-exercise-single-overlay{
     display: none;
@@ -169,7 +174,9 @@ body {
 .workout-exercise-single-timer {
     padding: 0;
     background-color: #aaaaaa;
-    border: 1px solid darkblue;
+    /* border: 1px solid darkblue; */
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
 }
 
 

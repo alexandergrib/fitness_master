@@ -2,8 +2,8 @@
 {% block content %}
     <h2 class="center-align">Start Workout &quot;{{ workout_list.workout_name|truncate(26, False, '...', 0) }}&quot;</h2>
     <!--Start button-->
-    <div class="container">
-        <a class="waves-effect waves-light btn">Start worout <i class="fas fa-stopwatch"></i></a>
+    <div class="container center-align start-workout-btn">
+        <a class="waves-effect waves-light btn" onclick="start_workout()">Start worout <i class="fas fa-stopwatch"></i></a>
     </div>
     <!-- Cards container -->
     <section>
@@ -58,10 +58,15 @@
                     </div>
                     <div class="workout-exercise-single-timer" style="display: block;">
                         <div class="row">
+                            <div class="col s12" style="text-align: center;  font-size: 1.1rem;">Ready.. Set.. Go..</div>
+                        </div>
+                        <div class="row">
                           <div class="col s8">
-                              <div >2 min /  00.00.12</div>
-                              <div>Set <span>1</span> of <span>5</span></div>
-                              <div>Reps <span>15</span></div>
+                                <div id="timer_counter_{{loop.index}}">
+                                    <div id="timer_{{loop.index}}">2 min /  00.00.12</div>
+                                    <div>Set <span>1</span> of <span>{{ exercise.exercise_sets }}</span></div>
+                                    <div>Reps <span>{{ exercise.exercise_reps }}</span></div>
+                                </div>
                         </div>
                            <div class="col s4"><a class="waves-effect waves-light btn disabled">PAUSE</a></div>
 
@@ -75,4 +80,6 @@
         {% endif %}
     {% endfor %}
 </section> 
+
+<script src="{{ url_for('static', filename='js/start_exercising.js') }}"></script>
 {% endblock %}
