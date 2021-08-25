@@ -177,6 +177,11 @@ def create_exercise():
     about
 
     """
+    if session["user"]:
+        username = session["user"]
+    else:
+        username = "admin"
+
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
     if request.method == "POST":
@@ -193,9 +198,9 @@ def create_exercise():
             "modified_date": datetime.now().strftime("%d/%m/%Y"),
             "weight": request.form.get("weight"),
             'exercise_comments': request.form.get("exercise_comments"),
-            'yt_url': replace_url,   #create validator for url
+            'yt_url': replace_url,   
             'steps': request.form.getlist("steps"),
-            "created_by": "admin"   #session["user"]
+            "created_by": username
         }
 
         mongo.db.exercises.insert_one(submit)
