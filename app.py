@@ -15,6 +15,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
+
+from helpers import upload_image
+
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
@@ -28,6 +31,9 @@ mongo = PyMongo(app)
 # exercise_coll = conn["fitness_master"]["exercises"]
 # routine_coll = conn["fitness_master"]["routines"]
 # categories_coll = conn["fitness_master"]["categories"]
+
+
+
 
 @app.route("/")
 def index():
@@ -148,6 +154,7 @@ def start_workout(workout_id):
 
 #---------------------------------exercise section
 
+
 @app.route("/exercise")
 def get_exercise_list():
     """
@@ -187,11 +194,19 @@ def create_exercise():
     if request.method == "POST":
         yt = request.form.get("yt_url")
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
+        img_url = request.form.get("img_url")
+        
+        try:
+            img_cdn = upload_image(img_url)
+        except KeyError:
+            img_cdn = "https://via.placeholder.com/250"
+        
+        print(img_cdn)
         submit = {
             "exercise_name": request.form.get("exercise_name"),
             "description": request.form.get("description"),
             "about": request.form.get("about"),
-            "img_url": request.form.get("img_url"),
+            "img_url": img_cdn,  # request.form.get("img_url"),
             "exercise_sets": request.form.get("exercise_sets"),
             "exercise_reps": request.form.get("exercise_reps"),
             "exercise_category": request.form.getlist("exercise_category"),
@@ -227,18 +242,27 @@ def edit_exercise(exercise_id):
     """
         Modify individual exercise
     """
-
+    if session["user"]:
+        username = session["user"]
+    else:
+        username = "admin"
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
     single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
     if request.method == "POST":
         yt = request.form.get("yt_url")
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
+        img_url = request.form.get("img_url")
+        
+        try:
+            img_cdn = upload_image(img_url)
+        except KeyError:
+            img_cdn = "https://via.placeholder.com/250"
         submit = {
             "exercise_name": request.form.get("exercise_name"),
             "description": request.form.get("description"),
-            "about":request.form.get("about"),
-            "img_url": request.form.get("img_url"),
+            "about": request.form.get("about"),
+            "img_url": img_cdn,  #  request.form.get("img_url"),
             "exercise_sets": request.form.get("exercise_sets"),
             "exercise_reps": request.form.get("exercise_reps"),
             "exercise_category": request.form.getlist("exercise_category"),
@@ -247,7 +271,7 @@ def edit_exercise(exercise_id):
             'exercise_comments': request.form.get("exercise_comments"),
             'yt_url': replace_url,  # create validator for url
             'steps': request.form.getlist("steps"),
-            "created_by": "admin"  # session["user"]
+            "created_by": username
         }
 
         mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
@@ -341,6 +365,7 @@ def logout():
     flash("You have been logged out")
     session.pop("user")
     return redirect(url_for("login"))
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
