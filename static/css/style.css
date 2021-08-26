@@ -108,14 +108,21 @@ body {
     right: 15px;
 }
 
+/* start Workouts */
+
+.start-workout-btn{
+    padding-bottom: 10px;
+}
 
 .workout-exercise-single-overlay{
     display: none;
     position: absolute;
-    right: 20%;
-    transform: translate(0, 50%);
-    font-size: 5rem;
+    /* right: 20%; */
+    transform: translate(0, 20%);
+    font-size: 8rem;
     color: green;
+    width: inherit;
+    text-align: center;
 }
 
 .workout-exercise-single-wrapper {
@@ -154,6 +161,7 @@ body {
 
 .col-wrapper-single-exercise {
     margin-left: 10px;
+    font-size: 1.7rem;
 }
 
 .workout-exercise-single-more-info {
@@ -166,7 +174,9 @@ body {
 .workout-exercise-single-timer {
     padding: 0;
     background-color: #aaaaaa;
-    border: 1px solid darkblue;
+    /* border: 1px solid darkblue; */
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
 }
 
 

@@ -1,58 +1,85 @@
 {% extends "base.html" %}
 {% block content %}
     <h2 class="center-align">Start Workout &quot;{{ workout_list.workout_name|truncate(26, False, '...', 0) }}&quot;</h2>
+    <!--Start button-->
+    <div class="container center-align start-workout-btn">
+        <a class="waves-effect waves-light btn" onclick="start_workout()">Start worout <i class="fas fa-stopwatch"></i></a>
+    </div>
     <!-- Cards container -->
-    {% for exercise in exercise_list %}
-        {% if exercise.exercise_name in workout_list.exercise_choices %}
-            
-            <div class="workout-exercise-single-wrapper">
-                <div class="workout-exercise-single-overlay" id="exercise_{{loop.index}}">
-                    <i class="far fa-check-circle"></i>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="row">
-                            <div class="col s12">
-                                <div class="row">
-                                    <div class="col s12 center workout-exercise-single-card-name"><span>{{ exercise.exercise_name|truncate(26, False, '...', 0) }}</span><div class="workout-exercise-single-more-info"><i class="fas fa-info-circle right"></i></div></div>
-                                </div>
-                                <div class="container">
+    <section>
+        {% for exercise in exercise_list %}
+            {% if exercise.exercise_name in workout_list.exercise_choices %}
+                
+                <div class="workout-exercise-single-wrapper">
+                    <div class="workout-exercise-single-overlay" id="exercise_{{loop.index}}">
+                        <i class="far fa-check-circle"></i>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="col s12">
                                     <div class="row">
-                                    <div class="col s4 workout-exercise-single-image-wrapper ">
-                                        <img src="{{ exercise.img_url }}"
-                                            alt="{{  exercise.exercise_name }} image" width="150" height="150">
+                                        <div class="col s12 center workout-exercise-single-card-name"><span>{{ exercise.exercise_name|truncate(26, False, '...', 0) }}</span><div class="workout-exercise-single-more-info"><i class="fas fa-info-circle right"></i></div></div>
                                     </div>
-                                    <div class="col s8">
+                                    <div class="container">
                                         <div class="row">
-                                            <div class="col s12">
-                                                <div class="col-wrapper-single-exercise">
-                                                    <div class="sets"><span>Sets: {{ exercise.exercise_sets }}</span></div>
-                                                    <div class="reps"><span>Reps: {{ exercise.exercise_reps }}</span></div>
-                                                    <div class="weight"><span> weight: {{ exercise.weight }}kg</span></div>
-{#                                                    <div class="last_completed">completed <span>10</span> times, last time#}
-{#                                                        <span>20/06/2021</span>#}
-{#                                                    </div>#}
-{#                                                    <div class="timer"><span> timer</span></div>#}
+                                        <div class="col s4 workout-exercise-single-image-wrapper ">
+                                            <img src="{{ exercise.img_url }}"
+                                                alt="{{  exercise.exercise_name }} image" width="150" height="150">
+                                        </div>
+                                        <div class="col s8">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <div class="col-wrapper-single-exercise">
+                                                        <div class="sets"><span>Sets: {{ exercise.exercise_sets }}</span></div>
+                                                        <div class="reps"><span>Reps: {{ exercise.exercise_reps }}</span></div>
+                                                        <div class="weight">
+                                                            <span> weight: 
+                                                                {% if exercise.weight =="0" %}
+                                                                    OWN BODY
+                                                                {% else %}                                                            
+                                                                    {{ exercise.weight }}kg
+                                                                {% endif %}                                                            
+                                                            </span>
+                                                        </div>
+    {#                                                    <div class="last_completed">completed <span>10</span> times, last time#}
+    {#                                                        <span>20/06/2021</span>#}
+    {#                                                    </div>#}
+    {#                                                    <div class="timer"><span> timer</span></div>#}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-            </div>
-            
-{#            <div class="workout-exercise-single-timer">#}
-{#                <div class="row">#}
-{#                    <div class="col s8">start timer</div>#}
-{#                    <div class="col s4"><a class="waves-effect waves-light btn disabled">PAUSE</a></div>#}
-{#                </div>#}
-{#            </div>#}
+                    <div class="workout-exercise-single-timer" style="display: block;">
+                        <div class="row">
+                            <div class="col s12" style="text-align: center;  font-size: 1.1rem;">Ready.. Set.. Go..</div>
+                        </div>
+                        <div class="row">
+                            <div class="col s8">
+                                <div id="timer_counter_{{loop.index}}">
+                                    <div id="timer_{{loop.index}}">Set time: 30 ses</div>
+                                    <div id="set_{{loop.index}}">Set <span>1</span> of <span>{{ exercise.exercise_sets }}</span></div>
+                                    <div id="reps_{{loop.index}}">Reps <span>{{ exercise.exercise_reps }}</span></div>
+                                </div>
+                            </div>
+                            <div class="col s4"><a class="waves-effect waves-light btn disabled">PAUSE</a></div>
 
+                       </div>
+                    </div>
+        
+                </div>
+     
+          
+            
         {% endif %}
     {% endfor %}
+</section> 
+
+<script src="{{ url_for('static', filename='js/start_exercising.js') }}"></script>
 {% endblock %}
