@@ -110,6 +110,10 @@
                     <button type="submit" class="btn-large light-blue darken-1 text-shadow">
                         Edit Workout <i class="fas fa-edit right"></i>
                     </button>
+                    <a href="{{ url_for('delete_workout', workout_id=workout_list._id) }}" class="btn-large red darken-1 text-shadow">
+                        DELETE Workout <i class="fas fa-trash-alt"></i>
+                    </a>
+
                 </div>
             </div>
         </form>

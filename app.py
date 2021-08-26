@@ -100,7 +100,7 @@ def edit_workout(workout_id):
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
         flash("Workout Successfully Updated")
         print("Workout Successfully Updated")
-        return (redirect(url_for("get_workout")))
+        return redirect(url_for("get_workout"))
 
     # print(request.form)
     single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
@@ -108,10 +108,45 @@ def edit_workout(workout_id):
     return render_template("edit_workout.html", workout_list=single_workout, exercise_list=exercise_list)
 
 
-@app.route("/workout/<workout_id>", methods=["GET", "POST"])
-def delete_workout():
-    pass
+@app.route("/workout/delete/<workout_id>", methods=["GET", "POST"])
+def delete_workout(workout_id):
+    mongo.db.routines.remove({"_id": ObjectId(workout_id)})
+    flash("Workout Successfully Deleted")
+    return redirect(url_for("get_workout"))
 
+
+@app.route("/workout/start/<workout_id>", methods=["GET", "POST"])
+def start_workout(workout_id):
+    """
+    Start existing workout. Takes arguments: [workout_id], query DB,
+        :return data
+    """
+    # if request.method == "POST":
+    #     is_completed = True if request.form.get("is_completed") else False
+    #     is_saved = True if request.form.get("is_saved") else False
+    #     submit = {
+    #         "workout_name": request.form.get("workout_name"),
+    #         "workout_sets": request.form.get("workout_sets"),
+    #         "workout_reps": request.form.get("workout_reps"),
+    #         "exercise_choices": request.form.getlist("exercise_choices"),
+    #         "modified_date": datetime.now().strftime("%d/%m/%Y"),
+    #         "weight": request.form.get("weight"),
+    #         'completed': is_completed,
+    #         'saved': is_saved,
+    #         "created_by": "admin" #session["user"]
+    #     }
+    #
+    #     mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
+    #     flash("Workout Successfully Updated")
+    #     print("Workout Successfully Updated")
+    #     return redirect(url_for("get_workout"))
+
+    # print(request.form)
+    single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+    exercise_list = list(mongo.db.exercises.find())
+    return render_template("start_workout.html", workout_list=single_workout, exercise_list=exercise_list)
+
+#---------------------------------exercise section
 
 @app.route("/exercise")
 def get_exercise_list():
@@ -218,6 +253,89 @@ def edit_exercise(exercise_id):
     return render_template("exercise_edit_single.html", exercise=single_exercise,
                            exercise_category_list=exercise_category_list)
 
+@app.route("/exercise/delete/<exercise_id>", methods=["GET", "POST"])
+def delete_exercise(exercise_id):
+    mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
+    flash("Exercise Successfully Deleted")
+    return redirect(url_for("get_exercise_list"))
+
+
+
+
+
+# -----------------handle login logout register
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            flash("Username already exists")
+            return redirect(url_for("register"))
+
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register)
+
+        # put the new user into 'session' cookie
+        session["user"] = request.form.get("username").lower()
+        flash("Registration Successful!")
+        return redirect(url_for("profile", username=session["user"]))
+
+    return render_template("register.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # check if username exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            # ensure hashed password matches user input
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                        session["user"] = request.form.get("username").lower()
+                        flash("Welcome, {}".format(
+                            request.form.get("username")))
+                        return redirect(url_for(
+                            "profile", username=session["user"]))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
+
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
+
+    return render_template("login.html")
+
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # grab the session user's username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+    if session["user"]:
+        return render_template("profile.html", username=username)
+
+    return redirect(url_for("login"))
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

@@ -20,7 +20,7 @@
         {% for workout in workout_list %}
             <div class="row workout--row">
             <!-- link to start workout -->
-                <a href="{{ url_for('edit_workout', workout_id=workout._id) }}">
+                <a href="{{ url_for('start_workout', workout_id=workout._id) }}">
                     <div class="col s10">
                         <span>{{ workout.workout_name }}</span><br>
                         <span>{{ workout.exercise_choices | length }} exercises (
@@ -29,7 +29,7 @@
                                 {{ exercise }},
                             {% endfor %})
                     </span><br>
-                        <span>current {{ workout.weight }}</span><br>
+                        <span>current weight {{ workout.weight }}</span><br>
                         <span>last workout {{ workout.created_date }}</span><br>
                         <span>Created by {{ workout.created_by }}</span>
                     </div>
