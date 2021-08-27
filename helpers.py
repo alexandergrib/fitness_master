@@ -15,6 +15,8 @@ cloudinary.config(
   api_secret=os.environ.get("api_secret")
 )
 
+# example https://github.com/cloudinary/pycloudinary/blob/master/samples/basic/basic.py
+
 
 def upload_image(url):
     """
@@ -27,8 +29,8 @@ def upload_image(url):
                                      folder="fitness_master",
                                      width=250,
                                      height=250,
-                                     crop="fill_pad",  # scale / fill / fill_pad
+                                     crop="fill_pad",  # scale / fill /fill_pad
                                      gravity="auto",  # "liquid"/auto
                                      use_filename=True
-                                    )
+                                     )
     return cdn["secure_url"]
