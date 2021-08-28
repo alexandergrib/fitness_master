@@ -3,8 +3,6 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-# https://cloudinary.com/documentation/resizing_and_cropping#control_gravity
-
 if os.path.exists("env.py"):
     import env
 
@@ -15,7 +13,11 @@ cloudinary.config(
   api_secret=os.environ.get("api_secret")
 )
 
-# example https://github.com/cloudinary/pycloudinary/blob/master/samples/basic/basic.py
+
+"""
+https://cloudinary.com/documentation/resizing_and_cropping#control_gravity
+example https://github.com/cloudinary/pycloudinary/blob/master/samples/basic/basic.py
+"""
 
 
 def upload_image(url):
@@ -25,7 +27,7 @@ def upload_image(url):
     pad image if aspect ratio is differ from square
     return full url for transformed media file
     """
-    cdn = cloudinary.uploader.upload(url, 
+    cdn = cloudinary.uploader.upload(url,
                                      folder="fitness_master",
                                      width=250,
                                      height=250,

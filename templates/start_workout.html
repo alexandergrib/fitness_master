@@ -41,10 +41,11 @@
                                                             <input id="weight_{{ exercise._id }}" name="weight_{{ exercise._id }}"
                                                                 value="{{ exercise.weight }}" type="text" >
                                                             <label for="weight_{{ exercise._id }}">Weight</label>
-                                                            <input type="hidden" name="info_{{ exercise._id }}[]" value="REP15 @ 5kg" />
-                                                            <input type="hidden" name="info_{{ exercise._id }}[]" value="REP12 @ 15kg" />
-                                                            <input type="hidden" name="id_{{ exercise._id }}" value="{{ workout_list._id }}" />
-
+                                                            <div class="hidden_inputs">
+                                                                <input type="hidden" name="id_{{ exercise._id }}" value="{{ workout_list._id }}" />
+                                                                <input type="hidden" name="info_{{ exercise._id }}[]" value="REP15 @ 5kg" />
+                                                                <input type="hidden" name="info_{{ exercise._id }}[]" value="REP12 @ 15kg" />
+                                                            </div>
 
 
                                                             <br>
@@ -94,9 +95,7 @@
                                     {% endfor %}
                                 {% else %}
                                     <li>No history</li>    
-                                {% endif %}
-                                
-                                    
+                                {% endif %}                                    
                                 </ul>
 
                             </div>
