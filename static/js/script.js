@@ -35,19 +35,7 @@ $(document).ready(function () {
         );
 
         $( "i.fa-minus-circle" ).on( "click", function( event ) {
-            $( event.target ).closest( "li" ).remove();
-            // var arraySize = $('#steps_list li').length;
-
-            // $('#steps_list li').each(function (i) {
-            //     var index = $(this).index() + 1;
-            //     if (index === arraySize-1){
-            //         li_count = index;
-            //         $(this).index() = 0;
-            //         return false;
-            //     };
-                
-            // });
-            
+            $( event.target ).closest( "li" ).remove();            
           });
     });
 });

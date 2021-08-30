@@ -1,47 +1,73 @@
 // get list of exercises from active workout anc cycle trough it
-var divs = document.getElementsByClassName("workout-exercise-single-overlay");
-
-
+let cards_divs = document.getElementsByClassName("col-wrapper-single-exercise");
+// var finish_divs = document.getElementsByClassName("workout-exercise-single-overlay");
+let hidden_inputs = document.getElementsByClassName("hidden_inputs");
 //   document.querySelector(".workout-exercise-single-overlay").addEventListener("click", handleClick)
+
 console.log("js loaded");
 
-function start_workout(){
-    console.log(divs.length);
 
+function addNewInput(id, repsVal, weightVal){
+    // <input type="hidden" name="info_{{ exercise._id }}[]" value="REP15 @ 5kg" />
+    const newInput = document.createElement("input");
+    newInput.setAttribute("type", "hidden");
+    newInput.setAttribute("name", `info_${id}[]`);
+    newInput.setAttribute("value", `${repsVal} REPS @ ${weightVal}kg`);
+    // console.log(newInput);
+    return newInput
+} 
 
-
-
-    //itirate trough list of cards with exercises and mark them complete
-    for(var i = 0; i < divs.length; i++){
-        // divs[i].style.display = "block";
-     }
+function submitMyForm(id){
+    let form = document.getElementById(id);
+    console.log('form submitted');
+    console.log(id);
+    form.submit(); //this dont work
 }
 
-//----------------------------------------------------------------------------------------------
-var timer_div = document.getElementById("timer_2")
-var set_div = document.getElementById("set_2")
-timer_div.innerHTML= "Set time: 5"
-
-// //https://stackoverflow.com/questions/21518381/proper-way-to-wait-for-one-function-to-finish-before-continuing
-
-var loops = 2;
-var secs = 5;
-function firstFunction(){
-        if(loops > 0){        
-            if(secs<0) {
-                        document.getElementById("timer_2").innerHTML="0";
-                        console.log('done')
-                        secs=5;
-                        loops--;
-                        
-                    }
-            document.getElementById("timer_2").innerHTML="Set time: " + secs;
-            secs--;
-                        
-            setTimeout(firstFunction,1000);
-        }
-        return;
-      };
+function handleSubmit(event){
+    event.preventDefault();  
+    console.log('input added');
+    let id = this.elements[2].name.replace('id_','');
+    let repsVal = this.elements[0].value;
+    let weightVal = this.elements[1].value;
+    let responce = addNewInput(id, repsVal, weightVal);
+    children =this.querySelector('.hidden_inputs');
+    console.log(children);
+    children.appendChild(responce);
+    // this.submit();  //this works
+    let saveCompletedData = document.getElementById(`save_completed_id_${id}`)
+    let newLi = document.createElement("li");
+    newLi.appendChild(document.createTextNode(`${repsVal} REPS @ ${weightVal}kg`));
+    // saveCompletedData.appendChild(newLi);
+    saveCompletedData.insertBefore(newLi, saveCompletedData.lastChild);
+    
+}
 
 
-firstFunction()
+let form = document.getElementsByTagName('form');
+for(i=0; i< form.length; i++){
+    form[i].addEventListener('submit', handleSubmit);
+}    
+
+
+
+
+// function boxClicked(){
+//     if (this.style.backgroundColor === "orange") {
+//         this.style.backgroundColor = "green";
+//     } 
+//     else {
+//         this.style.backgroundColor = "orange";
+//     }
+    
+
+// }
+
+
+
+//     //itirate trough list of cards with exercises and mark them complete
+// for(var i = 0; i < cards_divs.length; i++){
+//         // divs[i].style.display = "block";
+//         cards_divs[i].addEventListener('click', boxClicked);
+        
+//      }

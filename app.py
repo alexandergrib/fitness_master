@@ -100,7 +100,7 @@ def edit_workout(workout_id):
             "weight": request.form.get("weight"),
             'completed': is_completed,
             'saved': is_saved,
-            "created_by": "admin" #session["user"]
+            "created_by": "admin"  # session["user"]
         }
 
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
@@ -127,30 +127,47 @@ def start_workout(workout_id):
     Start existing workout. Takes arguments: [workout_id], query DB,
         :return data
     """
-    # if request.method == "POST":
-    #     is_completed = True if request.form.get("is_completed") else False
-    #     is_saved = True if request.form.get("is_saved") else False
-    #     submit = {
-    #         "workout_name": request.form.get("workout_name"),
-    #         "workout_sets": request.form.get("workout_sets"),
-    #         "workout_reps": request.form.get("workout_reps"),
-    #         "exercise_choices": request.form.getlist("exercise_choices"),
-    #         "modified_date": datetime.now().strftime("%d/%m/%Y"),
-    #         "weight": request.form.get("weight"),
-    #         'completed': is_completed,
-    #         'saved': is_saved,
-    #         "created_by": "admin" #session["user"]
-    #     }
-    #
-    #     mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
-    #     flash("Workout Successfully Updated")
-    #     print("Workout Successfully Updated")
-    #     return redirect(url_for("get_workout"))
-
-    # print(request.form)
+    
     single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
     exercise_list = list(mongo.db.exercises.find())
-    return render_template("start_workout.html", workout_list=single_workout, exercise_list=exercise_list)
+    return render_template("start_workout.html",
+                           workout_list=single_workout,
+                           exercise_list=exercise_list)
+
+
+
+
+@app.route("/workout/start/update/<query>", methods=["POST", ])
+def update_workout_data(query):
+    if request.method == "POST":
+        exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})
+        exercise_history = (exercise_data["exercise_history"] +
+                            request.form.getlist("info_"+query+"[]"))
+
+        print(exercise_history)
+        submit = {
+            "exercise_name": exercise_data["exercise_name"],
+            "description": exercise_data["description"],
+            "about": exercise_data["about"],
+            "img_url": exercise_data["img_url"],
+            "exercise_sets": exercise_data["exercise_sets"],
+            "exercise_reps": request.form.get("reps_"+query),
+            "exercise_category": exercise_data["exercise_category"],
+            "modified_date": datetime.now().strftime("%d/%m/%Y"),
+            "weight": request.form.get("weight_"+query),
+            'exercise_comments': exercise_data["exercise_comments"],
+            'yt_url': exercise_data["yt_url"],
+            'steps': exercise_data["steps"],
+            "created_by": exercise_data["created_by"],
+            "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
+        }
+        id = request.form.get("id_"+query)
+        # print(submit['exercise_history'])
+
+        mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
+
+        return redirect(url_for("start_workout", workout_id=id))
+
 
 #---------------------------------exercise section
 

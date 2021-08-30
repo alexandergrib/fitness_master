@@ -2,9 +2,9 @@
 {% block content %}
     <h2 class="center-align">Start Workout &quot;{{ workout_list.workout_name|truncate(26, False, '...', 0) }}&quot;</h2>
     <!--Start button-->
-    <div class="container center-align start-workout-btn">
+    <!-- <div class="container center-align start-workout-btn">
         <a class="waves-effect waves-light btn" onclick="start_workout()">Start worout <i class="fas fa-stopwatch"></i></a>
-    </div>
+    </div> -->
     <!-- Cards container -->
     <section>
         {% for exercise in exercise_list %}
@@ -31,8 +31,33 @@
                                             <div class="row">
                                                 <div class="col s12">
                                                     <div class="col-wrapper-single-exercise">
-                                                        <div class="sets"><span>Sets: {{ exercise.exercise_sets }}</span></div>
-                                                        <div class="reps"><span>Reps: {{ exercise.exercise_reps }}</span></div>
+
+                                                        <form action="{{ url_for('update_workout_data', query=exercise._id) }}" method="POST" id="{{ exercise._id }}">
+                                                            
+                                                            <input id="reps_{{ exercise._id }}" name="reps_{{ exercise._id }}"
+                                                                value="{{ exercise.exercise_reps }}" type="text" >
+                                                            <label for="reps_{{ exercise._id }}">Reps</label>
+                                                            
+                                                            <input id="weight_{{ exercise._id }}" name="weight_{{ exercise._id }}"
+                                                                value="{{ exercise.weight }}" type="text" >
+                                                            <label for="weight_{{ exercise._id }}">Weight</label>
+                                                            <div class="hidden_inputs">
+                                                                <input type="hidden" name="id_{{ exercise._id }}" value="{{ workout_list._id }}" />
+                                                                <!-- <input type="hidden" name="info_{{ exercise._id }}[]" value="REP15 @ 5kg" />
+                                                                <input type="hidden" name="info_{{ exercise._id }}[]" value="REP12 @ 15kg" /> -->
+                                                            </div>
+
+
+                                                            <br>
+                                                            <button class="btn-floating waves-effect waves-light" type="submit" name="action">
+                                                                <i class="material-icons right">+</i>
+                                                              </button>
+                                                        </form>
+
+
+
+                                                        <!-- <div class="sets"><span>Sets: {{ exercise.exercise_sets }}</span></div>
+                                                        <div class="reps"><span>Reps: {{ exercise.exercise_reps }}</span><i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></div>
                                                         <div class="weight">
                                                             <span> weight: 
                                                                 {% if exercise.weight =="0" %}
@@ -40,12 +65,13 @@
                                                                 {% else %}                                                            
                                                                     {{ exercise.weight }}kg
                                                                 {% endif %}                                                            
-                                                            </span>
-                                                        </div>
-    {#                                                    <div class="last_completed">completed <span>10</span> times, last time#}
-    {#                                                        <span>20/06/2021</span>#}
-    {#                                                    </div>#}
-    {#                                                    <div class="timer"><span> timer</span></div>#}
+                                                            </span><i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i>
+                                                        </div> -->
+                                                    <!-- <div class="last_completed">completed <span>10</span> times, last time
+                                                        <span>20/06/2021</span>
+                                                    </div> -->
+
+                                                    <!-- <div ><a class="btn-floating btn-large waves-effect waves-light green"><i class="fas fa-plus"></i></a></div> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -58,17 +84,32 @@
                     </div>
                     <div class="workout-exercise-single-timer" style="display: block;">
                         <div class="row">
-                            <div class="col s12" style="text-align: center;  font-size: 1.1rem;">Ready.. Set.. Go..</div>
+                            <div class="col s12" style="text-align: center;  font-size: 1.1rem;">Stats</div>
                         </div>
                         <div class="row">
-                            <div class="col s8">
-                                <div id="timer_counter_{{loop.index}}">
-                                    <div id="timer_{{loop.index}}">Set time: 30 ses</div>
-                                    <div id="set_{{loop.index}}">Set <span>1</span> of <span>{{ exercise.exercise_sets }}</span></div>
-                                    <div id="reps_{{loop.index}}">Reps <span>{{ exercise.exercise_reps }}</span></div>
-                                </div>
+                            <div class="col s6" >
+                                <span>Current session</span>
+                                <ul id="save_completed_id_{{ exercise._id }}">
+                                    <li>Press + to add your exercise data</li>
+                                </ul>
+                                <span>  <input value="Complete exercise" onclick="submitMyForm('{{ exercise._id }}')" type="button">
+                                </span>
                             </div>
-                            <div class="col s4"><a class="waves-effect waves-light btn disabled">PAUSE</a></div>
+                            <div class="col s6">
+                                <span>Last 5 sessions</span>
+                                <ul>
+                                {% if exercise.exercise_history %}
+                                    {% for item in exercise.exercise_history[-5:] %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>No history</li>    
+                                {% endif %}  
+                                 
+                                </ul>
+
+                            </div>
+                            
 
                        </div>
                     </div>
