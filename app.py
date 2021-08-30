@@ -141,6 +141,10 @@ def start_workout(workout_id):
 def update_workout_data(query):
     if request.method == "POST":
         exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})
+        exercise_history = (exercise_data["exercise_history"] +
+                            request.form.getlist("info_"+query+"[]"))
+
+        print(exercise_history)
         submit = {
             "exercise_name": exercise_data["exercise_name"],
             "description": exercise_data["description"],
@@ -155,10 +159,10 @@ def update_workout_data(query):
             'yt_url': exercise_data["yt_url"],
             'steps': exercise_data["steps"],
             "created_by": exercise_data["created_by"],
-            "exercise_history": request.form.getlist("info_"+query+"[]")
+            "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
         }
-        id =  request.form.get("id_"+query)
-        print(submit['exercise_history'])
+        id = request.form.get("id_"+query)
+        # print(submit['exercise_history'])
 
         mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
 

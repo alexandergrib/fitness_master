@@ -32,7 +32,7 @@
                                                 <div class="col s12">
                                                     <div class="col-wrapper-single-exercise">
 
-                                                        <form action="{{ url_for('update_workout_data', query=exercise._id) }}" method="POST">
+                                                        <form action="{{ url_for('update_workout_data', query=exercise._id) }}" method="POST" id="{{ exercise._id }}">
                                                             
                                                             <input id="reps_{{ exercise._id }}" name="reps_{{ exercise._id }}"
                                                                 value="{{ exercise.exercise_reps }}" type="text" >
@@ -43,8 +43,8 @@
                                                             <label for="weight_{{ exercise._id }}">Weight</label>
                                                             <div class="hidden_inputs">
                                                                 <input type="hidden" name="id_{{ exercise._id }}" value="{{ workout_list._id }}" />
-                                                                <input type="hidden" name="info_{{ exercise._id }}[]" value="REP15 @ 5kg" />
-                                                                <input type="hidden" name="info_{{ exercise._id }}[]" value="REP12 @ 15kg" />
+                                                                <!-- <input type="hidden" name="info_{{ exercise._id }}[]" value="REP15 @ 5kg" />
+                                                                <input type="hidden" name="info_{{ exercise._id }}[]" value="REP12 @ 15kg" /> -->
                                                             </div>
 
 
@@ -84,18 +84,28 @@
                     </div>
                     <div class="workout-exercise-single-timer" style="display: block;">
                         <div class="row">
-                            <div class="col s12" style="text-align: center;  font-size: 1.1rem;">Completed</div>
+                            <div class="col s12" style="text-align: center;  font-size: 1.1rem;">Stats</div>
                         </div>
                         <div class="row">
-                            <div class="col s8">
+                            <div class="col s6" >
+                                <span>Current session</span>
+                                <ul id="save_completed_id_{{ exercise._id }}">
+                                    <li>Press + to add your exercise data</li>
+                                </ul>
+                                <span>  <input value="Complete exercise" onclick="submitMyForm('{{ exercise._id }}')" type="button">
+                                </span>
+                            </div>
+                            <div class="col s6">
+                                <span>Last 5 sessions</span>
                                 <ul>
                                 {% if exercise.exercise_history %}
-                                    {% for item in exercise.exercise_history %}
+                                    {% for item in exercise.exercise_history[-5:] %}
                                         <li>{{ item }}</li>
                                     {% endfor %}
                                 {% else %}
                                     <li>No history</li>    
-                                {% endif %}                                    
+                                {% endif %}  
+                                 
                                 </ul>
 
                             </div>
