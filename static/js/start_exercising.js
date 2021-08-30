@@ -20,7 +20,7 @@ function addNewInput(id, repsVal, weightVal){
 function submitMyForm(id){
     let form = document.getElementById(id);
     console.log('form submitted');
-    console.log(id);
+    // console.log(id);
     form.submit(); //this dont work
 }
 
@@ -32,7 +32,7 @@ function handleSubmit(event){
     let weightVal = this.elements[1].value;
     let responce = addNewInput(id, repsVal, weightVal);
     children =this.querySelector('.hidden_inputs');
-    console.log(children);
+    // console.log(children);
     children.appendChild(responce);
     // this.submit();  //this works
     let saveCompletedData = document.getElementById(`save_completed_id_${id}`)
@@ -51,23 +51,3 @@ for(i=0; i< form.length; i++){
 
 
 
-
-// function boxClicked(){
-//     if (this.style.backgroundColor === "orange") {
-//         this.style.backgroundColor = "green";
-//     } 
-//     else {
-//         this.style.backgroundColor = "orange";
-//     }
-    
-
-// }
-
-
-
-//     //itirate trough list of cards with exercises and mark them complete
-// for(var i = 0; i < cards_divs.length; i++){
-//         // divs[i].style.display = "block";
-//         cards_divs[i].addEventListener('click', boxClicked);
-        
-//      }
