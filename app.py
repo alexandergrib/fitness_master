@@ -74,7 +74,7 @@ def create_workout():
                 "modified_date": datetime.now().strftime("%d/%m/%Y"),
                 'completed': False,
                 'saved': False,
-                "created_by": "admin"  # session["user"]
+                "created_by": session["user"]
             }
 
             # print("submit", submit)
@@ -104,7 +104,7 @@ def edit_workout(workout_id):
             "weight": request.form.get("weight"),
             'completed': is_completed,
             'saved': is_saved,
-            "created_by": "admin"  # session["user"]
+            "created_by": session["user"]
         }
 
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
@@ -202,14 +202,11 @@ def create_exercise():
     weigth,
     exercise_comments,
     yt_url,
-    steps{array}
-    about
+    steps{array},
+    about,
+    origin
 
     """
-    if session["user"]:
-        username = session["user"]
-    else:
-        username = "admin"
 
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
@@ -235,9 +232,10 @@ def create_exercise():
             "modified_date": datetime.now().strftime("%d/%m/%Y"),
             "weight": request.form.get("weight"),
             'exercise_comments': request.form.get("exercise_comments"),
-            'yt_url': replace_url,   
+            'yt_url': replace_url,
             'steps': request.form.getlist("steps"),
-            "created_by": username
+            "created_by": session["user"],
+            "origin": session["user"]
         }
 
         mongo.db.exercises.insert_one(submit)
@@ -265,10 +263,6 @@ def edit_exercise(exercise_id):
     """
         Modify individual exercise
     """
-    if session["user"]:
-        username = session["user"]
-    else:
-        username = "admin"
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
     single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
@@ -276,7 +270,7 @@ def edit_exercise(exercise_id):
         yt = request.form.get("yt_url")
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
         img_url = request.form.get("img_url")
-      
+        
         try:
             img_cdn = upload_image(img_url)
         except KeyError:
@@ -294,21 +288,33 @@ def edit_exercise(exercise_id):
             'exercise_comments': request.form.get("exercise_comments"),
             'yt_url': replace_url,  # create validator for url
             'steps': request.form.getlist("steps"),
-            "created_by": username
+            "created_by": session["user"],
+            "origin": single_exercise["origin"]
         }
+        if single_exercise["created_by"] != submit["created_by"]:
+            # create new copy with username
+            submit['exercise_name'] += " [{}]".format(session["user"])
+            mongo.db.exercises.insert_one(submit)
+            
+        else:
+            # mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
+            mongo.db.exercises.update_one({"_id": ObjectId(exercise_id)},
+                                          {"$set": submit})
+         
 
-        mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
-        pprint(submit)
+        # pprint(submit)
         flash_text = "{} Successfully Updated".format(submit["exercise_name"])
         flash(flash_text)
         print(flash_text)
         return redirect(url_for("get_exercise", exercise_id=exercise_id))
-    return render_template("exercise_edit_single.html", exercise=single_exercise,
+    return render_template("exercise_edit_single.html", 
+                           exercise=single_exercise,
                            exercise_category_list=exercise_category_list)
 
 @app.route("/exercise/delete/<exercise_id>", methods=["GET", "POST"])
 def delete_exercise(exercise_id):
-    mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
+    # mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
+    mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
     flash("Exercise Successfully Deleted")
     return redirect(url_for("get_exercise_list"))
 
@@ -353,12 +359,12 @@ def login():
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(
-                        request.form.get("username")))
-                    return redirect(url_for(
-                        "profile", username=session["user"]))
+                existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(
+                    request.form.get("username")))
+                return redirect(url_for(
+                    "profile", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")

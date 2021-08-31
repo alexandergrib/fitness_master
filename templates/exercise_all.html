@@ -13,23 +13,25 @@
         </div>
         <!--Generate list of exercises -->
         {% for exercise in exercise_list %}
-            <div class="row workout--row">
-                <a href="{{ url_for("get_exercise", exercise_id=exercise._id) }}">
-                    <div class="col s6 exercise--card">
-                        <div class="row">
-                            <div class="col s12 "><span>{{ exercise.exercise_name }}</span></div>
-                            <div class="col s12"><span>{{ exercise.description }}</span></div>
+            {% if exercise.created_by == "admin" or exercise.created_by == session['user'] %}
+                <div class="row workout--row">
+                    <a href="{{ url_for("get_exercise", exercise_id=exercise._id) }}">
+                        <div class="col s6 exercise--card">
+                            <div class="row">
+                                <div class="col s12 "><span>{{ exercise.exercise_name }}</span></div>
+                                <div class="col s12"><span>{{ exercise.description }}</span></div>
+                            </div>
+
                         </div>
-
-                    </div>
-                    <div class="col s6 exercise--card">
-                        <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name }} image" width="250" height="250" class="exercise--img">
+                        <div class="col s6 exercise--card">
+                            <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name }} image" width="250" height="250" class="exercise--img">
 
 
-                    </div>
-                </a>
+                        </div>
+                    </a>
 
-            </div>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 
