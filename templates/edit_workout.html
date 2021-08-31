@@ -20,9 +20,12 @@
                  <select multiple class="icons" id="exercise_choices" name="exercise_choices">
                     {% for exercise in exercise_list %}
                         {% if exercise.exercise_name in workout_list.exercise_choices %}
+                        
                             <option selected value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
                         {% else %}
-                              <option value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
+                            {% if exercise.created_by == "admin" or exercise.created_by == session['user'] %}
+                                <option value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
+                            {% endif %}    
                         {% endif %}
                     {% endfor %}
                 </select>
