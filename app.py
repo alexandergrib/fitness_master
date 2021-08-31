@@ -42,7 +42,10 @@ def index():
 
 @app.route("/workout")
 def get_workout():
-    """Display workout html page. Takes arguments: ,Returns:  """
+    """
+    Display workout html page. 
+    Returns:  list of user workouts
+    """
     workout_list = list(mongo.db.routines.find().sort("routine_name", 1))
     # categories = list(mongo.db.categories.find().sort("category_name", 1))
     # return render_template("categories.html", categories=categories)
@@ -76,8 +79,9 @@ def create_workout():
 
             # print("submit", submit)
             mongo.db.routines.insert_one(submit)
-            flash("Workout Successfully Created")
-            print("Workout Successfully Created")
+            flash_text = "{} Successfully Created".format(submit["workout_name"])
+            flash(flash_text)
+            print(flash_text)
             return redirect(url_for("get_workout"))
     return render_template("create_workout.html",  exercise_list=exercise_list)
 
@@ -104,8 +108,9 @@ def edit_workout(workout_id):
         }
 
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
-        flash("Workout Successfully Updated")
-        print("Workout Successfully Updated")
+        flash_text = "{} Successfully Updated".format(submit["workout_name"])
+        flash(flash_text)
+        print(flash_text)
         return redirect(url_for("get_workout"))
 
     # print(request.form)
@@ -236,9 +241,10 @@ def create_exercise():
         }
 
         mongo.db.exercises.insert_one(submit)
-        print(submit)
-        flash("Exercise Successfully Created")
-        print("Exercise Successfully Created")
+        # print(submit)
+        flash_text = "{} Successfully Created".format(submit["exercise_name"])
+        flash(flash_text)
+        print(flash_text)
         return redirect(url_for("get_exercise_list"))
 
     return render_template("create_exercise.html",
@@ -270,7 +276,7 @@ def edit_exercise(exercise_id):
         yt = request.form.get("yt_url")
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
         img_url = request.form.get("img_url")
-        
+      
         try:
             img_cdn = upload_image(img_url)
         except KeyError:
@@ -293,8 +299,9 @@ def edit_exercise(exercise_id):
 
         mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
         pprint(submit)
-        flash("Exercise Successfully Updated")
-        print("Exercise Successfully Updated")
+        flash_text = "{} Successfully Updated".format(submit["exercise_name"])
+        flash(flash_text)
+        print(flash_text)
         return redirect(url_for("get_exercise", exercise_id=exercise_id))
     return render_template("exercise_edit_single.html", exercise=single_exercise,
                            exercise_category_list=exercise_category_list)
@@ -347,11 +354,11 @@ def login():
             # ensure hashed password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                        session["user"] = request.form.get("username").lower()
-                        flash("Welcome, {}".format(
-                            request.form.get("username")))
-                        return redirect(url_for(
-                            "profile", username=session["user"]))
+                    session["user"] = request.form.get("username").lower()
+                    flash("Welcome, {}".format(
+                        request.form.get("username")))
+                    return redirect(url_for(
+                        "profile", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")

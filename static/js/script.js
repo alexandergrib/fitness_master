@@ -20,10 +20,6 @@ $(document).ready(function () {
         insert new li item in create_exercise.html
     */
 
-
-
-
-
     var li_count = 2;
     $('#add_more').click(function(){
         li_count += 1;
