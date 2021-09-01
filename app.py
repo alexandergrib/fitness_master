@@ -149,7 +149,7 @@ def update_workout_data(query):
         exercise_history = (exercise_data["exercise_history"] +
                             request.form.getlist("info_"+query+"[]"))
 
-        print(exercise_history)
+        # print(exercise_history)
         submit = {
             "exercise_name": exercise_data["exercise_name"],
             "description": exercise_data["description"],
@@ -180,10 +180,19 @@ def update_workout_data(query):
 @app.route("/exercise")
 def get_exercise_list():
     """
-        Display list of all exercises
+        Query DB for user created exercises and admin/system created
+        Return: exercise_list, exercise_list_admin
     """
-    exercise_list = list(mongo.db.exercises.find().sort("exercise_name", 1))
-    return render_template("exercise_all.html", exercise_list=exercise_list)
+    user = list(mongo.db.exercises.find({
+        "$and": [{"created_by": {'$eq': session["user"]}}]
+        }))
+    admin = list(mongo.db.exercises.find({
+        "$and": [{"created_by": {'$eq': "admin"}}]
+        }))
+    # exercise_list = list(mongo.db.exercises.find().sort("exercise_name", 1))
+    return render_template("exercise_all.html",
+                           exercise_list=user,
+                           exercise_list_admin=admin)
 
 
 
@@ -204,7 +213,9 @@ def create_exercise():
     yt_url,
     steps{array},
     about,
-    origin
+    created_by
+    origin,
+    exercise_history[]
 
     """
 
@@ -235,7 +246,8 @@ def create_exercise():
             'yt_url': replace_url,
             'steps': request.form.getlist("steps"),
             "created_by": session["user"],
-            "origin": session["user"]
+            "origin": session["user"],
+            "exercise_history": []
         }
 
         mongo.db.exercises.insert_one(submit)
@@ -261,7 +273,8 @@ def get_exercise(exercise_id):
 @app.route("/exercise/edit/<exercise_id>", methods=["GET", "POST"])
 def edit_exercise(exercise_id):
     """
-        Modify individual exercise
+        Modify individual exercise,
+        if modifying admin created exercise will be cloned 
     """
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
@@ -289,11 +302,12 @@ def edit_exercise(exercise_id):
             'yt_url': replace_url,  # create validator for url
             'steps': request.form.getlist("steps"),
             "created_by": session["user"],
-            "origin": single_exercise["origin"]
+            "origin": single_exercise["origin"],
+            "exercise_history": single_exercise["exercise_history"]
         }
         if single_exercise["created_by"] != submit["created_by"]:
             # create new copy with username
-            submit['exercise_name'] += " [{}]".format(session["user"])
+            submit['exercise_name'] += " COPY"  # " [{}]".format(session["user"])
             mongo.db.exercises.insert_one(submit)
             
         else:
