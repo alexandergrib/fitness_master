@@ -42,7 +42,10 @@ def index():
 
 @app.route("/workout")
 def get_workout():
-    """Display workout html page. Takes arguments: ,Returns:  """
+    """
+    Display workout html page. 
+    Returns:  list of user workouts
+    """
     workout_list = list(mongo.db.routines.find().sort("routine_name", 1))
     # categories = list(mongo.db.categories.find().sort("category_name", 1))
     # return render_template("categories.html", categories=categories)
@@ -71,13 +74,14 @@ def create_workout():
                 "modified_date": datetime.now().strftime("%d/%m/%Y"),
                 'completed': False,
                 'saved': False,
-                "created_by": "admin"  # session["user"]
+                "created_by": session["user"]
             }
 
             # print("submit", submit)
             mongo.db.routines.insert_one(submit)
-            flash("Workout Successfully Created")
-            print("Workout Successfully Created")
+            flash_text = "{} Successfully Created".format(submit["workout_name"])
+            flash(flash_text)
+            print(flash_text)
             return redirect(url_for("get_workout"))
     return render_template("create_workout.html",  exercise_list=exercise_list)
 
@@ -100,12 +104,13 @@ def edit_workout(workout_id):
             "weight": request.form.get("weight"),
             'completed': is_completed,
             'saved': is_saved,
-            "created_by": "admin"  # session["user"]
+            "created_by": session["user"]
         }
 
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
-        flash("Workout Successfully Updated")
-        print("Workout Successfully Updated")
+        flash_text = "{} Successfully Updated".format(submit["workout_name"])
+        flash(flash_text)
+        print(flash_text)
         return redirect(url_for("get_workout"))
 
     # print(request.form)
@@ -144,7 +149,7 @@ def update_workout_data(query):
         exercise_history = (exercise_data["exercise_history"] +
                             request.form.getlist("info_"+query+"[]"))
 
-        print(exercise_history)
+        # print(exercise_history)
         submit = {
             "exercise_name": exercise_data["exercise_name"],
             "description": exercise_data["description"],
@@ -175,10 +180,19 @@ def update_workout_data(query):
 @app.route("/exercise")
 def get_exercise_list():
     """
-        Display list of all exercises
+        Query DB for user created exercises and admin/system created
+        Return: exercise_list, exercise_list_admin
     """
-    exercise_list = list(mongo.db.exercises.find().sort("exercise_name", 1))
-    return render_template("exercise_all.html", exercise_list=exercise_list)
+    user = list(mongo.db.exercises.find({
+        "$and": [{"created_by": {'$eq': session["user"]}}]
+        }))
+    admin = list(mongo.db.exercises.find({
+        "$and": [{"created_by": {'$eq': "admin"}}]
+        }))
+    # exercise_list = list(mongo.db.exercises.find().sort("exercise_name", 1))
+    return render_template("exercise_all.html",
+                           exercise_list=user,
+                           exercise_list_admin=admin)
 
 
 
@@ -197,14 +211,13 @@ def create_exercise():
     weigth,
     exercise_comments,
     yt_url,
-    steps{array}
-    about
+    steps{array},
+    about,
+    created_by
+    origin,
+    exercise_history[]
 
     """
-    if session["user"]:
-        username = session["user"]
-    else:
-        username = "admin"
 
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
@@ -230,15 +243,18 @@ def create_exercise():
             "modified_date": datetime.now().strftime("%d/%m/%Y"),
             "weight": request.form.get("weight"),
             'exercise_comments': request.form.get("exercise_comments"),
-            'yt_url': replace_url,   
+            'yt_url': replace_url,
             'steps': request.form.getlist("steps"),
-            "created_by": username
+            "created_by": session["user"],
+            "origin": session["user"],
+            "exercise_history": []
         }
 
         mongo.db.exercises.insert_one(submit)
-        print(submit)
-        flash("Exercise Successfully Created")
-        print("Exercise Successfully Created")
+        # print(submit)
+        flash_text = "{} Successfully Created".format(submit["exercise_name"])
+        flash(flash_text)
+        print(flash_text)
         return redirect(url_for("get_exercise_list"))
 
     return render_template("create_exercise.html",
@@ -257,12 +273,9 @@ def get_exercise(exercise_id):
 @app.route("/exercise/edit/<exercise_id>", methods=["GET", "POST"])
 def edit_exercise(exercise_id):
     """
-        Modify individual exercise
+        Modify individual exercise,
+        if modifying admin created exercise will be cloned 
     """
-    if session["user"]:
-        username = session["user"]
-    else:
-        username = "admin"
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
     single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
@@ -288,20 +301,34 @@ def edit_exercise(exercise_id):
             'exercise_comments': request.form.get("exercise_comments"),
             'yt_url': replace_url,  # create validator for url
             'steps': request.form.getlist("steps"),
-            "created_by": username
+            "created_by": session["user"],
+            "origin": single_exercise["origin"],
+            "exercise_history": single_exercise["exercise_history"]
         }
+        if single_exercise["created_by"] != submit["created_by"]:
+            # create new copy with username
+            submit['exercise_name'] += " COPY"  # " [{}]".format(session["user"])
+            mongo.db.exercises.insert_one(submit)
+            
+        else:
+            # mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
+            mongo.db.exercises.update_one({"_id": ObjectId(exercise_id)},
+                                          {"$set": submit})
+         
 
-        mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
-        pprint(submit)
-        flash("Exercise Successfully Updated")
-        print("Exercise Successfully Updated")
+        # pprint(submit)
+        flash_text = "{} Successfully Updated".format(submit["exercise_name"])
+        flash(flash_text)
+        print(flash_text)
         return redirect(url_for("get_exercise", exercise_id=exercise_id))
-    return render_template("exercise_edit_single.html", exercise=single_exercise,
+    return render_template("exercise_edit_single.html", 
+                           exercise=single_exercise,
                            exercise_category_list=exercise_category_list)
 
 @app.route("/exercise/delete/<exercise_id>", methods=["GET", "POST"])
 def delete_exercise(exercise_id):
-    mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
+    # mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
+    mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
     flash("Exercise Successfully Deleted")
     return redirect(url_for("get_exercise_list"))
 
@@ -346,12 +373,12 @@ def login():
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
-                        session["user"] = request.form.get("username").lower()
-                        flash("Welcome, {}".format(
-                            request.form.get("username")))
-                        return redirect(url_for(
-                            "profile", username=session["user"]))
+                existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(
+                    request.form.get("username")))
+                return redirect(url_for(
+                    "profile", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")

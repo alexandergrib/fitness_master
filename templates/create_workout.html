@@ -21,7 +21,9 @@
                  <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
                  <select multiple class="icons" id="exercise_choices" name="exercise_choices">
                     {% for exercise in exercise_list %}
-                        <option value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
+                        {% if exercise.created_by == "admin" or exercise.created_by == session['user'] %}
+                            <option value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
+                        {% endif %}    
                     {% endfor %}
                 </select>
                 <label>Pick your exercises</label>
