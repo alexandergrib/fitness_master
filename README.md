@@ -52,3 +52,9 @@ Happy coding!
 Sources credits
 
 image placeholders https://placehold.it/250x500
+
+
+problems encountered:
+
+- Was trying to create mongoDB query filter where i have system created exercises and user able to modify system exercise by cloning it. As a result i have system and user modified with the similar/same name, and both are displayed to user. I was unable to create filter which will hide system exercises once they are cloned by user. After spending hours in search for solution i decided to go in different aproach.
+Now user still able to clone system exercises and they are both displyaed to user, but i gave user an option to hide all system exercises on the thml page.

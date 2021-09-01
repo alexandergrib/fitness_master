@@ -36,3 +36,18 @@ $(document).ready(function () {
     });
 });
 
+
+
+/*
+Toggle switch to show all exercises or only created by user
+exercise_all.html
+*/
+function hideSystemExercises() {
+    let systemExercisesSwitch = document.getElementById('system_exercises');
+    let adminExercisesDiv = document.getElementsByClassName("admin-exercises");
+    if (systemExercisesSwitch.checked == true){
+        adminExercisesDiv[0].style.display="block";
+    } else {
+        adminExercisesDiv[0].style.display = 'none';
+    }
+}

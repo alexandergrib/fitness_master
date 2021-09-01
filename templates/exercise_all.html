@@ -9,30 +9,60 @@
     <!-- Cards container -->
     <div class="workout-wrapper">
         <div class="row">
-            <div class="col s12 right-align"><div class="add-new-button"><a href="{{url_for('create_exercise')}}">Add new exercise <i class="fas fa-plus-circle"></i></a></div></div>
+            <div class="col s6"> 
+                <div class="switch">
+                    <label>Show system exercises:<input type="checkbox" id="system_exercises" checked onclick="hideSystemExercises()"><span class="lever"></span></label>
+                </div>
+            </div>
+            <div class="col s6 right-align">
+                <div class="add-new-button">
+                    <a href="{{url_for('create_exercise')}}">Add new exercise <i class="fas fa-plus-circle"></i></a>
+                </div>
+            </div>
         </div>
         <!--Generate list of exercises -->
-        {% for exercise in exercise_list %}
-            {% if exercise.created_by == "admin" or exercise.created_by == session['user'] %}
+        <div class="admin-exercises">
+            {% for system in exercise_list_admin %}
                 <div class="row workout--row">
-                    <a href="{{ url_for("get_exercise", exercise_id=exercise._id) }}">
+                    <a href="{{ url_for("get_exercise", exercise_id=system._id) }}">
                         <div class="col s6 exercise--card">
                             <div class="row">
-                                <div class="col s12 "><span>{{ exercise.exercise_name }}</span></div>
-                                <div class="col s12"><span>{{ exercise.description }}</span></div>
+                                <div class="col s12 "><span>{{ system.exercise_name }}</span></div>
+                                <div class="col s12"><span>{{ system.description }}</span></div>
                             </div>
 
                         </div>
                         <div class="col s6 exercise--card">
-                            <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name }} image" width="250" height="250" class="exercise--img">
+                            <img src="{{ system.img_url }}" alt="{{ system.exercise_name }} image" width="250" height="250" class="exercise--img">
 
 
                         </div>
                     </a>
 
                 </div>
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="user-exercises">
+            {% for exercise in exercise_list %}            
+                    <div class="row workout--row">
+                        <a href="{{ url_for("get_exercise", exercise_id=exercise._id) }}">
+                            <div class="col s6 exercise--card">
+                                <div class="row">
+                                    <div class="col s12 "><span>{{ exercise.exercise_name }}</span></div>
+                                    <div class="col s12"><span>{{ exercise.description }}</span></div>
+                                </div>
+
+                            </div>
+                            <div class="col s6 exercise--card">
+                                <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name }} image" width="250" height="250" class="exercise--img">
+
+
+                            </div>
+                        </a>
+
+                    </div>
+            {% endfor %}
+            </div>
     </div>
 
 {% endblock %}
