@@ -89,7 +89,8 @@ def create_workout():
 @app.route("/workout/edit/<workout_id>", methods=["GET", "POST"])
 def edit_workout(workout_id):
     """
-    Edit existing workout. Takes arguments: [workout_id], query DB, update DB with new data,
+    Edit existing workout. Takes arguments: [workout_id], query DB, 
+    update DB with new data,
     :return: [status]
     """
     if request.method == "POST":
@@ -116,7 +117,9 @@ def edit_workout(workout_id):
     # print(request.form)
     single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
     exercise_list = list(mongo.db.exercises.find())
-    return render_template("edit_workout.html", workout_list=single_workout, exercise_list=exercise_list)
+    return render_template("edit_workout.html",
+                           workout_list=single_workout,
+                           exercise_list=exercise_list)
 
 
 @app.route("/workout/delete/<workout_id>", methods=["GET", "POST"])

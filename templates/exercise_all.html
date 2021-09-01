@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col s6"> 
                 <div class="switch">
-                    <label>Show system exercises:<input type="checkbox" id="system_exercises" checked onclick="hideSystemExercises()"><span class="lever"></span></label>
+                    <label>Show system exercises:<input type="checkbox" id="system_exercises"  onclick="hideSystemExercises()"><span class="lever"></span></label>
                 </div>
             </div>
             <div class="col s6 right-align">
@@ -27,7 +27,7 @@
                     <a href="{{ url_for("get_exercise", exercise_id=system._id) }}">
                         <div class="col s6 exercise--card">
                             <div class="row">
-                                <div class="col s12 "><span>{{ system.exercise_name }}</span></div>
+                                <div class="col s12 "><span>{{ system.exercise_name }} [SYSTEM]</span></div>
                                 <div class="col s12"><span>{{ system.description }}</span></div>
                             </div>
 
