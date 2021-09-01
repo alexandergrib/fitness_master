@@ -149,10 +149,12 @@
                     <button type="submit" class="btn-large light-blue darken-1 text-shadow">
                         Update Exercise <i class="fas fa-edit right"></i>
                     </button>
-                    <a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}"
-                       class="btn-large red darken-1 text-shadow">
-                        DELETE Exercise <i class="fas fa-trash-alt"></i>
-                    </a>
+                    {% if exercise.created_by != "admin" %}
+                        <a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}"
+                        class="btn-large red darken-1 text-shadow">
+                            DELETE Exercise <i class="fas fa-trash-alt"></i>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </form>
