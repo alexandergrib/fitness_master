@@ -151,7 +151,7 @@ def update_workout_data(query):
         exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})
         exercise_history = (exercise_data["exercise_history"] +
                             request.form.getlist("info_"+query+"[]"))
-
+        
         # print(exercise_history)
         submit = {
             "exercise_name": exercise_data["exercise_name"],
@@ -324,9 +324,10 @@ def edit_exercise(exercise_id):
         flash(flash_text)
         print(flash_text)
         return redirect(url_for("get_exercise", exercise_id=exercise_id))
-    return render_template("exercise_edit_single.html", 
+    return render_template("exercise_edit_single.html",
                            exercise=single_exercise,
                            exercise_category_list=exercise_category_list)
+
 
 @app.route("/exercise/delete/<exercise_id>", methods=["GET", "POST"])
 def delete_exercise(exercise_id):
@@ -334,9 +335,6 @@ def delete_exercise(exercise_id):
     mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
     flash("Exercise Successfully Deleted")
     return redirect(url_for("get_exercise_list"))
-
-
-
 
 
 # -----------------handle login logout register
@@ -366,6 +364,7 @@ def register():
 
     return render_template("register.html")
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -393,6 +392,7 @@ def login():
             return redirect(url_for("login"))
 
     return render_template("login.html")
+
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
