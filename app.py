@@ -310,7 +310,7 @@ def edit_exercise(exercise_id):
         }
         if single_exercise["created_by"] != submit["created_by"]:
             # create new copy with username
-            submit['exercise_name'] += " COPY"  # " [{}]".format(session["user"])
+            submit['exercise_name'] #+= " COPY"  # " [{}]".format(session["user"])
             mongo.db.exercises.insert_one(submit)
             
         else:
@@ -394,18 +394,18 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
+@app.route("/profile/", methods=["GET", "POST"])
+def profile():
     # grab the session user's username from db
     try:
-        username = mongo.db.users.find_one({
+        mongo.db.users.find_one({
             "username": session["user"]
             })["username"]
     except (TypeError, KeyError):
         return redirect(url_for("login"))
    
     if session["user"]:
-        return render_template("profile.html", username=username)
+        return render_template("profile.html")
 
     return redirect(url_for("login"))
 
