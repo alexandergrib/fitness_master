@@ -20,10 +20,6 @@ $(document).ready(function () {
         insert new li item in create_exercise.html
     */
 
-
-
-
-
     var li_count = 2;
     $('#add_more').click(function(){
         li_count += 1;
@@ -35,20 +31,43 @@ $(document).ready(function () {
         );
 
         $( "i.fa-minus-circle" ).on( "click", function( event ) {
-            $( event.target ).closest( "li" ).remove();
-            // var arraySize = $('#steps_list li').length;
-
-            // $('#steps_list li').each(function (i) {
-            //     var index = $(this).index() + 1;
-            //     if (index === arraySize-1){
-            //         li_count = index;
-            //         $(this).index() = 0;
-            //         return false;
-            //     };
-                
-            // });
-            
+            $( event.target ).closest( "li" ).remove();            
           });
     });
 });
 
+
+
+/*
+Toggle switch to show all exercises or only created by user
+exercise_all.html
+*/
+let systemExercisesSwitch = document.getElementById('system_exercises');
+let adminExercisesDiv = document.getElementsByClassName("admin-exercises");
+
+if (localStorage.getItem("adminCheckbox")){
+    systemExercisesSwitch.checked =  eval(localStorage.getItem("adminCheckbox"));  
+} else {
+    systemExercisesSwitch.checked = true;
+    console.log('set true')
+}
+
+
+
+if (systemExercisesSwitch.checked == false){
+    adminExercisesDiv[0].style.display="none";
+} else {
+    adminExercisesDiv[0].style.display = 'block';
+}
+
+
+function hideSystemExercises() {
+    if (systemExercisesSwitch.checked == true){
+        localStorage.setItem("adminCheckbox", true);
+        adminExercisesDiv[0].style.display="block";
+    } else {
+        adminExercisesDiv[0].style.display = 'none';
+        localStorage.setItem("adminCheckbox", false);
+    }
+
+}
