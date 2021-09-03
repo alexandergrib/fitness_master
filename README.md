@@ -55,8 +55,7 @@ image placeholders https://placehold.it/250x500
 
 https://images.unsplash.com/photo-1623200216581-969d9479cf7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fHN0cmV0Y2h8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60
 Photo by <a href="https://unsplash.com/@helloatma?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anastasia Hisel</a> on <a href="https://unsplash.com/s/photos/stretch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
-https://cityfit.ru/odintsovo/
+
 
 problems encountered:
 
