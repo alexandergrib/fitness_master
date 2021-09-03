@@ -396,6 +396,9 @@ def login():
 
 @app.route("/profile/", methods=["GET", "POST"])
 def profile():
+    """
+    User profile check if user exists, if not redirects to login page
+    """
     # grab the session user's username from db
     try:
         mongo.db.users.find_one({
