@@ -287,11 +287,15 @@ def edit_exercise(exercise_id):
         yt = request.form.get("yt_url")
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
         img_url = request.form.get("img_url")
-        
-        try:
-            img_cdn = upload_image(img_url)
-        except KeyError:
-            img_cdn = "https://via.placeholder.com/250"
+
+        if img_url != single_exercise["img_url"]:
+            try:
+                img_cdn = upload_image(img_url)
+            except KeyError:
+                img_cdn = "https://via.placeholder.com/250"
+        else:
+            img_cdn = single_exercise["img_url"]
+
         submit = {
             "exercise_name": request.form.get("exercise_name"),
             "description": request.form.get("description"),
