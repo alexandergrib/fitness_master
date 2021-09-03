@@ -34,7 +34,12 @@
             <h2>START YOUR JOURNEY</h2>
 
             <p> how to start please use register to open account and start tracking your exercises  </p>
-            <p>whats your new challenge?</p>
+            <p>ready to start your new challenge?</p>
         </div>
+        {% if session.user %}
+            <a href="{{ url_for("profile", username=session['user']) }}" class="waves-effect waves-light btn-large"><i class="fas fa-dumbbell"></i>  PROFILE  <i class="fas fa-dumbbell"></i></a>
+        {% else %}
+            <a href="{{ url_for("register") }}" class="waves-effect waves-light btn-large"><i class="fas fa-dumbbell"></i>  REGISTER  <i class="fas fa-dumbbell"></i></a>
+        {% endif %}
     </section>
 {% endblock %}
