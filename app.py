@@ -335,7 +335,12 @@ def delete_exercise(exercise_id):
     mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
     flash("Exercise Successfully Deleted")
     return redirect(url_for("get_exercise_list"))
+# ============search===================
 
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+   pass
 
 # -----------------handle login logout register
 
