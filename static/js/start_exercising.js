@@ -12,7 +12,7 @@ function addNewInput(id, repsVal, weightVal){
     const newInput = document.createElement("input");
     newInput.setAttribute("type", "hidden");
     newInput.setAttribute("name", `info_${id}[]`);
-    newInput.setAttribute("value", `${repsVal} REPS @ ${weightVal}kg`);
+    newInput.setAttribute("value", `${repsVal},${weightVal}`);
     // console.log(newInput);
     return newInput
 } 
