@@ -27,14 +27,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# conn = mongo.db.exercises
-# exercise_coll = conn["fitness_master"]["exercises"]
-# routine_coll = conn["fitness_master"]["routines"]
-# categories_coll = conn["fitness_master"]["categories"]
-
-
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -143,13 +135,15 @@ def start_workout(workout_id):
                            exercise_list=exercise_list)
 
 
-
-
 @app.route("/workout/start/update/<query>", methods=["POST", ])
 def update_workout_data(query):
     if request.method == "POST":
         exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})
-        exercise_history = (exercise_data["exercise_history"] +
+
+        if exercise_data['origin'] =="admin" and exercise_data["created_by"] =="admin":
+            exercise_history = exercise_data["exercise_history"]
+        else:
+            exercise_history = (exercise_data["exercise_history"] +
                             request.form.getlist("info_"+query+"[]"))
         
         # print(exercise_history)
@@ -167,6 +161,8 @@ def update_workout_data(query):
             'yt_url': exercise_data["yt_url"],
             'steps': exercise_data["steps"],
             "created_by": exercise_data["created_by"],
+            "origin": exercise_data["origin"],
+            "is_system": exercise_data["is_system"] if exercise_data["is_system"] else False,
             "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
         }
         id = request.form.get("id_"+query)
@@ -177,7 +173,7 @@ def update_workout_data(query):
         return redirect(url_for("start_workout", workout_id=id))
 
 
-#---------------------------------exercise section
+#---------------------------------exercise section---------------------------------------------
 
 
 @app.route("/exercise")
@@ -203,22 +199,7 @@ def get_exercise_list():
 @app.route("/exercise/create", methods=["GET", "POST"])
 def create_exercise():
     """
-    Create new exercise
-
-    exercise_name,
-    category,
-    description,
-    img_url,
-    exercise_sets,
-    exercise_reps,
-    weigth,
-    exercise_comments,
-    yt_url,
-    steps{array},
-    about,
-    created_by
-    origin,
-    exercise_history[]
+    Create new exercise, read form data validate youtube url, check if image provided before store to DB
 
     """
 
@@ -251,6 +232,7 @@ def create_exercise():
             'steps': request.form.getlist("steps"),
             "created_by": session["user"],
             "origin": session["user"],
+            "is_system": False,
             "exercise_history": []
         }
 
@@ -311,11 +293,11 @@ def edit_exercise(exercise_id):
             'steps': request.form.getlist("steps"),
             "created_by": session["user"],
             "origin": single_exercise["origin"],
+            "is_system": single_exercise["is_system"],
             "exercise_history": single_exercise["exercise_history"]
         }
-        if single_exercise["created_by"] != submit["created_by"]:
-            # create new copy with username
-            submit['exercise_name'] #+= " COPY"  # " [{}]".format(session["user"])
+        if single_exercise["is_system"]:
+            # create copy of system exercise for user
             mongo.db.exercises.insert_one(submit)
             
         else:
@@ -342,7 +324,7 @@ def delete_exercise(exercise_id):
     return redirect(url_for("get_exercise_list"))
 
 
-# -----------------handle login logout register
+# ========================handle login logout register=================================================
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -405,6 +387,8 @@ def profile():
     User profile check if user exists, if not redirects to login page
     """
     # grab the session user's username from db
+    if request.method == "POST":
+        pass
     try:
         mongo.db.users.find_one({
             "username": session["user"]
