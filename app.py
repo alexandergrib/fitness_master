@@ -148,10 +148,26 @@ def start_workout(workout_id):
 @app.route("/workout/start/update/<query>", methods=["POST", ])
 def update_workout_data(query):
     if request.method == "POST":
-        exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})
+        exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})  # fetch single exercise to be updated
         exercise_history = (exercise_data["exercise_history"] +
                             request.form.getlist("info_"+query+"[]"))
-        
+        id = request.form.get("id_"+query)  # id from which workout individual exercise called
+
+        exercise_history1 = request.form.getlist("info_"+query+"[]")
+
+        for i in exercise_history1:
+            user_profile_data = {
+                "date": datetime.now().strftime("%d/%m/%Y"),
+                "username": session['user'],
+                "exercise_name": exercise_data['exercise_name'],
+                "exercise_id": exercise_data["_id"],
+                "workout_id": id,
+                "reps": i.split(",")[0],
+                "weight": i.split(",")[1],
+                "comment": ""
+                }
+            mongo.db.user_profile.insert_one(user_profile_data)
+
         # print(exercise_history)
         submit = {
             "exercise_name": exercise_data["exercise_name"],
@@ -169,9 +185,8 @@ def update_workout_data(query):
             "created_by": exercise_data["created_by"],
             "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
         }
-        id = request.form.get("id_"+query)
         # print(submit['exercise_history'])
-
+        # mongo.db.user_profile.insert_one(user_profile_data)
         mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
 
         return redirect(url_for("start_workout", workout_id=id))
