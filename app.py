@@ -1,10 +1,9 @@
 import os
 import re
-from pprint import pprint
+
 from datetime import datetime
 
-import bson
-from bson import binary
+
 from bson.errors import InvalidId
 from flask import (
     Flask, flash, render_template,
@@ -13,7 +12,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.exceptions import abort
+
 
 if os.path.exists("env.py"):
     import env
@@ -29,12 +28,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# conn = mongo.db.exercises
-# exercise_coll = conn["fitness_master"]["exercises"]
-# routine_coll = conn["fitness_master"]["routines"]
-# categories_coll = conn["fitness_master"]["categories"]
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -47,9 +40,6 @@ def get_workout():
     Returns:  list of user workouts
     """
     workout_list = list(mongo.db.routines.find().sort("routine_name", 1))
-    # categories = list(mongo.db.categories.find().sort("category_name", 1))
-    # return render_template("categories.html", categories=categories)
-
     return render_template("workout.html", workout_list=workout_list)
 
 
@@ -76,11 +66,10 @@ def create_workout():
                 "created_by": session["user"]
             }
 
-            # print("submit", submit)
             mongo.db.routines.insert_one(submit)
             flash_text = "{} Successfully Created".format(submit["workout_name"])
             flash(flash_text)
-            print(flash_text)
+
             return redirect(url_for("get_workout"))
     return render_template("create_workout.html", exercise_list=exercise_list)
 
@@ -110,7 +99,7 @@ def edit_workout(workout_id):
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
         flash_text = "{} Successfully Updated".format(submit["workout_name"])
         flash(flash_text)
-        print(flash_text)
+
         return redirect(url_for("get_workout"))
 
     if validate_id(workout_id):
@@ -151,7 +140,7 @@ def start_workout(workout_id):
             return redirect(url_for("get_workout"))
     else:
         return redirect(url_for("get_workout"))
-    # single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+
     exercise_list = list(mongo.db.exercises.find())
     return render_template("start_workout.html",
                            workout_list=single_workout,
@@ -169,10 +158,7 @@ def update_workout_data(query):
 
         exercise_history = (exercise_data["exercise_history"] +
                             request.form.getlist("info_" + query + "[]"))
-
-        
         id = request.form.get("id_"+query)  # id from which workout individual exercise called
-
         exercise_history1 = request.form.getlist("info_"+query+"[]")
 
         for i in exercise_history1:
@@ -188,8 +174,6 @@ def update_workout_data(query):
                 }
             mongo.db.user_profile.insert_one(user_profile_data)
 
-
-        # print(exercise_history)
         submit = {
             "exercise_name": exercise_data["exercise_name"],
             "description": exercise_data["description"],
@@ -206,18 +190,12 @@ def update_workout_data(query):
             "created_by": exercise_data["created_by"],
             "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
         }
-
         workout_id = request.form.get("id_" + query)
-
-        # print(submit['exercise_history'])
-        # mongo.db.user_profile.insert_one(user_profile_data)
         mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
-
         return redirect(url_for("start_workout", workout_id=workout_id))
 
 
-# ---------------------------------exercise section
-
+# ---------------------------------exercise section------------------------------------
 
 @app.route("/exercise")
 def get_exercise_list():
@@ -284,9 +262,7 @@ def create_exercise():
         mongo.db.exercises.insert_one(submit)
         flash_text = "{} Successfully Created".format(submit["exercise_name"])
         flash(flash_text)
-        print(flash_text)
         return redirect(url_for("get_exercise_list"))
-
     return render_template("create_exercise.html",
                            exercise_category_list=exercise_category_list)
 
@@ -327,7 +303,6 @@ def edit_exercise(exercise_id):
         yt = request.form.get("yt_url")
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
         img_url = request.form.get("img_url")
-
         if img_url:
             if bool(pattern.search(img_url)):
                 try:
@@ -361,18 +336,12 @@ def edit_exercise(exercise_id):
         }
         if single_exercise["created_by"] != submit["created_by"]:
             # create new copy with username
-            submit['exercise_name'] #+= " COPY"  # " [{}]".format(session["user"])
             mongo.db.exercises.insert_one(submit)
-
         else:
-            # mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
             mongo.db.exercises.update_one({"_id": ObjectId(exercise_id)},
                                           {"$set": submit})
-
-        # pprint(submit)
         flash_text = "{} Successfully Updated".format(submit["exercise_name"])
         flash(flash_text)
-        print(flash_text)
         return redirect(url_for("get_exercise", exercise_id=exercise_id))
     return render_template("exercise_edit_single.html",
                            exercise=single_exercise,
@@ -385,6 +354,8 @@ def delete_exercise(exercise_id):
     mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
     flash("Exercise Successfully Deleted")
     return redirect(url_for("get_exercise_list"))
+
+
 # ============search===================
 
 
@@ -406,11 +377,11 @@ def register():
             flash("Username already exists")
             return redirect(url_for("register"))
 
-        register = {
+        register_user = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password"))
         }
-        mongo.db.users.insert_one(register)
+        mongo.db.users.insert_one(register_user)
 
         # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
