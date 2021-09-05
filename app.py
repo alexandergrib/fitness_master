@@ -220,7 +220,7 @@ def create_exercise():
     """
     Create new exercise
     """
-
+    pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
     if request.method == "POST":
@@ -228,11 +228,17 @@ def create_exercise():
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
         img_url = request.form.get("img_url")
         if img_url:
-            try:
-                img_cdn = upload_image(img_url)
-            except KeyError:
+            if bool(pattern.search(img_url)):
+                try:
+                    img_cdn = upload_image(img_url)
+                except KeyError:
+                    flash("Invalid image URL provided, so used default instead")
+                    img_cdn = "https://via.placeholder.com/250"
+            else:
+                flash("Invalid image URL provided, so used default instead")
                 img_cdn = "https://via.placeholder.com/250"
         else:
+            flash("No image URL provided, so used default instead")
             img_cdn = "https://via.placeholder.com/250"
 
         submit = {
@@ -254,7 +260,6 @@ def create_exercise():
         }
 
         mongo.db.exercises.insert_one(submit)
-        # print(submit)
         flash_text = "{} Successfully Created".format(submit["exercise_name"])
         flash(flash_text)
         print(flash_text)
@@ -292,6 +297,7 @@ def edit_exercise(exercise_id):
         Modify individual exercise,
         if modifying admin created exercise will be cloned 
     """
+    pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
     exercise_category_list = list(
         mongo.db.categories.find().sort("category_name", 1))
     single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
@@ -300,10 +306,20 @@ def edit_exercise(exercise_id):
         replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
         img_url = request.form.get("img_url")
 
-        try:
-            img_cdn = upload_image(img_url)
-        except KeyError:
+        if img_url:
+            if bool(pattern.search(img_url)):
+                try:
+                    img_cdn = upload_image(img_url)
+                except KeyError:
+                    flash("Invalid image URL provided, so used default instead")
+                    img_cdn = "https://via.placeholder.com/250"
+            else:
+                flash("Invalid image URL provided, so used default instead")
+                img_cdn = "https://via.placeholder.com/250"
+        else:
+            flash("No image URL provided, so used default instead")
             img_cdn = "https://via.placeholder.com/250"
+
         submit = {
             "exercise_name": request.form.get("exercise_name"),
             "description": request.form.get("description"),
