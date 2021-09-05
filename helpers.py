@@ -2,7 +2,8 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
+from bson import ObjectId
+from bson.errors import InvalidId
 if os.path.exists("env.py"):
     import env
 
@@ -36,3 +37,10 @@ def upload_image(url):
                                      use_filename=True
                                      )
     return cdn["secure_url"]
+
+
+def validate_id(id):
+    if ObjectId.is_valid(id):
+        return True
+    else:
+        return False

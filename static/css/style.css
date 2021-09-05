@@ -18,7 +18,7 @@ body {
     width: 100%;
 }
 
-
+/*homepage*/
 /* first section */
 .section-first{
   background-image: url('../img/anastasia-hisel-tpivPdQgC20-unsplash.jpg');
@@ -55,6 +55,21 @@ body {
     width: 100%;
     font-size: 24px;
     text-align: right;
+}
+/* second section*/
+.section-second{
+    text-align: center;
+}
+.section-second h2{
+    font-size: 2.4rem;
+}
+
+/* second third*/
+.section-third{
+    text-align: center;
+}
+.section-third h2{
+    font-size: 2.4rem;
 }
 
 /* ---------------------------------------- */
