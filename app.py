@@ -161,6 +161,7 @@ def start_workout(workout_id):
 @app.route("/workout/start/update/<query>", methods=["POST", ])
 def update_workout_data(query):
     if request.method == "POST":
+
         if validate_id(query):
             exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})
         else:
@@ -168,6 +169,25 @@ def update_workout_data(query):
 
         exercise_history = (exercise_data["exercise_history"] +
                             request.form.getlist("info_" + query + "[]"))
+
+        
+        id = request.form.get("id_"+query)  # id from which workout individual exercise called
+
+        exercise_history1 = request.form.getlist("info_"+query+"[]")
+
+        for i in exercise_history1:
+            user_profile_data = {
+                "date": datetime.now().strftime("%d/%m/%Y"),
+                "username": session['user'],
+                "exercise_name": exercise_data['exercise_name'],
+                "exercise_id": exercise_data["_id"],
+                "workout_id": id,
+                "reps": i.split(",")[0],
+                "weight": i.split(",")[1],
+                "comment": ""
+                }
+            mongo.db.user_profile.insert_one(user_profile_data)
+
 
         # print(exercise_history)
         submit = {
@@ -186,9 +206,11 @@ def update_workout_data(query):
             "created_by": exercise_data["created_by"],
             "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
         }
-        workout_id = request.form.get("id_" + query)
-        # print(submit['exercise_history'])
 
+        workout_id = request.form.get("id_" + query)
+
+        # print(submit['exercise_history'])
+        # mongo.db.user_profile.insert_one(user_profile_data)
         mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
 
         return redirect(url_for("start_workout", workout_id=workout_id))
@@ -339,7 +361,7 @@ def edit_exercise(exercise_id):
         }
         if single_exercise["created_by"] != submit["created_by"]:
             # create new copy with username
-            submit['exercise_name'] += " COPY"  # " [{}]".format(session["user"])
+            submit['exercise_name'] #+= " COPY"  # " [{}]".format(session["user"])
             mongo.db.exercises.insert_one(submit)
 
         else:
@@ -363,7 +385,12 @@ def delete_exercise(exercise_id):
     mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
     flash("Exercise Successfully Deleted")
     return redirect(url_for("get_exercise_list"))
+# ============search===================
 
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+   pass
 
 # -----------------handle login logout register
 
@@ -422,18 +449,21 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
+@app.route("/profile/", methods=["GET", "POST"])
+def profile():
+    """
+    User profile check if user exists, if not redirects to login page
+    """
     # grab the session user's username from db
     try:
-        username = mongo.db.users.find_one({
+        mongo.db.users.find_one({
             "username": session["user"]
         })["username"]
     except (TypeError, KeyError):
         return redirect(url_for("login"))
 
     if session["user"]:
-        return render_template("profile.html", username=username)
+        return render_template("profile.html")
 
     return redirect(url_for("login"))
 

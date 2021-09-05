@@ -10,7 +10,8 @@
           crossorigin="anonymous" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
           type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>      
+{#animation css#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>      #}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <link rel="apple-touch-icon" sizes="180x180"
           href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}">
@@ -42,8 +43,10 @@
             <ul class="right hide-on-med-and-down">
                 {% if session.user %}
                     <li><a href="{{ url_for('get_workout') }}">Your workouts</a></li>
+
                     <li><a href="{{ url_for('get_exercise_list') }}">Individual exercises</a></li>
                     <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                 {% else %}
                     <li><a href="{{ url_for('login') }}">Log In</a></li>
@@ -56,8 +59,11 @@
     <ul class="sidenav" id="mobile">
         {% if session.user %}
             <li><a href="{{ url_for('get_workout') }}">Your workouts</a></li>
+
             <li><a href="{{ url_for('get_exercise_list') }}">Individual exercises</a></li>
             <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+
+
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
             <li><a href="{{ url_for('login') }}">Log In</a></li>
