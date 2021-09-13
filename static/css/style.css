@@ -239,6 +239,30 @@ body {
     border-bottom-left-radius: inherit;
 }
 
+.workout-card--inner{
+    padding-left: 10px;
+}
+
+.workout-card h2{
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px;
+}
+
+.workout-card span {
+    margin: 0 5px;
+    padding: 10px 0;
+
+}
+.workout-card .workout-card--exercises-list {
+    list-style-type: "🏀";
+    margin-left: 10px;
+}
+
+
+
+
 
 /*Media queries*/
 

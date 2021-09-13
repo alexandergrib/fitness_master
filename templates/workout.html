@@ -25,17 +25,29 @@
                     <div class="row workout--row">
                     <!-- link to start workout -->
                         <a href="{{ url_for('start_workout', workout_id=workout._id) }}">
-                            <div class="col s10">
-                                <span>{{ workout.workout_name }}</span><br>
-                                <span>{{ workout.exercise_choices | length }} exercises (
-                                    {% for exercise in workout.exercise_choices %}
+                            <div class="col s10 workout-card">
+                                <h2>{{ workout.workout_name }}</h2><br>
+                                <div class="workout-card--inner">
+                                    <ul>
+                                        <li>{{ workout.exercise_choices | length }}
+                                            {% if workout.exercise_choices |length < 2 %}
+                                                exercise in workout:
+                                            {% else %}
+                                                 exercises in workout:
+                                            {% endif %}
 
-                                        {{ exercise }},
-                                    {% endfor %})
-                            </span><br>
-                                <span>current weight {{ workout.weight }}</span><br>
-                                <span>last workout {{ workout.created_date }}</span><br>
-                                <span>Created by {{ workout.created_by }}</span>
+                                            <ul class="workout-card--exercises-list browser-default">
+                                                      {% for exercise in workout.exercise_choices %}
+                                                          <li>{{ exercise }}</li>
+                                                      {% endfor %}
+                                            </ul>
+                                        </li>
+
+{#                                        <li><span>Workout weight {{ workout.weight }} kg.</span></li>#}
+{#                                        <li>  <span>last workout {{ workout.created_date }}</span>  </li>#}
+{#                                        <li><span>Created by {{ workout.created_by }}</span></li>#}
+                                    </ul>
+                                </div>
                             </div>
                             <div class="col s2 right-align"><a href="{{ url_for('edit_workout', workout_id=workout._id) }}"><i class="far fa-edit"></i></a></div>
                         </a>
