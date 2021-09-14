@@ -1,6 +1,5 @@
 import os
 import re
-from pprint import pprint
 from datetime import datetime
 
 from flask import (
@@ -53,30 +52,34 @@ def create_workout():
     Create new workout, receive form data and create new DB record
     :return: [status]
     """
-    exercise_list = list(mongo.db.exercises.find())
+    if "user" in session:
+        exercise_list = list(mongo.db.exercises.find())
 
-    if request.method == "POST":
         if request.method == "POST":
-            submit = {
-                "workout_name": request.form.get("workout_name"),
-                "workout_sets": request.form.get("workout_sets"),
-                "workout_reps": request.form.get("workout_reps"),
-                "exercise_choices": request.form.getlist("exercise_choices"),
-                "weight": request.form.get("weight"),
-                "created_date": datetime.now().strftime("%d/%m/%Y"),
-                "modified_date": datetime.now().strftime("%d/%m/%Y"),
-                'completed': False,
-                'saved': False,
-                "created_by": session["user"]
-            }
+            if request.method == "POST":
+                submit = {
+                    "workout_name": request.form.get("workout_name"),
+                    "workout_sets": request.form.get("workout_sets"),
+                    "workout_reps": request.form.get("workout_reps"),
+                    "exercise_choices": request.form.getlist("exercise_choices"),
+                    "weight": request.form.get("weight"),
+                    "created_date": datetime.now().strftime("%d/%m/%Y"),
+                    "modified_date": datetime.now().strftime("%d/%m/%Y"),
+                    'completed': False,
+                    'saved': False,
+                    "created_by": session["user"]
+                }
 
-            # print("submit", submit)
-            mongo.db.routines.insert_one(submit)
-            flash_text = "{} Successfully Created".format(submit["workout_name"])
-            flash(flash_text)
-            print(flash_text)
-            return redirect(url_for("get_workout"))
-    return render_template("create_workout.html", exercise_list=exercise_list)
+                # print("submit", submit)
+                mongo.db.routines.insert_one(submit)
+                flash_text = "{} Successfully Created".format(submit["workout_name"])
+                flash(flash_text)
+                print(flash_text)
+                return redirect(url_for("get_workout"))
+        return render_template("create_workout.html", exercise_list=exercise_list)
+    else:
+        flash("You need to be logged in to perform this action")
+        return redirect(url_for("login"))
 
 
 @app.route("/workout/edit/<workout_id>", methods=["GET", "POST"])
@@ -121,9 +124,13 @@ def edit_workout(workout_id):
 
 @app.route("/workout/delete/<workout_id>", methods=["GET", "POST"])
 def delete_workout(workout_id):
-    mongo.db.routines.remove({"_id": ObjectId(workout_id)})
-    flash("Workout Successfully Deleted")
-    return redirect(url_for("get_workout"))
+    if "user" in session:
+        mongo.db.routines.remove({"_id": ObjectId(workout_id)})
+        flash("Workout Successfully Deleted")
+        return redirect(url_for("get_workout"))
+    else:
+        flash("You need to be logged in to perform this action")
+        return redirect(url_for("login"))
 
 
 @app.route("/workout/start/<workout_id>", methods=["GET", "POST"])
@@ -217,49 +224,57 @@ def create_exercise():
     Create new exercise, read form data validate youtube url, check if image provided before store to DB
 
     """
+    if "user" in session:
+        pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
+        exercise_category_list = list(
+            mongo.db.categories.find().sort("category_name", 1))
+        if request.method == "POST":
+            yt = request.form.get("yt_url")
+            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
+            img_url = request.form.get("img_url")
+            if img_url:
+                if bool(pattern.search(img_url)):
+                    try:
+                        img_cdn = upload_image(img_url)
+                    except KeyError:
+                        flash("Invalid image URL provided, so used default instead")
+                        img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                else:
+                    flash("Invalid image URL provided, so used default instead")
+                    img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+            else:
+                flash("No image URL provided, so used default instead")
+                img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+            submit = {
+                "exercise_name": request.form.get("exercise_name"),
+                "description": request.form.get("description"),
+                "about": request.form.get("about"),
+                "img_url": img_cdn,  # request.form.get("img_url"),
+                "exercise_sets": request.form.get("exercise_sets"),
+                "exercise_reps": request.form.get("exercise_reps"),
+                "exercise_category": request.form.getlist("exercise_category"),
+                "modified_date": datetime.now().strftime("%d/%m/%Y"),
+                "weight": request.form.get("weight"),
+                'exercise_comments': request.form.get("exercise_comments"),
+                'yt_url': replace_url,
+                'steps': request.form.getlist("steps"),
+                "created_by": session["user"],
+                "origin": session["user"],
+                "is_system": False,
+                "exercise_history": []
+            }
 
-    exercise_category_list = list(
-        mongo.db.categories.find().sort("category_name", 1))
-    if request.method == "POST":
-        yt = request.form.get("yt_url")
-        replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
-        img_url = request.form.get("img_url")
-        if img_url:
-            try:
-                img_cdn = upload_image(img_url)
-            except (KeyError):
-                img_cdn = "https://via.placeholder.com/250"
-        else:
-            img_cdn = "https://via.placeholder.com/250"
+            mongo.db.exercises.insert_one(submit)
+            # print(submit)
+            flash_text = "{} Successfully Created".format(submit["exercise_name"])
+            flash(flash_text)
+            print(flash_text)
+            return redirect(url_for("get_exercise_list"))
 
-        submit = {
-            "exercise_name": request.form.get("exercise_name"),
-            "description": request.form.get("description"),
-            "about": request.form.get("about"),
-            "img_url": img_cdn,  # request.form.get("img_url"),
-            "exercise_sets": request.form.get("exercise_sets"),
-            "exercise_reps": request.form.get("exercise_reps"),
-            "exercise_category": request.form.getlist("exercise_category"),
-            "modified_date": datetime.now().strftime("%d/%m/%Y"),
-            "weight": request.form.get("weight"),
-            'exercise_comments': request.form.get("exercise_comments"),
-            'yt_url': replace_url,
-            'steps': request.form.getlist("steps"),
-            "created_by": session["user"],
-            "origin": session["user"],
-            "is_system": False,
-            "exercise_history": []
-        }
-
-        mongo.db.exercises.insert_one(submit)
-        # print(submit)
-        flash_text = "{} Successfully Created".format(submit["exercise_name"])
-        flash(flash_text)
-        print(flash_text)
-        return redirect(url_for("get_exercise_list"))
-
-    return render_template("create_exercise.html",
-                           exercise_category_list=exercise_category_list)
+        return render_template("create_exercise.html",
+                               exercise_category_list=exercise_category_list)
+    else:
+        return redirect(url_for("login"))
 
 
 @app.route("/exercise/<exercise_id>")
@@ -278,6 +293,7 @@ def edit_exercise(exercise_id):
         if modifying admin created exercise will be cloned 
     """
     if "user" in session:
+        pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
         exercise_category_list = list(
             mongo.db.categories.find().sort("category_name", 1))
         single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
@@ -285,14 +301,19 @@ def edit_exercise(exercise_id):
             yt = request.form.get("yt_url")
             replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
             img_url = request.form.get("img_url")
-
-            if img_url != single_exercise["img_url"]:
-                try:
-                    img_cdn = upload_image(img_url)
-                except KeyError:
-                    img_cdn = "https://via.placeholder.com/250"
+            if img_url:
+                if bool(pattern.search(img_url)):
+                    try:
+                        img_cdn = upload_image(img_url)
+                    except KeyError:
+                        flash("Invalid image URL provided, so used default instead")
+                        img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                else:
+                    flash("Invalid image URL provided, so used default instead")
+                    img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
             else:
-                img_cdn = single_exercise["img_url"]
+                flash("No image URL provided, so used default instead")
+                img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
 
             submit = {
                 "exercise_name": request.form.get("exercise_name"),
@@ -305,30 +326,26 @@ def edit_exercise(exercise_id):
                 "modified_date": datetime.now().strftime("%d/%m/%Y"),
                 "weight": request.form.get("weight"),
                 'exercise_comments': request.form.get("exercise_comments"),
-                'yt_url': replace_url,  # create validator for url
+                'yt_url': replace_url,
                 'steps': request.form.getlist("steps"),
                 "created_by": session["user"],
                 "origin": single_exercise["origin"],
                 "is_system": single_exercise["is_system"],
                 "exercise_history": single_exercise["exercise_history"]
             }
-            if single_exercise["is_system"]:
-                # create copy of system exercise for user
+            if single_exercise["created_by"] != submit["created_by"]:
+                # create new copy with username
                 mongo.db.exercises.insert_one(submit)
-
             else:
-                # mongo.db.exercises.update({"_id": ObjectId(exercise_id)}, submit)
                 mongo.db.exercises.update_one({"_id": ObjectId(exercise_id)},
                                               {"$set": submit})
-
-            # pprint(submit)
             flash_text = "{} Successfully Updated".format(submit["exercise_name"])
             flash(flash_text)
-            print(flash_text)
             return redirect(url_for("get_exercise", exercise_id=exercise_id))
         return render_template("exercise_edit_single.html",
                                exercise=single_exercise,
                                exercise_category_list=exercise_category_list)
+
     else:
         flash("You need to be logged in to perform this action")
         return redirect(url_for("login"))
@@ -344,6 +361,13 @@ def delete_exercise(exercise_id):
     else:
         flash("You need to be logged in to perform this action")
         return redirect(url_for("login"))
+
+# ============search===================
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    pass
 
 # ========================handle login logout register=================================================
 
