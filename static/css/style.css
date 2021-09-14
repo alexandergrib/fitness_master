@@ -239,10 +239,25 @@ body {
     border-bottom-left-radius: inherit;
 }
 
+/*.workout--row{*/
+/*    background-image: url('https://images.unsplash.com/photo-1488866022504-f2584929ca5f?auto=format&fit=crop&w=1486&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D');*/
+/*    background-size: cover;*/
+/*    margin: 20px;*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: 0 0;*/
+/*    transition: 2s cubic-bezier(0.645, 0.045, 0.355, 1);*/
+/*}*/
 .workout-card--inner{
     padding-left: 10px;
 }
-
+.workout-card hr {
+    visibility: hidden;
+    margin: 40px auto 0;
+    width: 20%;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
 .workout-card h2{
     font-size: 2rem;
     text-transform: uppercase;

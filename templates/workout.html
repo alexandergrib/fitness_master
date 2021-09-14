@@ -26,7 +26,8 @@
                     <!-- link to start workout -->
                         <a href="{{ url_for('start_workout', workout_id=workout._id) }}">
                             <div class="col s10 workout-card">
-                                <h2>{{ workout.workout_name }}</h2><br>
+                                <h2>{{ workout.workout_name }}</h2>
+                                <hr>
                                 <div class="workout-card--inner">
                                     <ul>
                                         <li>{{ workout.exercise_choices | length }}
