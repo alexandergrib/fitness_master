@@ -5,7 +5,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/alexandergrib/fitness_master)
 ![GitHub top language](https://img.shields.io/github/languages/top/alexandergrib/fitness_master)
 ![Font Awesome version](https://img.shields.io/badge/Font%20Awesome-v5.15.1-blue)
-![GitHub forks](https://img.shields.io/github/forks/alexandergrib/fitness_master?style=social)
+![Total lines](https://img.shields.io/tokei/lines/github/alexandergrib/fitness_master)
 
 # Fitness Master
 
@@ -26,25 +26,25 @@ Fitness Master</a></p>
 ## Table of Contents
  
 - [About](#About)
-- [User Experience](#User-Experience)
+- [User Experience (UX)](#User-Experience-(ux))
   - [User Stories](#User-Stories)
   - [UI](#ui)
   - [Design](#Design)
   - [Database Schema](#database-schema)
   - [Database Model](#database-model)
   - [Wireframes](#Wireframes)
-- [**Features**](#Features)
+- [Features](#Features)
     - [Future features](#Future-updates)
-- [**Technologies used**](#Technologies-used)
-- [**Testing**](#Testing)
+- [Technologies used](#Technologies-used)
+- [Testing](#Testing)
     - [Manual testing](#Testing)
     - [Errors](#Errors)
-- [**Code Notes**](#Code-Notes)
-- [**Deployment**](#Deployment)
-- [**Credits**](#Deployment)
+- [Code Notes](#Code-Notes)
+- [Deployment](#Deployment)
+- [Credits](#Deployment)
     - [Code](#Code)
      - [Images](#Images)
-- [**Acknowledgements**](#Acknowledgements)
+- [Acknowledgements](#Acknowledgements)
 
 ---
 ## About
@@ -57,7 +57,10 @@ The purpose of this project was to build an app where users can tailor their exe
 
     * Create personalized workout routines
     * Have selection exercises to choose from
-    * 
+    * Be able to read about each individual exercise in details, how to do it, and which area of the body it targets
+    * Be able to add my own exercises or modify existing ones to suit my needs
+    * Be able to track my workout by monitoring amounts of reps, sets and weight
+
     
 
 ### UI
@@ -162,6 +165,9 @@ Current errors:
 4. fixed
 5. fixed
 </details>
+
+---
+## Code Notes
 
 ---
 

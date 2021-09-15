@@ -49,5 +49,3 @@ for(i=0; i< form.length; i++){
     form[i].addEventListener('submit', handleSubmit);
 }    
 
-
-

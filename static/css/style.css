@@ -235,28 +235,33 @@ body {
     top: -35px;
 }
 
-.workout-exercise-single-timer {
+.workout-exercise-single-stats {
     padding: 0;
     background-color: #aaaaaa;
     /* border: 1px solid darkblue; */
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
+    display: block;
+}
+.workout-exercise-single-stats--header{
+    text-align: center;
+    font-size: 1.1rem;
 }
 
-/*.workout--row{*/
-/*    background-image: url('https://images.unsplash.com/photo-1488866022504-f2584929ca5f?auto=format&fit=crop&w=1486&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D');*/
-/*    background-size: cover;*/
-/*    margin: 20px;*/
-/*    background-repeat: no-repeat;*/
-/*    background-position: 0 0;*/
-/*    transition: 2s cubic-bezier(0.645, 0.045, 0.355, 1);*/
-/*}*/
+.workout--row{
+    /*background-image: url('https://wallpaperaccess.com/full/334700.jpg');*/
+    /*background-size: contain;*/
+    /*margin: 20px;*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: 0 0;*/
+    /*transition: 2s cubic-bezier(0.645, 0.045, 0.355, 1);*/
+}
 .workout-card--inner{
     padding-left: 10px;
 }
 .workout-card hr {
-    visibility: hidden;
-    margin: 40px auto 0;
+    /*visibility: hidden;*/
+    margin: 10px auto 0;
     width: 20%;
     border: 0;
     height: 1px;
