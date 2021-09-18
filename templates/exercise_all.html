@@ -25,7 +25,7 @@
                     </div>
                 </div>
            </form>
-            <div class="col s6 m4 right-align">
+            <div class="col s6 m4 right-align exercise-form-button">
                 <div class="add-new-button">
                     <a href="{{url_for('create_exercise')}}">Add new exercise <i class="fas fa-plus-circle"></i></a>
                 </div>
@@ -38,13 +38,13 @@
                     <a href="{{ url_for("get_exercise", exercise_id=system._id) }}">
                         <div class="col s6 exercise--card">
                             <div class="row">
-                                <div class="col s12 "><span>{{ system.exercise_name }} [SYSTEM]</span></div>
-                                <div class="col s12"><span>{{ system.description }}</span></div>
+                                <div class="col s12 "><span>{{ system.exercise_name | truncate(26, False, '...', 0) }} [SYSTEM]</span></div>
+                                <div class="col s12 exercise--card--description"><p>{{ system.description | truncate(150, False, '...', 0) }}</p></div>
                             </div>
 
                         </div>
                         <div class="col s6 exercise--card">
-                            <img src="{{ system.img_url }}" alt="{{ system.exercise_name }} image" width="250" height="250" class="exercise--img">
+                            <img src="{{ system.img_url }}" alt="{{ system.exercise_name | truncate(26, False, '...', 0) }} image" width="250" height="250" class="exercise--img">
 
 
                         </div>
@@ -59,13 +59,13 @@
                         <a href="{{ url_for("get_exercise", exercise_id=exercise._id) }}">
                             <div class="col s6 exercise--card">
                                 <div class="row">
-                                    <div class="col s12 "><span>{{ exercise.exercise_name }}</span></div>
-                                    <div class="col s12"><span>{{ exercise.description }}</span></div>
+                                    <div class="col s12 "><span>{{ exercise.exercise_name | truncate(26, False, '...', 0) }}</span></div>
+                                    <div class="col s12 exercise--card--description"><p>{{ exercise.description | truncate(250, False, '...', 0) }}</p></div>
                                 </div>
 
                             </div>
                             <div class="col s6 exercise--card">
-                                <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name }} image" width="250" height="250" class="exercise--img">
+                                <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name | truncate(26, False, '...', 0) }} image" width="250" height="250" class="exercise--img">
 
 
                             </div>
