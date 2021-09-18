@@ -9,7 +9,7 @@
 
 # Fitness Master
 
-Fintess master is the website that have a target auditory who love going to the gym and like to keep tracking of their activity by storing their exercise data.
+Fitness master is the website that have a target auditory who love going to the gym and like to keep tracking of their activity by storing their exercise data.
 Where they can explore different exercises or be able to create their own .
 
 
@@ -66,8 +66,32 @@ The purpose of this project was to build an app where users can tailor their exe
 ### UI
 ### Design
 
+#### CRUD
+
+
+HTTP Verb | URL PATH | PURPOSE
+| --- | --- | --- |
+GET | /workout | List All workouts
+POST | /workout/create | Create workout
+POST | /workout/edit/<:id> | Update workout
+DELETE | /workout/delete/<:id> | Delete workout
+GET | /workout/start/<:id> | Start Workout
+POST | /workout/start/update/:data | Update exercise data inside workout 
+GET | /exercise | List All exercises
+POST | /exercise/create | Create exercise
+GET | /exercise/<:id> | Show individual exercise
+POST | /exercise/edit/<:id> | Update exercise
+DELETE | /exercise/delete/<:id> | Delete exercise
+POST | /register | Register new user
+GET | /login | Login user
+GET |  /profile/ | User profile
+GET | /logout | Logout user
+
+
 ### Database Schema
+
 ### Database Model
+
 ### Wireframes
 
 ---
