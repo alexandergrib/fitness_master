@@ -57,14 +57,14 @@
             {% for exercise in exercise_list %}            
                     <div class="row workout--row">
                         <a href="{{ url_for("get_exercise", exercise_id=exercise._id) }}">
-                            <div class="col s6 exercise--card">
+                            <div class="col s12 m6 exercise--card">
                                 <div class="row">
                                     <div class="col s12 "><span>{{ exercise.exercise_name | truncate(26, False, '...', 0) }}</span></div>
                                     <div class="col s12 exercise--card--description"><p>{{ exercise.description | truncate(250, False, '...', 0) }}</p></div>
                                 </div>
 
                             </div>
-                            <div class="col s6 exercise--card">
+                            <div class="col m4 offset-m1 hide-on-small-only exercise--card exercise--card--image-container">
                                 <img src="{{ exercise.img_url }}" alt="{{ exercise.exercise_name | truncate(26, False, '...', 0) }} image" width="250" height="250" class="exercise--img">
 
 
