@@ -9,7 +9,7 @@
     <!-- Cards container -->
     <div class="workout-wrapper">
         <div class="row">
-            <div class="col s6 m4">
+            <div class="col s12 m4">
                 <div class="switch">
                     <label>Show system exercises:<input type="checkbox" id="system_exercises"
                                                         onclick="hideSystemExercises()"><span
@@ -17,15 +17,15 @@
                 </div>
             </div>
 
-            <form action="{{ url_for('search') }} " method="POST" class="col m8 s12 exercise--form">
+            <form action="{{ url_for('search') }} " method="POST" class="col s12 m8 exercise--form">
                 <div class="valign-wrapper center-align">
-                    <div class="input-field">
+                    <div class="input-field  workout-wrapper--input">
                         <input type="text" name="query" id="query" minlength="3" class="validate">
                         <label for="query">Search exercises</label>
 
-                        <a href="{{ url_for('get_exercise_list') }}" class="red btn text-shadow">Show all</a>
-                        <button type="submit" class="light-blue darken-1 btn text-shadow">
-                        <i class="fas fa-search left"></i> Search
+                        <a href="{{ url_for('get_exercise_list') }}" class="red btn text-shadow workout-wrapper--reset_button"><i class="fas fa-times workout-wrapper--reset_button__icon"></i></a>
+                        <button type="submit" class="light-blue darken-1 btn text-shadow  workout-wrapper--search_button">
+                            <i class="fas fa-search left workout-wrapper--search_button__icon"></i>
                         </button>
                     </div>
                 </div>

@@ -369,16 +369,18 @@ def delete_exercise(exercise_id):
 def search():
     if "user" in session:
         query = request.form.get("query")
-        exercises = list(mongo.db.exercises.find({"$text": {"$search": query},
-                                                  "$and": [{"created_by": {'$eq': session['user']}}]
+        if query != '':
+            exercises = list(mongo.db.exercises.find({"$text": {"$search": query},
+                                                      "$and": [{"created_by": {'$eq': session['user']}}]
+                                                      }))
+
+            admin = list(mongo.db.exercises.find({"$text": {"$search": query},
+                                                  "$and": [{"created_by": {'$eq': 'admin'}}]
                                                   }))
 
-        admin = list(mongo.db.exercises.find({"$text": {"$search": query},
-                                              "$and": [{"created_by": {'$eq': 'admin'}}]
-                                              }))
-
-        return render_template("exercise_all.html", exercise_list=exercises, exercise_list_admin=admin)
-
+            return render_template("exercise_all.html", exercise_list=exercises, exercise_list_admin=admin)
+        else:
+            return redirect(url_for('get_exercise_list'))
     else:
         flash("You need to be logged in to perform this action")
         return redirect(url_for("login"))

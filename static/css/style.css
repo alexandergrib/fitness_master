@@ -177,6 +177,51 @@ body {
     padding-top: 0;
 }
 
+.workout-wrapper--input {
+    width: 82%;
+}
+
+.workout-wrapper--reset_button {
+    position: absolute;
+    top: 1px;
+    right: -81px;
+    height: 44px;
+    border-radius: 0 15px 15px 0;
+    font-size: 21px;
+    padding-top: 3px;
+    width: 40px;
+}
+
+.workout-wrapper--reset_button__icon {
+    padding: 0;
+    margin: 0 auto;
+    left: 7px;
+    position: absolute;
+    top: 4px;
+    font-size: 33px !important;
+}
+
+.workout-wrapper--search_button {
+    position: absolute;
+    top: 1px;
+    right: -41px;
+    width: 38px;
+    height: 44px;
+    /* font-size: 22px; */
+    text-align: center;
+    /* margin: 0 auto; */
+    border-radius: 15px 0 0 15px;
+}
+
+.workout-wrapper--search_button__icon {
+    padding: 0;
+    margin: 0;
+    left: 5px;
+    position: absolute;
+    top: 4px;
+    font-size: 25px !important;
+}
+
 .workout--row {
     border: 1px solid black;
     box-shadow: 10px 10px 14px #aaaaaa;
@@ -207,6 +252,7 @@ body {
     padding: 2px 10px;
     float: right;
     color: white;
+    margin-top: 20px;
 }
 
 .add-new-button a {
@@ -414,5 +460,39 @@ body {
     .exercise--form {
         height: auto;
         margin: 0;
+    }
+
+    .workout-wrapper--reset_button {
+        top: 1px;
+        right: -58px;
+        height: 35px;
+        font-size: 21px;
+        padding-top: 3px;
+        width: 35px;
+    }
+
+    .workout-wrapper--reset_button__icon {
+        padding: 0;
+        margin: 0 auto;
+        left: 9px;
+        position: absolute;
+        top: 1px;
+        font-size: 18px !important;
+    }
+
+    .workout-wrapper--search_button {
+        top: 1px;
+        right: -23px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .workout-wrapper--search_button__icon {
+        padding: 0;
+        margin: 0;
+        left: 10px;
+        position: absolute;
+        top: 1px;
+        font-size: 18px !important;
     }
 }
