@@ -150,6 +150,14 @@ body {
 
 }
 
+#delete_item{
+    border-radius: 25px;
+    text-align: center;
+}
+#delete_item a{
+    border-radius: 25px;
+}
+
 .workout-wrapper--cards {
     background-image: url(../img/tile_background_cards.png);
     border: 1px solid black;

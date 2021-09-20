@@ -2,7 +2,7 @@
 {% block content %}
     <h2 class="center-align">EDIT Workout</h2>
     <!-- Cards container -->
-    <div class="workout-wrapper">
+    <div class="workout-wrapper workout-wrapper--cards">
         <form class="col s12" method="POST" action="{{ url_for('edit_workout', workout_id=workout_list._id) }}">
         <!-- Workout name -->
             <div class="row">
@@ -113,23 +113,27 @@
                     <button type="submit" class="btn-large light-blue darken-1 text-shadow">
                         Edit Workout <i class="fas fa-edit right"></i>
                     </button>
-                    <a href="{{ url_for('delete_workout', workout_id=workout_list._id) }}" class="btn-large red darken-1 text-shadow">
-                        DELETE Workout <i class="fas fa-trash-alt"></i>
-                    </a>
-
+                    <a class="waves-effect waves-light btn btn-large red darken-1 text-shadow modal-trigger"
+                           href="#delete_item">DELETE Workout</a>
                 </div>
             </div>
         </form>
     </div>
+
+        {#    modals#}
+
+    <div id="delete_item" class="modal workout-wrapper--cards">
+        <div class="modal-content">
+            <h4>Are you sure you want to delete <br>{{ workout_list.workout_name }}?</h4>
+             <a href="{{ url_for('delete_workout', workout_id=workout_list._id) }}" class="btn-large red darken-1 text-shadow">
+                        DELETE <i class="fas fa-trash-alt"></i>
+                    </a>
+            <a href="{{ url_for('get_workout') }}" class="btn-large green text-shadow">
+                Cancel <i class="fas fa-times-circle right"></i>
+            </a>
+        </div>
+
+    </div>
+
 {% endblock %}
 
-<!--
-{'_id': ObjectId('60e4886598c529729386d020'),
- 'arhived': True,
- 'completed': True,
- 'completed_date': '06 July, 2021 18:55:01',
- 'create_date': '06 July, 2021 17:46:01',
- 'created_by': 'admin',
- 'exercise_list': ['Dip', 'Bench', 'Dumbells'],
- 'workout_name': 'upper body workout'}
--->
