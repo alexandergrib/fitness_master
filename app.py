@@ -53,7 +53,19 @@ def create_workout():
     :return: [status]
     """
     if "user" in session:
-        exercise_list = list(mongo.db.exercises.find())
+        # exercise_list_user = list(mongo.db.exercises.find({"created_by": {"$eq": session["user"]}}))
+        # exercise_list_admin = list(mongo.db.exercises.find({"created_by": {"$eq": "admin"}}))
+
+        # for i in range(len(exercise_list_user)):
+        #     for b in range(len(exercise_list_admin)):
+        #         if exercise_list_user[i]["exercise_name"] in exercise_list_admin[b]["exercise_name"]:
+        #             exercise_list_admin.pop(b)
+        # exercise_list = exercise_list_user + exercise_list_admin
+
+        exercise_list = list(mongo.db.exercises.find({"$or": [{"created_by": {"$eq": "admin"}},
+                                                              {"created_by": {"$eq": session["user"]}}]}
+
+                                                     ))
 
         if request.method == "POST":
             if request.method == "POST":
@@ -113,7 +125,21 @@ def edit_workout(workout_id):
 
         # print(request.form)
         single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
-        exercise_list = list(mongo.db.exercises.find())
+
+        # exercise_list_user = list(mongo.db.exercises.find({"created_by": {"$eq": session["user"]}}))
+        # exercise_list_admin = list(mongo.db.exercises.find({"created_by": {"$eq": "admin"}}))
+        #
+        # # for i in range(len(exercise_list_user)):
+        # #     for b in range(len(exercise_list_admin)):
+        # #         if exercise_list_user[i]["exercise_name"] in exercise_list_admin[b]["exercise_name"]:
+        # #             exercise_list_admin.pop(b)
+        # exercise_list = exercise_list_user + exercise_list_admin
+
+        exercise_list = list(mongo.db.exercises.find({"$or": [{"created_by": {"$eq": "admin"}},
+                                                              {"created_by": {"$eq": session["user"]}}]}
+
+                                                     ))
+
         return render_template("edit_workout.html",
                                workout_list=single_workout,
                                exercise_list=exercise_list)
@@ -362,6 +388,7 @@ def delete_exercise(exercise_id):
         flash("You need to be logged in to perform this action")
         return redirect(url_for("login"))
 
+
 # ============search===================
 
 
@@ -384,6 +411,7 @@ def search():
     else:
         flash("You need to be logged in to perform this action")
         return redirect(url_for("login"))
+
 
 # return render_template("exercise_all.html",
 #                        exercise_list=user,

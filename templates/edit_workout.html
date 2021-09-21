@@ -23,9 +23,13 @@
                         
                             <option selected value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
                         {% else %}
-                            {% if exercise.created_by == "admin" or exercise.created_by == session['user'] %}
+                            {% if exercise.created_by == session['user'] %}
                                 <option value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
-                            {% endif %}    
+
+                            {% elif exercise.created_by == "admin" %}
+                                <option value="{{ exercise.exercise_name }}" data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }} [SYSTEM]</option>
+                            {% endif %}
+
                         {% endif %}
                     {% endfor %}
                 </select>
