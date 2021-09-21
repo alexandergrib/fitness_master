@@ -28,7 +28,7 @@ $(document).ready(function () {
         $("#steps_list li:last").before(
             "<li style='margin-left:3rem;'><label for=step"+li_count+"><input id=step" + 
             li_count + " name='steps' minlength='3' maxlength='1500' type='text' class='validate' required>"+
-                          " Next Step <i class=' fas fa-minus-circle ' style='color:red; float:right; font-size:1.1rem;'> Remove</i></label> </li>"
+                          " Next Step <i class=' fas fa-minus-circle ' style='color:red; float:right; font-size:1.1rem; cursor: pointer;'> Remove</i></label> </li>"
         );
 
         $( "i.fa-minus-circle" ).on( "click", function( event ) {
