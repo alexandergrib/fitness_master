@@ -6,7 +6,20 @@ body {
     overflow-x: hidden;
     background-image: url("../img/tile_background_tile.png");
 }
+.hide {
+  display: none;
+}
 
+.loading-container{
+    max-width: 500px;
+    margin: 0 auto;
+    position: fixed;
+    width: 50vw;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+}
 
 .brand-logo img {
     width: 100px;

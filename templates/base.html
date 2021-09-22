@@ -118,6 +118,20 @@
     {% endwith %}
 </section>
 
+   <!-- Loading module so user doesn't see empty page -->
+
+
+      <div class="loading-container">
+        <div class="container">
+            <span>Please wait while page loading</span>
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
+      </div>
+
+
+
 <main class="container-fluid">
     {% block content %}
     {% endblock %}

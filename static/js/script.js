@@ -37,3 +37,7 @@ $(document).ready(function () {
     });
 });
 
+//hide loading container
+document.body.onload = function () {
+  document.querySelector(".loading-container").classList.add("hide");
+};
