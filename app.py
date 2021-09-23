@@ -163,14 +163,16 @@ def delete_workout(workout_id):
 def start_workout(workout_id):
     """
     Start existing workout. Takes arguments: [workout_id], query DB,
-        :return data
+        :return workout_list, exercise_history, exercise_list
     """
     if "user" in session:
         single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
         exercise_list = list(mongo.db.exercises.find())
+        exercise_history = list(mongo.db.user_profile.find())
         return render_template("start_workout.html",
                                workout_list=single_workout,
-                               exercise_list=exercise_list)
+                               exercise_list=exercise_list,
+                               exercise_history=exercise_history)
     else:
         flash("You need to be logged in to perform this action")
         return redirect(url_for("login"))
@@ -178,44 +180,51 @@ def start_workout(workout_id):
 
 @app.route("/workout/start/update/<query>", methods=["POST", ])
 def update_workout_data(query):
-    if "user" in session:
-        if request.method == "POST":
-            exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})
+    if request.method == "POST":
+        exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})  # fetch single exercise to be updated
+        exercise_history = (exercise_data["exercise_history"] +
+                            request.form.getlist("info_"+query+"[]"))
+        workout_id = request.form.get("id_"+query)  # id from which workout individual exercise called
+        fetch_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+        exercise_history1 = request.form.getlist("info_"+query+"[]")
 
-            if exercise_data['origin'] == "admin" and exercise_data["created_by"] == "admin":
-                exercise_history = exercise_data["exercise_history"]
-            else:
-                exercise_history = (exercise_data["exercise_history"] +
-                                    request.form.getlist("info_" + query + "[]"))
+        for i in exercise_history1:
+            user_profile_data = {
+                "date": datetime.now().strftime("%d/%m/%Y"),
+                "username": session['user'],
+                "exercise_name": exercise_data['exercise_name'],
+                "exercise_id": query,  # exercise_data["_id"],
+                "workout_id": workout_id,
+                "reps": i.split(",")[0],
+                "weight": i.split(",")[1],
+                "comment": "",
+                "workout_name": fetch_workout["workout_name"]
+                }
+            mongo.db.user_profile.insert_one(user_profile_data)
 
-            # print(exercise_history)
-            submit = {
-                "exercise_name": exercise_data["exercise_name"],
-                "description": exercise_data["description"],
-                "about": exercise_data["about"],
-                "img_url": exercise_data["img_url"],
-                "exercise_sets": exercise_data["exercise_sets"],
-                "exercise_reps": request.form.get("reps_" + query),
-                "exercise_category": exercise_data["exercise_category"],
-                "modified_date": datetime.now().strftime("%d/%m/%Y"),
-                "weight": request.form.get("weight_" + query),
-                'exercise_comments': exercise_data["exercise_comments"],
-                'yt_url': exercise_data["yt_url"],
-                'steps': exercise_data["steps"],
-                "created_by": exercise_data["created_by"],
-                "origin": exercise_data["origin"],
-                "is_system": exercise_data["is_system"] if exercise_data["is_system"] else False,
-                "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
-            }
-            id = request.form.get("id_" + query)
-            # print(submit['exercise_history'])
+        # print(exercise_history)
+        submit = {
+            "exercise_name": exercise_data["exercise_name"],
+            "description": exercise_data["description"],
+            "about": exercise_data["about"],
+            "img_url": exercise_data["img_url"],
+            "exercise_sets": exercise_data["exercise_sets"],
+            "exercise_reps": request.form.get("reps_"+query),
+            "exercise_category": exercise_data["exercise_category"],
+            "modified_date": datetime.now().strftime("%d/%m/%Y"),
+            "weight": request.form.get("weight_"+query),
+            'exercise_comments': exercise_data["exercise_comments"],
+            'yt_url': exercise_data["yt_url"],
+            'steps': exercise_data["steps"],
+            "created_by": exercise_data["created_by"],
+            "exercise_history": exercise_history  # request.form.getlist("info_"+query+"[]")
+        }
+        # print(submit['exercise_history'])
+        # mongo.db.user_profile.insert_one(user_profile_data)
+        mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
 
-            mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
+        return redirect(url_for("start_workout", workout_id=workout_id))
 
-            return redirect(url_for("start_workout", workout_id=id))
-    else:
-        flash("You need to be logged in to perform this action")
-        return redirect(url_for("login"))
 
 
 # ---------------------------------exercise section---------------------------------------------

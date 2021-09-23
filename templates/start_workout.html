@@ -82,14 +82,21 @@
                             <div class="col s6">
                                 <span>Last 5 sets</span>
                                 <ul>
-                                {% if exercise.exercise_history %}
-                                    {% for item in exercise.exercise_history[-5:] %}
-                                        <li>{{ item }}</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li>No history</li>    
-                                {% endif %}  
-                                 
+                                {% for item in exercise_history %}
+                                    {% if exercise._id|string == item.exercise_id and  session.user  ==  item.username and item.workout_id == workout_list._id|string %}
+
+                                            <li>REPS:{{ item.reps }} &#x40;
+                                                {% if item.weight == '0' %}
+                                                    BODY WEIGHT
+                                                {% else %}
+                                                  WEIGHT: {{ item.weight }} kg
+                                                {% endif %} on: {{ item.date }}
+                                            </li>
+
+                                    {% else %}
+                                        <li>No history</li>
+                                    {% endif %}
+                                  {% endfor %}
                                 </ul>
 
                             </div>
