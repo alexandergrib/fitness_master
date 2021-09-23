@@ -9,7 +9,7 @@
     <section>
         {% for exercise in exercise_list %}
             {% if exercise.exercise_name in workout_list.exercise_choices %}
-                
+
                 <div class="workout-exercise-single-wrapper">
                     <div class="workout-exercise-single-overlay" id="exercise_{{loop.index}}">
                         <i class="far fa-check-circle"></i>
@@ -34,14 +34,27 @@
                                                     <div class="col-wrapper-single-exercise">
 
                                                         <form action="{{ url_for('update_workout_data', query=exercise._id) }}" method="POST" id="{{ exercise._id }}">
-                                                            
-                                                            <input id="reps_{{ exercise._id }}" name="reps_{{ exercise._id }}"
-                                                                value="{{ exercise.exercise_reps }}" type="text" >
-                                                            <label for="reps_{{ exercise._id }}">Reps</label>
-                                                            
-                                                            <input id="weight_{{ exercise._id }}" name="weight_{{ exercise._id }}"
-                                                                value="{{ exercise.weight }}" type="text" >
-                                                            <label for="weight_{{ exercise._id }}">Weight</label>
+                                                            <div class="input-field inline">
+                                                                <input id="reps_{{ exercise._id }}"
+                                                                       name="reps_{{ exercise._id }}"
+                                                                       value="{{ exercise.exercise_reps }}"
+                                                                       type="number"
+                                                                       minlength="0"
+                                                                       maxlength="5"
+                                                                       class="validate align-right" >
+                                                                <label for="reps_{{ exercise._id }}">Reps</label>
+                                                            </div>
+                                                            <div class="input-field inline">
+                                                                <input id="weight_{{ exercise._id }}"
+                                                                       name="weight_{{ exercise._id }}"
+                                                                       value="{{ exercise.weight }}"
+                                                                       type="number"
+                                                                       minlength="0"
+                                                                       maxlength="5"
+                                                                       class="validate align-right" >
+                                                                <label for="weight_{{ exercise._id }}">Weight in kg</label>
+
+                                                            </div>
                                                             <div class="hidden_inputs">
                                                                 <input type="hidden" name="id_{{ exercise._id }}" value="{{ workout_list._id }}" />
                                                             </div>
@@ -49,8 +62,9 @@
 
                                                             <br>
                                                             <button class="btn-floating waves-effect waves-light" type="submit" name="action">
-                                                                <i class="material-icons right">+</i>
+                                                                <i class="fas fa-plus"></i>
                                                               </button>
+                                                            <span>Add to session</span>
                                                         </form>
 
                                                     </div>
@@ -68,28 +82,36 @@
                             <div class="col s12">Stats</div>
                         </div>
                         <div class="row">
-                            <div class="col s6" >
+                            <div class="col s12 m6 center-on-small" >
                                 <span>Current session</span>
                                 <ul id="save_completed_id_{{ exercise._id }}">
                                     
                                 </ul>
                                 <span>
-                                    <input value="Complete exercise"
+                                    <input class="waves-effect waves-light btn workout-exercise-complete__btn"
+                                           value="Complete exercise"
                                            onclick="submitMyForm('{{ exercise._id }}')"
                                            type="button">
                                 </span>
                             </div>
-                            <div class="col s6">
+                            <div class="col s12 m6 center-on-small">
                                 <span>Last 5 sets</span>
                                 <ul>
-                                {% if exercise.exercise_history %}
-                                    {% for item in exercise.exercise_history[-5:] %}
-                                        <li>{{ item }}</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li>No history</li>    
-                                {% endif %}  
-                                 
+
+                                {% for item in exercise_history %}
+                                    {% if exercise._id|string==item.exercise_id %}
+
+                                            <li>REPS:{{ item.reps }} &#x40;
+                                                {% if item.weight == '0' %}
+                                                    BODY WEIGHT
+                                                {% else %}
+                                                  WEIGHT: {{ item.weight }} kg
+                                                {% endif %} on: {{ item.date }}
+                                            </li>
+
+
+                                    {% endif %}
+                                  {% endfor %}
                                 </ul>
 
                             </div>
