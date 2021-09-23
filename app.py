@@ -165,10 +165,14 @@ def start_workout(workout_id):
     Start existing workout. Takes arguments: [workout_id], query DB,
         :return workout_list, exercise_history, exercise_list
     """
+
     if "user" in session:
         single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
         exercise_list = list(mongo.db.exercises.find())
-        exercise_history = list(mongo.db.user_profile.find())
+        exercise_history = list(mongo.db.user_profile.find(
+            {"$and": [{"username": {"$eq": session["user"]}},
+                      {"workout_id": {"$eq": workout_id}}]}
+        ))
         return render_template("start_workout.html",
                                workout_list=single_workout,
                                exercise_list=exercise_list,
