@@ -395,7 +395,14 @@ def edit_exercise(exercise_id):
 def delete_exercise(exercise_id):
     # mongo.db.exercises.remove({"_id": ObjectId(exercise_id)})
     if "user" in session:
+
+        get_exercise_history = mongo.db.user_profile.find(
+            {"exercise_id": {"$eq": exercise_id}}
+        )
+        for exercise in get_exercise_history:
+            mongo.db.user_profile.delete_many({"_id": ObjectId(exercise['_id'])})
         mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
+
         flash("Exercise Successfully Deleted")
         return redirect(url_for("get_exercise_list"))
     else:
