@@ -21,6 +21,9 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+
+
 mongo = PyMongo(app)
 
 
@@ -230,9 +233,7 @@ def update_workout_data(query):
         return redirect(url_for("start_workout", workout_id=workout_id))
 
 
-
 # ---------------------------------exercise section---------------------------------------------
-
 
 @app.route("/exercise")
 def get_exercise_list():
