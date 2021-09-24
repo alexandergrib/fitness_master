@@ -60,10 +60,10 @@ def create_workout():
             if request.method == "POST":
                 submit = {
                     "workout_name": request.form.get("workout_name"),
-                    "workout_sets": request.form.get("workout_sets"),
-                    "workout_reps": request.form.get("workout_reps"),
+                    "workout_sets": "",
+                    "workout_reps": "",
                     "exercise_choices": request.form.getlist("exercise_choices"),
-                    "weight": request.form.get("weight"),
+                    "weight": "",
                     "created_date": datetime.now().strftime("%d/%m/%Y"),
                     "modified_date": datetime.now().strftime("%d/%m/%Y"),
                     'completed': False,
@@ -94,11 +94,11 @@ def edit_workout(workout_id):
             is_saved = True if request.form.get("is_saved") else False
             submit = {
                 "workout_name": request.form.get("workout_name"),
-                "workout_sets": request.form.get("workout_sets"),
-                "workout_reps": request.form.get("workout_reps"),
+                "workout_sets": "",
+                "workout_reps": "",
                 "exercise_choices": request.form.getlist("exercise_choices"),
                 "modified_date": datetime.now().strftime("%d/%m/%Y"),
-                "weight": request.form.get("weight"),
+                "weight": "",
                 'completed': is_completed,
                 'saved': is_saved,
                 "created_by": session["user"]

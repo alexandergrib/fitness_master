@@ -411,7 +411,12 @@ body {
 .workout-exercise-complete__btn{
     margin-bottom: 20px;
 
+
 }
+.workout-exercise-complete__btn .waves-button-input{
+    cursor: pointer !important;
+}
+
 .workout--row {
     background-image: url('../img/tile_background_cards.png');
     /*margin: 20px;*/
