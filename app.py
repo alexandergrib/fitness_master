@@ -23,7 +23,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
-
 mongo = PyMongo(app)
 
 
