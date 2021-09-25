@@ -4,6 +4,12 @@
     Workouts
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">home </a></li>
+    <li><span>&gt;</span></li>
+    <li><span class="underline"> Workouts</span></li>
+{% endblock %}
+
 {% block content %}
     <h2 class="center-align">Workouts</h2>
 

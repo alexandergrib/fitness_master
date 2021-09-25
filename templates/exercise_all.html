@@ -4,6 +4,14 @@
     Exercises
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">HOME </a></li>
+    <li><span>&gt;</span></li>
+    <li><span class="underline">Individual exercises</span></li>
+
+{% endblock %}
+
+
 {% block content %}
     <h2 class="center-align">Exercises</h2>
     <!-- Cards container -->
