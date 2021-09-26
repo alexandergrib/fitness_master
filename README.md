@@ -116,16 +116,17 @@ Below I have listed the programming languages, technologies, frameworks and reso
 * **Heroku** to deploy my project to the web.
 * **Flask**
 * **MongoDB**
-* **[DaFont](https://www.dafont.com/)**
 * **Google Chrome/FireFox/Edge/Safari** 
 * **Developer tools for chrome/FireFox/Edge**
 * **[Amiresponsive](http://ami.responsivedesign.is/)**
 * **[Balsamiq](https://balsamiq.com/)** to create wireframes.
-* **[W3Schools](https://www.w3schools.com/)** for help with some issues i ran into
-* **[StackOverFlow](https://stackoverflow.com/)** for help with some issues i ran into
+* **[W3Schools](https://www.w3schools.com/)** for help with some issues I ran into
+* **[StackOverFlow](https://stackoverflow.com/)** for help with some issues I ran into
 * **Mentor** my code institute mentor for advice
 * **[Slack](https://slack.com/)** specifically the code institute room in slack.
 * **[Grammarly](https://www.grammarly.com/)** to correct grammar and spelling mistakes.
+* **[Charts CSS](https://chartscss.org/)** to display charts for each workout completed
+* **[Stackoverflow](https://stackoverflow.com)** to help me solve unsolvable
 
 ---
 

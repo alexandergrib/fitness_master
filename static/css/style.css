@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Raleway&family=Bangers&family=Satisfy:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
 body {
@@ -6,7 +6,9 @@ body {
     overflow-x: hidden;
     background-image: url("../img/tile_background_tile.png");
 }
-
+.header-font{
+    font-family: "Bangers", sans-serif;
+}
 .hide {
     display: none;
 }
@@ -120,6 +122,7 @@ body {
     border-radius: 15px;
     padding: 4px;
     text-shadow: -5px 6px #b3b2b240;
+    font-family: "Bangers", sans-serif;
 }
 
 .section-first-slogan-right {
@@ -157,19 +160,21 @@ body {
 
 
 .section-first-slogan-bottom {
+    font-family: "satisfy", sans-serif;
+    font-weight: 300;
     position: absolute;
     top: 30%;
     right: 20px;
     float: right;
     width: fit-content;
-    font-size: 1.1rem;
+    font-size: 1.9rem;
     text-align: right;
-    line-height: 10px;
+    line-height: 0px;
     text-shadow: 5px 6px #b3b2b240;
     padding: 0 3px;
     background-color: ghostwhite;
     border-radius: 20px;
-
+    height: 55px;
 }
 
 /* second section*/
@@ -311,7 +316,7 @@ body {
 
 .workout--row > a:link, .workout--row > a:visited, .workout--row > a:hover, .workout--row > a:active {
     text-decoration: none;
-    color: #f00;
+    color: #000000;
 }
 
 .workout--row span {
@@ -346,7 +351,6 @@ body {
 
 .exercise--card span {
     font-size: 1.5rem;
-    font-weight: 600;
 }
 
 .exercise--card--description {
@@ -456,8 +460,15 @@ body {
     border-bottom-left-radius: inherit;
     display: block;
 }
+
+.workout-exercise-single-stats ol {
+    /*list-style-type: inside;*/
+    padding: 0 15px;
+}
+
 .center-on-small{
     text-align: unset;
+
 }
 .workout-exercise-single-stats--header {
     text-align: center;
@@ -485,6 +496,11 @@ body {
     padding-left: 10px;
 }
 
+.workout-card--inner h6{
+    text-transform: uppercase;
+    font-size: 1.3rem;
+}
+
 .workout-card hr {
     /*visibility: hidden;*/
     margin: 10px auto 0;
@@ -499,6 +515,7 @@ body {
     text-transform: uppercase;
     text-align: center;
     margin: 10px;
+    font-family: "Bangers", sans-serif;
 }
 
 .workout-card span {
@@ -510,6 +527,8 @@ body {
 .workout-card .workout-card--exercises-list {
     list-style-type: "🏀";
     margin-left: 10px;
+    line-height: 30px;
+    font-size: 1.1rem;
 }
 
 
@@ -609,6 +628,9 @@ body {
         font-size: 1.6rem;
     }
 
-
+.section-first-slogan-bottom {
+    font-size: 1rem;
+    height: 33px;
+}
 
 }
