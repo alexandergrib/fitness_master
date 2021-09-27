@@ -459,9 +459,10 @@ def profile():
         })["username"]
     except (TypeError, KeyError):
         return redirect(url_for("login"))
-    if session["user"]:
-        return render_template("profile.html")
-    return redirect(url_for("login"))
+    if "user" in session:
+        user_history = list(mongo.db.user_profile.find({"username": {"$eq": session["user"]}}))
+        return render_template("profile.html", user_history=user_history)
+    return redirect(url_for("index"))
 
 
 @app.route("/logout")

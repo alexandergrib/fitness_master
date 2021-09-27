@@ -24,7 +24,8 @@
             height: 300px;
         }
     </style>
-    <div class="container">
+
+    <section class="container">
         <div class="container">
             <div class="row">
                 <div class="col s12 m8 offset-m2">
@@ -36,537 +37,424 @@
                 </div>
             </div>
         </div>
+    </section>
+
+        {#==========Section with wokrout history#}
+    <div class="container">
+        <h2 class="center-align ">Yor workouts</h2>
+        <ul>
+<!--                 get all history created by user and group it by workouts  -->
+            {% for workouts, exercises in user_history|groupby("workout_name") %}
+{#            <li>#}
+                {# workout name#}
+{#               {{ workouts }}:#}
+                {# exercise in each workout#}
 
 
-        {#    <div class="container workout-wrapper">#}
-        {#        <h2 class="center-align ">Recent workouts</h2>#}
-        {##}
-        {#        <div class="chart-block my-chart">#}
-        {#            <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
-        {##}
-        {#                <caption></caption>#}
-        {##}
-        {#                <tbody>#}
-        {#                <tr>#}
-        {#                    <th scope="row"> 19/10/2021</th>#}
-        {#                    <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
-        {#                </tr>#}
-        {#                <tr>#}
-        {#                    <th scope="row"> 20/10/2021</th>#}
-        {#                    <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
-        {#                </tr>#}
-        {#                <tr>#}
-        {#                    <th scope="row"> 20/10/2021</th>#}
-        {#                    <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
-        {#                </tr>#}
-        {#                <tr>#}
-        {#                    <th scope="row"> 25/10/2021</th>#}
-        {#                    <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
-        {#                </tr>#}
-        {#                <tr>#}
-        {#                    <th scope="row"> 28/10/2021</th>#}
-        {#                    <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
-        {#                </tr>#}
-        {#                </tbody>#}
-        {##}
-        {#            </table>#}
-        {#        </div>#}
-        {#    </div>#}
+{#               {% for exercise in exercises %}#}
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header">{{ workouts }}</div>
+                                <div class="collapsible-body">
+                                    <div class="container">
+                                        <div class="chart-block my-chart">
+                                            <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data  show-labels show-data-axes show-primary-axis">
+                                                <caption></caption>
 
+                                                <tbody>
+                                                    {% for exercise in exercises|sort(reverse=true, attribute="date")  %}
+                                                        {% if loop.index0 <=9 %}
+                                                             <!--  in  each workout group all exercises by id-->
 
-        <div class="container">
-            <h2 class="center-align ">Yor workouts</h2>
-            <ul>
-                <li><h4>Workout name</h4></li>
-                <li>
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">Exercise 1</div>
-                            <div class="collapsible-body">
-                                <div class="container">
+                                                                <tr>
+                                                                    <th scope="row"> {{ exercise.date }}</th>
+                                                                    <td style="--size: calc({{ exercise.weight }} * 0.01)"> {{ exercise.weight }}</td>
+                                                                </tr>
+                                                        {% endif %}
+                                                    {% endfor %}
 
+                                                </tbody>
 
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 2</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 3</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                 <li><h4>Workout name2</h4></li>
-                <li>
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">Exercise 1</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 2</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 3</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                 <li><h4>Workout name3</h4></li>
-                <li>
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">Exercise 1</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 2</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 3</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                 <li><h4>Workout name4</h4></li>
-                <li>
-                    <ul class="collapsible">
-                        <li>
-                            <div class="collapsible-header">Exercise 1</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 2</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header">Exercise 3</div>
-                            <div class="collapsible-body">
-                                <div class="container">
-
-
-                                    <div class="chart-block my-chart">
-                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">
-
-                                            <caption></caption>
-
-                                            <tbody>
-                                            <tr>
-                                                <th scope="row"> 19/10/2021</th>
-                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 20/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 25/10/2021</th>
-                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"> 28/10/2021</th>
-                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>
-                                            </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
+                            </li>
+                        </ul>
+{#               {% endfor %}#}
+{#            </li>#}
+            {% endfor %}
+        </ul>
     </div>
+
+
+
+                {#                <li>#}
+{#                                    <ul class="collapsible">#}
+{#                                        <li>#}
+{#                                            <div class="collapsible-header">Exercise 1</div>#}
+{#                                            <div class="collapsible-body">#}
+{#                                                <div class="container">#}
+{##}
+{##}
+{#                                                    <div class="chart-block my-chart">#}
+{#                                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+{##}
+{#                                                            <caption></caption>#}
+{##}
+{#                                                            <tbody>#}
+{#                                                            <tr>#}
+{#                                                                <th scope="row"> 19/10/2021</th>#}
+{#                                                                <td style=" --size: calc( 40 / 100 )"> 40KG</td>#}
+{#                                                            </tr>#}
+{#                                                            <tr>#}
+{#                                                                <th scope="row"> 20/10/2021</th>#}
+{#                                                                <td style=" --size: calc( 60 / 100 )"> 60KG</td>#}
+{#                                                            </tr>#}
+{#                                                            <tr>#}
+{#                                                                <th scope="row"> 20/10/2021</th>#}
+{#                                                                <td style="--size: 0.5"> BODY</td>#}
+{#                                                            </tr>#}
+{#                                                            <tr>#}
+{#                                                                <th scope="row"> 25/10/2021</th>#}
+{#                                                                <td style="--size: calc( 90 / 100 )"> 90KG</td>#}
+{#                                                            </tr>#}
+{#                                                            <tr>#}
+{#                                                                <th scope="row"> 28/10/2021</th>#}
+{#                                                                <td style="--size: 0.5"> BODY</td>#}
+{#                                                            </tr>#}
+{#                                                            </tbody>#}
+{##}
+{#                                                        </table>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </li>#}
+{#                                    </ul>>#}
+                {#                            <div class="collapsible-header">Exercise 2</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {##}
+                {##}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                        <li>#}
+                {#                            <div class="collapsible-header">Exercise 3</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {##}
+                {##}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                    </ul>#}
+                {#                </li>#}
+                {#
+                {#                <li><h4>Workout name3</h4></li>#}
+                {#                <li>#}
+                {#                    <ul class="collapsible">#}
+                {#                        <li>#}
+                {#                            <div class="collapsible-header">Exercise 1</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {##}
+                {##}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                        <li>#}
+                {#                            <div class="collapsible-header">Exercise 2</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {##}
+                {##}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                        <li>#}
+                {#                            <div class="collapsible-header">Exercise 3</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                    </ul>#}
+                {#                </li>#}
+                {#                <li><h4>Workout name4</h4></li>#}
+                {#                <li>#}
+                {#                    <ul class="collapsible">#}
+                {#                        <li>#}
+                {#                            <div class="collapsible-header">Exercise 1</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {##}
+                {##}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                        <li>#}
+                {#                            <div class="collapsible-header">Exercise 2</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {##}
+                {##}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                        <li>#}
+                {#                            <div class="collapsible-header">Exercise 3</div>#}
+                {#                            <div class="collapsible-body">#}
+                {#                                <div class="container">#}
+                {##}
+                {##}
+                {#                                    <div class="chart-block my-chart">#}
+                {#                                        <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data show-labels show-data-axes show-primary-axis">#}
+                {##}
+                {#                                            <caption></caption>#}
+                {##}
+                {#                                            <tbody>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 19/10/2021</th>#}
+                {#                                                <td style="--start: 0.2; --size: calc( 40 / 100 )"> 40KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.4; --size: calc( 60 / 100 )"> 60KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 20/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 25/10/2021</th>#}
+                {#                                                <td style="--start: 0.8; --size: calc( 90 / 100 )"> 90KG</td>#}
+                {#                                            </tr>#}
+                {#                                            <tr>#}
+                {#                                                <th scope="row"> 28/10/2021</th>#}
+                {#                                                <td style="--start: 0.5; --size: 0.5"> BODY</td>#}
+                {#                                            </tr>#}
+                {#                                            </tbody>#}
+                {##}
+                {#                                        </table>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </li>#}
+                {#                    </ul>#}
+                {#                </li>#}
+                {#                </ul>#}
+
+{#        </div>#}
+{#    </div>#}
 {% endblock %}
