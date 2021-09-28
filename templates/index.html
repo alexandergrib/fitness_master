@@ -9,9 +9,7 @@
             <div class="section-first-header">
                 <h1>Track your exercise activity</h1>
             </div>
-            {#            <img src=" {{url_for('static', filename='img/anastasia-hisel-tpivPdQgC20-unsplash.jpg')}}" alt="Exercising girl" width="1000" height="500">#}
             <div class="section-first-slogan-right">
-                {#                <img src=" {{url_for('static', filename='img/cloud.svg')}}" alt="Text cloud" width="400" height="400">#}
                 <span class="browser-default">stick to your healthy<br> habits  by tracking your activities.</span>
             </div>
         </div>
@@ -23,8 +21,10 @@
         <div class="container-fluid">
             <h2>TRACK YOUR FITNESS ACTIVITY</h2>
             <div class="gallery">
-                <img src="https://image.shutterstock.com/image-vector/ready-fitness-application-uiux-info-260nw-1441869032.jpg"
-                     alt="">
+                <img src="{{ url_for("static", filename="img/profile_demo.png") }}"
+                     width="309"
+                     height="208"
+                     alt="Image displaying profile workout statistics">
             </div>
         </div>
     </section>
@@ -40,8 +40,8 @@
         </div>
         {% if session.user %}
 
-            <a href="{{ url_for("profile") }}" class="waves-effect waves-light btn-large"><i
-                    class="fas fa-dumbbell"></i> PROFILE <i class="fas fa-dumbbell"></i></a>
+            <a href="{{ url_for("profile") }}" class="waves-effect waves-light btn-large">
+                <i class="fas fa-dumbbell"></i> PROFILE <i class="fas fa-dumbbell"></i></a>
 
         {% else %}
             <a href="{{ url_for("register") }}" class="waves-effect waves-light btn-large"><i
