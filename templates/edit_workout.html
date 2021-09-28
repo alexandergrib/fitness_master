@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+
+{% block title %}
+    workouts
+{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">home </a></li>
+    <li><span>&gt;</span></li>
+    <li><a href="{{ url_for('get_workout') }}">Workouts </a></li>
+    <li><span>&gt;</span></li>
+    <li><span class="underline">Edit workout {{ workout_list.workout_name }}</span></li>
+{% endblock %}
+
 {% block content %}
     <h2 class="center-align">EDIT Workout</h2>
     <!-- Cards container -->
@@ -36,34 +48,34 @@
                 <label>Pick your exercises</label>
             </div>
 
-        <!-- workout sets -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="workout_sets" name="workout_sets" min="0" max="1000"
-                        value="{{ workout_list.workout_sets }}" type="number" class="validate" >
-                    <label for="workout_sets">Workout sets</label>
-                </div>
-            </div>
+{#        <!-- workout sets -->#}
+{#            <div class="row">#}
+{#                <div class="input-field col s12">#}
+{#                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>#}
+{#                    <input id="workout_sets" name="workout_sets" min="0" max="1000"#}
+{#                        value="{{ workout_list.workout_sets }}" type="number" class="validate" >#}
+{#                    <label for="workout_sets">Workout sets</label>#}
+{#                </div>#}
+{#            </div>#}
 
-        <!-- workout reps -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="workout_reps" name="workout_reps" min="0" max="1000"
-                        value="{{ workout_list.workout_reps }}" type="number" class="validate" >
-                    <label for="workout_reps">Workout reps</label>
-                </div>
-            </div>
-        <!-- workout weight -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
-                    <input id="weight" name="weight" min="0" max="1000"
-                        value="{{ workout_list.weight }}" type="number" class="validate" >
-                    <label for="weight">Workout weight</label>
-                </div>
-            </div>
+{#        <!-- workout reps -->#}
+{#            <div class="row">#}
+{#                <div class="input-field col s12">#}
+{#                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>#}
+{#                    <input id="workout_reps" name="workout_reps" min="0" max="1000"#}
+{#                        value="{{ workout_list.workout_reps }}" type="number" class="validate" >#}
+{#                    <label for="workout_reps">Workout reps</label>#}
+{#                </div>#}
+{#            </div>#}
+{#        <!-- workout weight -->#}
+{#            <div class="row">#}
+{#                <div class="input-field col s12">#}
+{#                    <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>#}
+{#                    <input id="weight" name="weight" min="0" max="1000"#}
+{#                        value="{{ workout_list.weight }}" type="number" class="validate" >#}
+{#                    <label for="weight">Workout weight</label>#}
+{#                </div>#}
+{#            </div>#}
         <!-- Completed and saved options -->
             <div class="row">
                 <div class="col s12">
@@ -124,7 +136,7 @@
         </form>
     </div>
 
-        {#    modals#}
+        <!--===================== modals===============#-->
 
     <div id="delete_item" class="modal workout-wrapper--cards">
         <div class="modal-content">

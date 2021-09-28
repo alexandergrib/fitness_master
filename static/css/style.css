@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Raleway&family=Bangers&family=Satisfy:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 
 body {
@@ -7,12 +7,16 @@ body {
     background-image: url("../img/tile_background_tile.png");
 }
 
+.header-font {
+    font-family: "Bangers", sans-serif;
+}
+
 .hide {
     display: none;
 }
 
 .loading-container {
-    max-width: 500px;
+    max-width: 655px; /*500*/
     margin: 0 auto;
     position: fixed;
     width: 50vw;
@@ -30,6 +34,57 @@ body {
 
 #headline_img {
     width: 100%;
+}
+
+.breadcrumbs {
+    position: relative;
+}
+
+.breadcrumbs .row {
+    margin-bottom: 0;
+}
+
+.breadcrumbs-wrapper {
+    position: absolute;
+    top: 10px;
+    z-index: 2;
+    height: 27px;
+    /*font-size: 20px;*/
+    padding: 0;
+    margin: 0;
+    /*line-height: 15px;*/
+    width: fit-content;
+    text-transform: uppercase;
+}
+
+.breadcrumbs-wrapper ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.breadcrumbs-wrapper li {
+    float: left;
+}
+
+.breadcrumbs-wrapper li a, .breadcrumbs-wrapper li span {
+    font-size: 1rem;
+    line-height: 15px;
+    display: block;
+    color: #a7b3f1;
+    text-align: center;
+    padding: 16px 3px;
+    text-decoration: none;
+}
+
+.breadcrumbs-wrapper li a:hover {
+    color: #3655e6;
+    font-size: 2rem;
+}
+
+.underline {
+    text-decoration: underline !important;
 }
 
 /*homepage*/
@@ -69,6 +124,12 @@ body {
     line-height: 100%;
     text-transform: uppercase;
     text-align: center;
+    background-color: antiquewhite;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 4px;
+    text-shadow: -5px 6px #b3b2b240;
+    font-family: "Bangers", sans-serif;
 }
 
 .section-first-slogan-right {
@@ -106,15 +167,21 @@ body {
 
 
 .section-first-slogan-bottom {
+    font-family: "satisfy", sans-serif;
+    font-weight: 300;
     position: absolute;
     top: 30%;
     right: 20px;
     float: right;
-    width: 100%;
-    font-size: 20px;
+    width: fit-content;
+    font-size: 1.9rem;
     text-align: right;
-    line-height: 20px;
+    line-height: 0px;
     text-shadow: 5px 6px #b3b2b240;
+    padding: 0 3px;
+    background-color: ghostwhite;
+    border-radius: 20px;
+    height: 55px;
 }
 
 /* second section*/
@@ -126,7 +193,12 @@ body {
 .section-second h2 {
     font-size: 2.4rem;
 }
-
+.section-second img{
+    width: 309px;
+    height: auto;
+    border: 1px solid black;
+    background-color: #aaaaaa;
+}
 /* second third*/
 .section-third {
     text-align: center;
@@ -156,7 +228,7 @@ body {
 }
 
 .workout-wrapper {
-    max-width: 650px;
+    max-width: 655px;
     width: 80%;
     position: absolute;
     left: 50%;
@@ -181,8 +253,8 @@ body {
 }
 
 .exercise-wrapper {
-    margin-top: 30px;
-    max-width: 650px;
+    margin-top: 50px;
+    max-width: 655px;
     width: 80%;
     position: absolute;
     left: 50%;
@@ -256,7 +328,7 @@ body {
 
 .workout--row > a:link, .workout--row > a:visited, .workout--row > a:hover, .workout--row > a:active {
     text-decoration: none;
-    color: #f00;
+    color: #000000;
 }
 
 .workout--row span {
@@ -291,7 +363,6 @@ body {
 
 .exercise--card span {
     font-size: 1.5rem;
-    font-weight: 600;
 }
 
 .exercise--card--description {
@@ -354,7 +425,7 @@ body {
     border-radius: 10px;
     box-shadow: 5px 5px 14px #aaaaaa;
     margin: 0 auto;
-    max-width: 650px;
+    max-width: 655px;
 }
 
 .workout-exercise-single-card-name {
@@ -401,17 +472,32 @@ body {
     border-bottom-left-radius: inherit;
     display: block;
 }
-.center-on-small{
-    text-align: unset;
+
+.workout-exercise-single-stats ol {
+    /*list-style-type: inside;*/
+    padding: 0 15px;
 }
+
+.center-on-small {
+    text-align: unset;
+
+}
+
 .workout-exercise-single-stats--header {
     text-align: center;
     font-size: 1.1rem;
 }
-.workout-exercise-complete__btn{
+
+.workout-exercise-complete__btn {
     margin-bottom: 20px;
 
+
 }
+
+.workout-exercise-complete__btn .waves-button-input {
+    cursor: pointer !important;
+}
+
 .workout--row {
     background-image: url('../img/tile_background_cards.png');
     /*margin: 20px;*/
@@ -423,6 +509,11 @@ body {
 
 .workout-card--inner {
     padding-left: 10px;
+}
+
+.workout-card--inner h6 {
+    text-transform: uppercase;
+    font-size: 1.3rem;
 }
 
 .workout-card hr {
@@ -439,6 +530,7 @@ body {
     text-transform: uppercase;
     text-align: center;
     margin: 10px;
+    font-family: "Bangers", sans-serif;
 }
 
 .workout-card span {
@@ -450,8 +542,41 @@ body {
 .workout-card .workout-card--exercises-list {
     list-style-type: "🏀";
     margin-left: 10px;
+    line-height: 30px;
+    font-size: 1.1rem;
 }
 
+
+/*=======profile===================*/
+.my-chart {
+    height: 300px;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 10px;
+    --heading-size: 2rem;
+    --labels-size: 2.5rem;
+    position: relative;
+}
+
+.note {
+    position: absolute;
+    bottom: -15px;
+    right: 0;
+    font-size: 8px;
+}
+
+.my-chart caption {
+    font-size: 1rem;
+    line-height: 1.25rem;
+}
+
+.profile-container {
+    display: block;
+    height: 300px;
+}
+.profile-container h2{
+    text-transform: uppercase;
+}
 
 /*Media queries*/
 
@@ -534,6 +659,25 @@ body {
     .center-on-small {
         text-align: center;
         margin-top: 20px;
-
     }
+
+    .breadcrumbs-wrapper {
+        font-size: 20px;
+        line-height: 4px;
+    }
+
+    .breadcrumbs-wrapper li a, .breadcrumbs-wrapper li span {
+        padding: 16px 3px;
+        font-size: 0.8rem;
+    }
+
+    .breadcrumbs-wrapper li a:hover {
+        font-size: 1.6rem;
+    }
+
+    .section-first-slogan-bottom {
+        font-size: 1rem;
+        height: 33px;
+    }
+
 }

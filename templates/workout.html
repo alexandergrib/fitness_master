@@ -4,8 +4,14 @@
     Workouts
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">home </a></li>
+    <li><span>&gt;</span></li>
+    <li><span class="underline"> Workouts</span></li>
+{% endblock %}
+
 {% block content %}
-    <h2 class="center-align">Workouts</h2>
+    <h2 class="center-align header-font">Workouts</h2>
 
 
     <!-- Cards container -->
@@ -30,17 +36,19 @@
                     <a href="{{ url_for('start_workout', workout_id=workout._id) }}">
                         <div class="row workout--row">
                             <div class="col s10 workout-card">
-                                <h2>{{ workout.workout_name }}</h2>
+                                <h2 class="header-font">{{ workout.workout_name }}</h2>
                                 <hr>
                                 <div class="workout-card--inner">
                                     <ul>
-                                        <li>{{ workout.exercise_choices | length }}
-                                            {% if workout.exercise_choices |length < 2 %}
-                                                exercise in workout:
-                                            {% else %}
-                                                exercises in workout:
-                                            {% endif %}
-
+                                        <li>
+                                            <h6>
+                                                {{ workout.exercise_choices | length }}
+                                                {% if workout.exercise_choices |length < 2 %}
+                                                    exercise in workout:
+                                                {% else %}
+                                                    exercises in workout:
+                                                {% endif %}
+                                            </h6>
                                             <ul class="workout-card--exercises-list browser-default">
                                                 {% for exercise in workout.exercise_choices %}
                                                     <li>{{ exercise }}</li>
@@ -72,14 +80,3 @@
     </div>
 
 {% endblock %}
-
-<!--
-{'_id': ObjectId('60e4886598c529729386d020'),
- 'arhived': True,
- 'completed': True,
- 'completed_date': '06 July, 2021 18:55:01',
- 'create_date': '06 July, 2021 17:46:01',
- 'created_by': 'admin',
- 'exercise_list': ['Dip', 'Bench', 'Dumbells'],
- 'workout_name': 'upper body workout'}
--->

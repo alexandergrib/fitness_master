@@ -4,8 +4,16 @@
     Exercises
 {% endblock %}
 
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">HOME </a></li>
+    <li><span>&gt;</span></li>
+    <li><span class="underline">Individual exercises</span></li>
+
+{% endblock %}
+
+
 {% block content %}
-    <h2 class="center-align">Exercises</h2>
+    <h2 class="center-align header-font">Exercises</h2>
     <!-- Cards container -->
     <div class="workout-wrapper ">
         <div class="row">
@@ -47,7 +55,7 @@
 
                         <div class="col s12 m6 exercise--card">
                             <div class="row">
-                                <div class="col s12 "><span>{{ system.exercise_name | truncate(26, False, '...', 0) }} [SYSTEM]</span>
+                                <div class="col s12 "><span class="header-font">{{ system.exercise_name | truncate(26, False, '...', 0) }} [SYSTEM]</span>
                                 </div>
                                 <div class="col s12 exercise--card--description">
                                     <p>{{ system.description | truncate(150, False, '...', 0) }}</p></div>
@@ -74,7 +82,7 @@
                         <div class="col s12 m6 exercise--card">
                             <div class="row">
                                 <div class="col s12 ">
-                                    <span>{{ exercise.exercise_name | truncate(26, False, '...', 0) }}</span></div>
+                                    <span class="header-font">{{ exercise.exercise_name | truncate(26, False, '...', 0) }}</span></div>
                                 <div class="col s12 exercise--card--description">
                                     <p>{{ exercise.description | truncate(250, False, '...', 0) }}</p></div>
                             </div>

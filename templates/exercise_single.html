@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+
+{% block title %}
+    Exercises
+{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">home </a></li>
+    <li><span>&gt;</span></li>
+    <li><a href="{{ url_for('get_exercise_list') }}">Individual exercises </a></li>
+    <li><span>&gt;</span></li>
+    <li><span class="underline"> Exercise {{ exercise.exercise_name }}</span></li>
+{% endblock %}
+
 {% block content %}
 
     <!-- Cards container -->

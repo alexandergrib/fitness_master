@@ -1,6 +1,18 @@
 {% extends "base.html" %}
+{% block title %}
+    workouts
+{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{ url_for('index') }}">home </a></li>
+    <li><span>&gt;</span></li>
+    <li><a href="{{ url_for('get_workout') }}">Workouts </a></li>
+    <li><span>&gt;</span></li>
+    <li><span class="underline"> Start workout</span></li>
+{% endblock %}
+
 {% block content %}
-    <h2 class="center-align">Start Workout &quot;{{ workout_list.workout_name|truncate(26, False, '...', 0) }}&quot;</h2>
+    <h2 class="center-align">Start Workout
+        &quot;{{ workout_list.workout_name|truncate(26, False, '...', 0) }}&quot;</h2>
     <!--Start button-->
     <!-- <div class="container center-align start-workout-btn">
         <a class="waves-effect waves-light btn" onclick="start_workout()">Start worout <i class="fas fa-stopwatch"></i></a>
@@ -11,7 +23,7 @@
             {% if exercise.exercise_name in workout_list.exercise_choices %}
 
                 <div class="workout-exercise-single-wrapper">
-                    <div class="workout-exercise-single-overlay" id="exercise_{{loop.index}}">
+                    <div class="workout-exercise-single-overlay" id="exercise_{{ loop.index }}">
                         <i class="far fa-check-circle"></i>
                     </div>
                     <div class="row">
@@ -19,73 +31,83 @@
                             <div class="row">
                                 <div class="col s12">
                                     <div class="row">
-                                        <div class="col s12 center workout-exercise-single-card-name"><span>{{ exercise.exercise_name|truncate(26, False, '...', 0) }}</span><div class="workout-exercise-single-more-info">
-                                            <a href="{{ url_for('get_exercise', exercise_id=exercise._id)}}"><i class="fas fa-info-circle right"></i></a></div></div>
+                                        <div class="col s12 center workout-exercise-single-card-name">
+                                            <span>{{ exercise.exercise_name|truncate(26, False, '...', 0) }}</span>
+                                            <div class="workout-exercise-single-more-info">
+                                                <a href="{{ url_for('get_exercise', exercise_id=exercise._id) }}"
+                                                   class="tooltipped right" data-position="top"
+                                                   data-tooltip="Open '{{ exercise.exercise_name }}' Exercise"><i
+                                                        class="fas fa-info-circle right"></i></a></div>
+                                        </div>
                                     </div>
                                     <div class="container">
                                         <div class="row">
-                                        <div class="col s4 workout-exercise-single-image-wrapper ">
-                                            <img src="{{ exercise.img_url }}"
-                                                alt="{{  exercise.exercise_name }} image" width="150" height="150">
-                                        </div>
-                                        <div class="col s8">
-                                            <div class="row">
-                                                <div class="col s12">
-                                                    <div class="col-wrapper-single-exercise">
+                                            <div class="col s4 workout-exercise-single-image-wrapper ">
+                                                <img src="{{ exercise.img_url }}"
+                                                     alt="{{ exercise.exercise_name }} image" width="150" height="150">
+                                            </div>
+                                            <div class="col s8">
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <div class="col-wrapper-single-exercise">
 
-                                                        <form action="{{ url_for('update_workout_data', query=exercise._id) }}" method="POST" id="{{ exercise._id }}">
-                                                            <div class="input-field inline">
-                                                                <input id="reps_{{ exercise._id }}"
-                                                                       name="reps_{{ exercise._id }}"
-                                                                       value="{{ exercise.exercise_reps }}"
-                                                                       type="number"
-                                                                       minlength="0"
-                                                                       maxlength="5"
-                                                                       class="validate align-right" >
-                                                                <label for="reps_{{ exercise._id }}">Reps</label>
-                                                            </div>
-                                                            <div class="input-field inline">
-                                                                <input id="weight_{{ exercise._id }}"
-                                                                       name="weight_{{ exercise._id }}"
-                                                                       value="{{ exercise.weight }}"
-                                                                       type="number"
-                                                                       minlength="0"
-                                                                       maxlength="5"
-                                                                       class="validate align-right" >
-                                                                <label for="weight_{{ exercise._id }}">Weight in kg</label>
+                                                            <form action="{{ url_for('update_workout_data', query=exercise._id) }}"
+                                                                  method="POST" id="{{ exercise._id }}">
+                                                                <div class="input-field inline">
+                                                                    <input id="reps_{{ exercise._id }}"
+                                                                           name="reps_{{ exercise._id }}"
+                                                                           value="{{ exercise.exercise_reps }}"
+                                                                           type="number"
+                                                                           minlength="0"
+                                                                           maxlength="5"
+                                                                           class="validate align-right">
+                                                                    <label for="reps_{{ exercise._id }}">Reps</label>
+                                                                </div>
+                                                                <div class="input-field inline">
+                                                                    <input id="weight_{{ exercise._id }}"
+                                                                           name="weight_{{ exercise._id }}"
+                                                                           value="{{ exercise.weight }}"
+                                                                           type="number"
+                                                                           minlength="0"
+                                                                           maxlength="5"
+                                                                           class="validate align-right">
+                                                                    <label for="weight_{{ exercise._id }}">Weight in
+                                                                        kg</label>
 
-                                                            </div>
-                                                            <div class="hidden_inputs">
-                                                                <input type="hidden" name="id_{{ exercise._id }}" value="{{ workout_list._id }}" />
-                                                            </div>
+                                                                </div>
+                                                                <div class="hidden_inputs">
+                                                                    <input type="hidden" name="id_{{ exercise._id }}"
+                                                                           value="{{ workout_list._id }}"/>
+                                                                </div>
 
 
-                                                            <br>
-                                                            <button class="btn-floating waves-effect waves-light" type="submit" name="action">
-                                                                <i class="fas fa-plus"></i>
-                                                              </button>
-                                                            <span>Add to session</span>
-                                                        </form>
+                                                                <br>
+                                                                <button class="btn-floating waves-effect waves-light"
+                                                                        type="submit" name="action">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </button>
+                                                                <span>Add to session</span>
+                                                            </form>
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="workout-exercise-single-stats" >
+                    <div class="workout-exercise-single-stats">
                         <div class="row workout-exercise-single-stats--header">
-                            <div class="col s12">Stats</div>
+                            <div class="col s12"><h5>Stats</h5></div>
                         </div>
                         <div class="row">
-                            <div class="col s12 m6 center-on-small" >
+                            <div class="col s12 m5 center-on-small">
                                 <span>Current session</span>
                                 <ul id="save_completed_id_{{ exercise._id }}">
-                                    
+
                                 </ul>
                                 <span>
                                     <input class="waves-effect waves-light btn workout-exercise-complete__btn"
@@ -94,36 +116,35 @@
                                            type="button">
                                 </span>
                             </div>
-                            <div class="col s12 m6 center-on-small">
+                            <div class="col s12 m6 push-m1 center-on-small">
                                 <span>Last 5 sets</span>
-                                <ul>
-
-                                {% for item in exercise_history %}
-                                    {% if exercise._id|string==item.exercise_id %}
-
-                                            <li>REPS:{{ item.reps }} &#x40;
-                                                {% if item.weight == '0' %}
-                                                    BODY WEIGHT
-                                                {% else %}
-                                                  WEIGHT: {{ item.weight }} kg
-                                                {% endif %} on: {{ item.date }}
-                                            </li>
-
-
-                                    {% endif %}
-                                  {% endfor %}
-                                </ul>
-
+                                <ol>
+                                    {% for group in exercise_history|groupby('exercise_id') %}
+                                        {% for item in group.list|sort(reverse=true, attribute="date") %}
+                                            {% if exercise._id|string==item.exercise_id|string %}
+                                                {% if loop.index0 <=4 %}
+                                                    <li>
+                                                       {{ item.reps }} REPS &#x40;
+                                                        {% if item.weight == '0' %}
+                                                            BODY WEIGHT
+                                                        {% else %}
+                                                            WEIGHT: {{ item.weight }} kg
+                                                        {% endif %}
+                                                    </li>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ol>
                             </div>
-                            
 
-                       </div>
+                        </div>
                     </div>
-        
+
                 </div>
-     
-          
-            
+
+
+
             {% endif %}
         {% endfor %}
     </section>

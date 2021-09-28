@@ -1,14 +1,72 @@
 {% extends "base.html" %}
+
+{% block css %}
+    <!-- Charts stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/charts.min.css') }}" type="text/css">
+{% endblock %}
+
 {% block content %}
 
-    <div class="row">
-        <div class="col s12 m8 offset-m2">
-            <div class="card-panel">
-                <h3 class="center-align light-blue-text text-darken-4">
-                    {{ session.user }} Profile
-                </h3>
+    <section class="profile-container">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m8 offset-m2">
+                    <div class="workout-wrapper">
+                        <h3 class="center-align">Hello
+                            {{ session.user|capitalize }}
+                        </h3>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
+        {#==========Section with wokrout history#}
+    <div class="container profile-container">
+        <h2 class="center-align ">Your completed workouts</h2>
+        <ul>
+        {% if user_history %}
+<!--                 get all history created by user and group it by workouts  -->
+            {% for workouts, exercises in user_history|groupby("workout_name") %}
+                        <ul class="collapsible accordion popout">
+                            <li>
+                                <div class="collapsible-header">{{ workouts | upper }} - Weight progress</div>
+                                <div class="collapsible-body">
+                                    <div class="container">
+                                        <div class="chart-block my-chart">
+                                            <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data  show-labels show-data-axes show-primary-axis">
+                                                <caption>{{ workouts }}</caption>
+                                                <tbody>
+                                                    {% for exercise in exercises|sort(reverse=true, attribute="date")  %}
+                                                        {% if loop.index0 <=9 %}
+                                                             <!--  in  each workout group all exercises by id-->
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                    {% set list1 = exercise.date.split("/") %}
+                                                                        {{ list1[0] }}/{{ list1[1] }}
+                                                                    </th>
+                                                                    {#Set 150kg maximum weight limit#}
+                                                                    <td style="--size: calc({% if exercise.weight |int >= 150 %}150{% else %}{{ exercise.weight }}{% endif %} / 150)">
+                                                                        {% if exercise.weight |int == 0 %}
+                                                                        {% else %}
+                                                                            {{ exercise.weight }}kg
+                                                                        {% endif %}
+                                                                    </td>
+                                                                </tr>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                <div class="note"><span>*Display based on weight of 100%/150kg </span></div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+            {% endfor %}
+        {% else %}
+            <li>No history available</li>
+        {% endif %}
+        </ul>
+    </div>
 {% endblock %}

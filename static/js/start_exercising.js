@@ -20,8 +20,7 @@ function addNewInput(id, repsVal, weightVal){
 function submitMyForm(id){
     let form = document.getElementById(id);
     console.log('form submitted');
-    // console.log(id);
-    form.submit(); //this dont work
+    form.submit();
 }
 
 function handleSubmit(event){
@@ -31,10 +30,8 @@ function handleSubmit(event){
     let repsVal = this.elements[0].value;
     let weightVal = this.elements[1].value;
     let responce = addNewInput(id, repsVal, weightVal);
-    children =this.querySelector('.hidden_inputs');
-    // console.log(children);
+    let children =this.querySelector('.hidden_inputs');
     children.appendChild(responce);
-    // this.submit();  //this works
     let saveCompletedData = document.getElementById(`save_completed_id_${id}`)
     let newLi = document.createElement("li");
     newLi.appendChild(document.createTextNode(`${repsVal} REPS @ ${weightVal}kg`));

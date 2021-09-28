@@ -12,20 +12,16 @@ if (localStorage.getItem("adminCheckbox")){
 
 } else {
     systemExercisesSwitch.checked = true;
-    console.log('set true')
 }
 
-
-
-if (systemExercisesSwitch.checked == false){
+if (systemExercisesSwitch.checked === false){
     adminExercisesDiv[0].style.display="none";
 } else {
     adminExercisesDiv[0].style.display = 'block';
 }
 
-
 function hideSystemExercises() {
-    if (systemExercisesSwitch.checked == true){
+    if (systemExercisesSwitch.checked === true){
         localStorage.setItem("adminCheckbox", true);
         adminExercisesDiv[0].style.display="block";
     } else {
