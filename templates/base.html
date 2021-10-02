@@ -76,12 +76,13 @@
             </a>
             <ul class="right hide-on-med-and-down">
                 {% if session.user %}
-                    <li><a href="{{ url_for('index') }}"></a></li>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="{{ url_for('get_workout') }}">Your workouts</a></li>
                     <li><a href="{{ url_for('get_exercise_list') }}">Individual exercises</a></li>
                     <li><a href="{{ url_for('profile') }}">Profile</a></li>
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                 {% else %}
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="{{ url_for('login') }}">Log In</a></li>
                     <li><a href="{{ url_for('register') }}">Register</a></li>
                 {% endif %}
@@ -91,13 +92,13 @@
 
     <ul class="sidenav" id="mobile">
         {% if session.user %}
-            <li><a href="{{ url_for('index') }}"></a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('get_workout') }}">Your workouts</a></li>
             <li><a href="{{ url_for('get_exercise_list') }}">Individual exercises</a></li>
             <li><a href="{{ url_for('profile') }}">Profile</a></li>
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
         {% else %}
-            <li><a href="{{ url_for('index') }}"></a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('login') }}">Log In</a></li>
             <li><a href="{{ url_for('register') }}">Register</a></li>
         {% endif %}

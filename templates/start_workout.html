@@ -120,7 +120,7 @@
                                 <span>Last 5 sets</span>
                                 <ol>
                                     {% for group in exercise_history|groupby('exercise_id') %}
-                                        {% for item in group.list|sort(reverse=true, attribute="date") %}
+                                        {% for item in group.list[::-1]|sort(reverse=false, attribute="date") %}
                                             {% if exercise._id|string==item.exercise_id|string %}
                                                 {% if loop.index0 <=4 %}
                                                     <li>

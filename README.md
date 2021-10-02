@@ -53,21 +53,62 @@ The purpose of this project was to build an app where users can tailor their exe
 
 ## User Experience (UX)
 
+---
+
 ### User Stories
 
-    * Create personalized workout routines
-    * Have selection exercises to choose from
-    * Be able to read about each individual exercise in details, how to do it, and which area of the body it targets
-    * Be able to add my own exercises or modify existing ones to suit my needs
-    * Be able to track my workout by monitoring amounts of reps, sets and weight
+  * Create personalized workout routines
+  * Have selection exercises to choose from
+  * Be able to read about each individual exercise in details, how to do it, and which area of the body it targets
+  * Be able to add my own exercises or modify existing ones to suit my needs
+  * Be able to track my workout by monitoring amounts of reps, sets and weight
+  * Be able to save my progress 
+  * Be able to review my progress
+  * Be able to see my workout history(Names) in my profile
+  * Be able to see my workout history in details (Expandable details)
+  * Be able to see graphs of progress on weight on each exercise
 
     
 
 ### UI
+
+  * A responsive and top attached Navbar.
+  * Form to add individual exercise.
+  * Form to add individual workout.
+  * A search function for users to find exercise based on search criteria.
+  * Form to modify a exercise.
+  * Form to modify workout.
+  * Graphs to display user progress.
+  * A registration/login form.
+  * A loading page was implemented to stop poor impressions from data loading slowly.
+  * A footer to provide some information and social links.
+
 ### Design
 
-#### CRUD
+  * The design of the website  is minimalistic but eye catching using sport themed background.
+  * Main page has a nice image background as well as displaying an example of the fitness activity snapshot from user profile to catch attention of the new visitors.
+  * At the bottom of the page Register button displayed for the new users or Profile button for the logged-in users.
+  * Links and buttons have a hover effect.
+  * Exercise/workout containers have a background shadow to stand out from the page.
 
+
+### Wireframes
+Wireframes are my initial design, so you may notice that final website design does not contain everything that was planned at the start of the project.
+Some missing features are possible future improvements for the project. They may be implemented at the later stage.
+<link to wireframes screenshots>
+
+### Database Schema
+
+I started planning database after I have done my wireframes to justify which fields I would require and what collections I would have to use.
+After initial discussion with my mentor I have settled with current database schema.
+ * link to pdf file where each collection described in details
+
+### Database Model
+
+ * link to pdf file with db model screenshot
+
+
+#### CRUD
 
 HTTP Verb | URL PATH | PURPOSE
 | --- | --- | --- |
@@ -88,17 +129,40 @@ GET |  /profile/ | User profile
 GET | /logout | Logout user
 
 
-### Database Schema
 
-### Database Model
 
-### Wireframes
 
 ---
 
 ## Features
 
+* Ability to Signup/login.
+* Ability to Add an exercise.
+* Ability to Edit exercise.
+* Ability to delete exercise.
+* Ability to show/hide system exercises
+* When modifying system exercise, that exercise gets cloned and derived from original.
+* User unable to delete system exercises
+* Ability to Add a workout.
+* Ability to Edit workout.
+* Ability to delete workout.
+* A loading page.
+* Ability to save current workout session statistics for individual exercise whiting that workout.
+* Ability to view statistics for the last 5 sessions for each exercise whiting workout.
+* A fully functioning search for exercises based on either exercise name or description text(word/phrase).
+* Ability to view historical weight progress for each exercise.
+* The project contains a few security features, such as:
+  * validating login.
+  * hashing passwords.
+  * environment variables are hidden.
+  * debug is turned off in the production version.
+
+
 ###  Future updates
+
+1. a
+2. b
+3. c
 
 ---
  
@@ -143,14 +207,32 @@ I personally tested the website on some of my own personal systems of which incl
 2.
 
 
-### Manual testing
+### Manual testing  (need rework)
 <details>
 <summary>
 Testing conducted
 </summary>
 
-* Create an account, works as it should, passwords are hashed for security. &#9745;
-* Logging in to the created account, works as it should. &#9745;
+N | Section | Test | Result
+|:---:|---|---|:---:|
+1 | User account | Create an account, works as it should, passwords are hashed for security. |  &#9745;
+2 | User account | Logging in to the created account. | &#9745;
+3 | User account | Logout functionality. | &#9745;
+4 | Exercises | Adding new exercise, works as it should. Adding new exercise possible to only logged-in user  |  &#9745;
+4 | Exercises | * System and user exercises are displayed.<br> * Turning off "Show system exercises" hides all non user records. <br> * State of the switch preserved if the page get reloaded  |  &#9745;
+4 | Exercises |  Search for full exercise name or a full word whiting the description working as it should. <br> *(Partial text is not functioning at the moment example: full word "food", searching for "foo" would not show any result) |  &#9745;
+4 | Exercises | Clicking on exercise card will take to exercise detailed info |  &#9745;
+4 | Exercises |  Clicking "EDIT" link whiting detailed exercise info page will take user to the form page where user can update any field |  &#9745;
+4 | Exercises | Update any fields whiting EDIT exercise page press "UPDATE EXERCISE" button: <br> - results gets updated <br> - Flash message displayed  |  &#9745;
+4 | Exercises |   |  &#9745;
+4 | Exercises |   |  &#9745;
+4 | Exercises |   |  &#9745;
+4 | Exercises |   |  &#9745;
+4 | Exercises |   |  &#9745;
+
+
+
+
 * Adding a game using form, works as it should. Adding a game is only possible when logged in. &#9745;
 * Game is displayed on the games page, works well. &#9745;
 * Game info is displayed on a separate page when clicked into. Works as it should. &#9745;
@@ -206,7 +288,7 @@ Deployment
 To deploy this project I used [Heroku](https://dashboard.heroku.com/)
 
 **The final version of the application was deployed using Heroku:**   
-**[here](http://gamersdb.herokuapp.com/home_page)**
+**[here](https://fitness-master.herokuapp.com/)**
 
 The deployed version is the same version as in the repository.
 
@@ -256,7 +338,7 @@ The following steps were used for deployment on Heroku:
 
     to push the contents of your local Git repository to the newly created Heroku remote repository.
 
-9.  Still in the Gitpod workspace CLI, enter 
+9. Still in the Gitpod workspace CLI, enter 
 
      `heroku ps:scale web=1`
         
@@ -270,8 +352,11 @@ The following steps were used for deployment on Heroku:
 
     Under the tab "Connection string only", copy the connection string.
 
+11. Login into [Cloudinary](https://cloudinary.com/) account.
+    
+    In the dashboard copy your cloud name, API key and API Secret
 
-11. On Heroku App Dashboard, in the Settings tab, click the button "Reveal Config vars".
+12. On Heroku App Dashboard, in the Settings tab, click the button "Reveal Config vars".
 
     Using the Add button, add the following keys and their corresponding values:
 
@@ -291,12 +376,22 @@ The following steps were used for deployment on Heroku:
     key: `SECRET_KEY`   
     value: value of SECRET_KEY as entered in the project's env.py file, **without quotes** . 
 
-12. In the top right corner of the Heroku App Dashboard, click on the More button.
+13. Whilst in the "Config vars" section add the rest of the required [Cloudinary](https://cloudinary.com/) requirements.
+    
+    key:cloud_name
+    value: <your cloud name>
 
-    From the dropdown menu, select "Restart all dynos". Confirm Restart when prompted.
+    key: api_key
+    value:  "<api value>"
 
+    key: api_secret
+    value:  "<secret value>"
 
-13. Click on Open app. The App is now deployed.
+14. In the top right corner of the Heroku App Dashboard, click on the More button.
+
+    From the dropdown menu, select "Restart all dynos". Confirm Restart when prompted. 
+
+15. Click on Open app. The App is now deployed.
 </details>
 
 ### Local Deployment
@@ -325,50 +420,55 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
 
     The database needs to have the following attributes:
 
-    - collection "age_rating"
-    - collection "developer"
-    - collection "games"
-    - collection "genre"
-    - collection "platform"
+    - collection "categories"
+    - collection "exercises"
+    - collection "routines"
+    - collection "user_profile"
     - collection "users"
-    - collection "vr_capable"
+   
+    In collection "categories":
+    - document property: "category_name" -> String
+    - document property: "img" -> String
 
-    In collection "age_rating":
-    - document property: "rating" -> String
+    In collection "exercises":
+    - document property: "about" -> String
+    - document property: "created_by" -> String
+    - document property: "exercise_comments" -> String
+    - document property: "exercise_name" -> String
+    - document property: "exercise_reps" -> String
+    - document property: "img_url" -> String
+    - document property: "is_system" -> Boolean
+    - document property: "modified_date" -> String
+    - document property: "steps" -> Array
+    - document property: "weight" -> String
+    - document property: "yt_url" -> String
+    - document property: "exercise_sets" -> String
+    - document property: "exercise_category" -> List
+    - document property: "origin" -> String
+    - document property: "exercise_history" -> List
 
-    In collection "developer":
-    - document property: "dev" -> String
+    In collection "routines":
+    - document property: "completed" -> Boolean
+    - document property: "created_date" -> String
+    - document property: "exercise_choices" -> Array 
+    - document property: "modified_date" -> String
+    - document property: "saved" -> Boolean
+    - document property: "weight" -> String
+    - document property: "workout_name" -> String
+    - document property: "workout_reps" -> String
+    - document property: "created_by" -> String
+    - document property: "workout_sets" -> String
 
-    In collection "games":
-    - document property: "title" -> String
-    - document property: "genre_name" -> String
-    - document property: "description" -> String
-    - document property: "shop_link" -> String
-    - document property: "review" -> String
-    - document property: "age_rating" -> String
-    - document property: "image" -> String
-    - document property: "platform" -> String
-    - document property: "release_date" -> String
-    - document property: "languages" -> String
-    - document property: "developer" -> String
-    - document property: "trailer_link" -> String
-    - document property: "playthrough_time" -> String
-    - document property: "vr_capable" -> String
+    In collection "user_profile":
+    - document property: "comment" -> String
+    - document property: "date" -> String
+    - document property: "exercise_id" -> String
+    - document property: "exercise_name" -> String
+    - document property: "reps" -> String
     - document property: "username" -> String
-
-    In collection "genre":
-    - document property: "genre_name" -> String
-
-    In collection "platform":
-    - document property: "platform_name" -> String
-
-    In collection "users":
-    - document property: "name" -> String
-    - document property: "password" -> String
-
-    In collection "vr_capable":
-    - document property: "vr" -> Boolean
-
+    - document property: "weight" -> String
+    - document property: "workout_name" -> String
+    - document property: "workout_id" -> String
 
 6. Once you have created the database, go back to the Cluster View and click "Connect".
     In the resulting pop-up, click on "Connect your application".
@@ -396,9 +496,20 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
 
     where `<your_secret_key>` is a combination of letters, numbers and characters of your choice. This is used to enable the Flask flash messaging feature.
 
+    
+
+8. Login into [Cloudinary](https://cloudinary.com/) account.
+    
+    In the dashboard copy your cloud name, API key and API Secret
+    
+    Add them to your env.py
+   1. `os.environ["cloud_name"] = "<your_cloud_name>"`
+   2. `os.environ["api_key"] = "<your_api_key>"`
+   3. `os.environ["api_secret"] = "<your_api_secret>"`
+   
     Save the file.
 
-8. Run the app.py file and open it in your browser.   
+9. Run the app.py file and open it in your browser.   
     The application is now running locally.
 </details>
 
@@ -419,7 +530,7 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
  
 A thank you to my friends and family for testing the website for me.
 Also a thank you to my mentor for the help and support.
- 
+[Aidan](https://github.com/aidant842/MilestoneProject3) for his README template
 [Back to top ↑](#fitness-master)
 
 

@@ -2,6 +2,8 @@ import os
 import re
 from datetime import datetime
 
+
+from cloudinary.exceptions import Error, NotFound
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -236,7 +238,11 @@ def create_exercise():
                 if bool(pattern.search(img_url)):
                     try:
                         img_cdn = upload_image(img_url)
-                    except KeyError:
+
+                    #     Trying to catch(cloudinary.exceptions.Error: Resource not found ) error when wrong url provided.
+                    # I was unable to use imported Error from cloudinary hence have to go broader rout by catching all possible exceptions via Exept.
+                    except Exception:
+
                         flash("Invalid image URL provided, so used default instead")
                         img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
                 else:
@@ -295,6 +301,7 @@ def edit_exercise(exercise_id):
         exercise_category_list = list(
             mongo.db.categories.find().sort("category_name", 1))
         single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+        print(single_exercise)
         if request.method == "POST":
             yt = request.form.get("yt_url")
             replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
@@ -328,7 +335,7 @@ def edit_exercise(exercise_id):
                 'steps': request.form.getlist("steps"),
                 "created_by": session["user"],
                 "origin": single_exercise["origin"],
-                "is_system": single_exercise["is_system"],
+                "is_system": False,
                 "exercise_history": single_exercise["exercise_history"]
             }
             if single_exercise["created_by"] != submit["created_by"]:
