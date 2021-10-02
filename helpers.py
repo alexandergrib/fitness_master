@@ -17,7 +17,8 @@ cloudinary.config(
 
 """
 https://cloudinary.com/documentation/resizing_and_cropping#control_gravity
-example https://github.com/cloudinary/pycloudinary/blob/master/samples/basic/basic.py
+example from
+ https://github.com/cloudinary/pycloudinary/blob/master/samples/basic/basic.py
 """
 
 

@@ -12,10 +12,10 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from helpers import upload_image
+
 if os.path.exists("env.py"):
     import env
-
-from helpers import upload_image
 
 app = Flask(__name__)
 
@@ -30,7 +30,7 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", index_page=True)
 
 
 @app.route("/workout")
@@ -52,16 +52,19 @@ def create_workout():
     Create new workout, receive form data and create new DB record
     """
     if "user" in session:
-        exercise_list = list(mongo.db.exercises.find({"$or": [{"created_by": {"$eq": "admin"}},
-                                                              {"created_by": {"$eq": session["user"]}}]}
-                                                     ))
+        exercise_list = list(mongo.db.exercises.find(
+            {"$or": [{"created_by": {"$eq": "admin"}},
+                     {"created_by": {"$eq": session["user"]}}]}
+        ))
         if request.method == "POST":
             if request.method == "POST":
                 submit = {
                     "workout_name": request.form.get("workout_name"),
                     "workout_sets": "",
                     "workout_reps": "",
-                    "exercise_choices": request.form.getlist("exercise_choices"),
+                    "exercise_choices": request.form.getlist(
+                        "exercise_choices"
+                    ),
                     "weight": "",
                     "created_date": datetime.now().strftime("%d/%m/%Y"),
                     "modified_date": datetime.now().strftime("%d/%m/%Y"),
@@ -70,11 +73,13 @@ def create_workout():
                     "created_by": session["user"]
                 }
                 mongo.db.routines.insert_one(submit)
-                flash_text = "{} Successfully Created".format(submit["workout_name"])
+                flash_text = "{} Successfully Created".format(
+                    submit["workout_name"])
                 flash(flash_text)
                 print(flash_text)
                 return redirect(url_for("get_workout"))
-        return render_template("create_workout.html", exercise_list=exercise_list)
+        return render_template("create_workout.html",
+                               exercise_list=exercise_list)
     else:
         flash("You need to be logged in to perform this action")
         return redirect(url_for("login"))
@@ -83,7 +88,7 @@ def create_workout():
 @app.route("/workout/edit/<workout_id>", methods=["GET", "POST"])
 def edit_workout(workout_id):
     """
-    Edit existing workout. Takes arguments: [workout_id], query DB, 
+    Edit existing workout. Takes arguments: [workout_id], query DB,
     update DB with new data,
     """
     if "user" in session:
@@ -102,19 +107,23 @@ def edit_workout(workout_id):
                 "created_by": session["user"]
             }
             mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
-            flash_text = "{} Successfully Updated".format(submit["workout_name"])
+            flash_text = "{} Successfully Updated".format(
+                submit["workout_name"])
             flash(flash_text)
             print(flash_text)
             return redirect(url_for("get_workout"))
 
         try:
-            single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+            single_workout = mongo.db.routines.find_one(
+                {"_id": ObjectId(workout_id)}
+            )
         except InvalidId:
             flash("Invalid ID provided please try again")
             return redirect(url_for("index"))
-        exercise_list = list(mongo.db.exercises.find({"$or": [{"created_by": {"$eq": "admin"}},
-                                                              {"created_by": {"$eq": session["user"]}}]}
-                                                     ))
+        exercise_list = list(mongo.db.exercises.find(
+            {"$or": [{"created_by": {"$eq": "admin"}},
+                     {"created_by": {"$eq": session["user"]}}]}
+        ))
         return render_template("edit_workout.html",
                                workout_list=single_workout,
                                exercise_list=exercise_list)
@@ -142,7 +151,8 @@ def start_workout(workout_id):
     """
     if "user" in session:
         try:
-            single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+            single_workout = mongo.db.routines.find_one(
+                {"_id": ObjectId(workout_id)})
         except InvalidId:
             flash("Invalid ID provided please try again")
             return redirect(url_for("index"))
@@ -163,12 +173,15 @@ def start_workout(workout_id):
 @app.route("/workout/start/update/<query>", methods=["POST", ])
 def update_workout_data(query):
     if request.method == "POST":
-        exercise_data = mongo.db.exercises.find_one({"_id": ObjectId(query)})  # fetch single exercise to be updated
+        exercise_data = mongo.db.exercises.find_one(
+            {"_id": ObjectId(query)})  # fetch single exercise to be updated
         exercise_history = (exercise_data["exercise_history"] +
-                            request.form.getlist("info_"+query+"[]"))
-        workout_id = request.form.get("id_"+query)  # id from which workout individual exercise called
-        fetch_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
-        exercise_history1 = request.form.getlist("info_"+query+"[]")
+                            request.form.getlist("info_" + query + "[]"))
+        workout_id = request.form.get(
+            "id_" + query)  # id from which workout individual exercise called
+        fetch_workout = mongo.db.routines.find_one(
+            {"_id": ObjectId(workout_id)})
+        exercise_history1 = request.form.getlist("info_" + query + "[]")
 
         for i in exercise_history1:
             user_profile_data = {
@@ -181,7 +194,7 @@ def update_workout_data(query):
                 "weight": i.split(",")[1],
                 "comment": "",
                 "workout_name": fetch_workout["workout_name"]
-                }
+            }
             mongo.db.user_profile.insert_one(user_profile_data)
 
         submit = {
@@ -190,10 +203,10 @@ def update_workout_data(query):
             "about": exercise_data["about"],
             "img_url": exercise_data["img_url"],
             "exercise_sets": exercise_data["exercise_sets"],
-            "exercise_reps": request.form.get("reps_"+query),
+            "exercise_reps": request.form.get("reps_" + query),
             "exercise_category": exercise_data["exercise_category"],
             "modified_date": datetime.now().strftime("%d/%m/%Y"),
-            "weight": request.form.get("weight_"+query),
+            "weight": request.form.get("weight_" + query),
             'exercise_comments': exercise_data["exercise_comments"],
             'yt_url': exercise_data["yt_url"],
             'steps': exercise_data["steps"],
@@ -206,7 +219,7 @@ def update_workout_data(query):
         return redirect(url_for("start_workout", workout_id=workout_id))
 
 
-# ---------------------------------exercise section---------------------------------------------
+# ---------------------------------exercise section-------------------------
 
 @app.route("/exercise")
 def get_exercise_list():
@@ -215,8 +228,10 @@ def get_exercise_list():
         :return exercise_list, exercise_list_admin
     """
     if "user" in session:
-        user = list(mongo.db.exercises.find({"$and": [{"created_by": {'$eq': session["user"]}}]}))
-        admin = list(mongo.db.exercises.find({"$and": [{"created_by": {'$eq': "admin"}}]}))
+        user = list(mongo.db.exercises.find(
+            {"$and": [{"created_by": {'$eq': session["user"]}}]}))
+        admin = list(mongo.db.exercises.find(
+            {"$and": [{"created_by": {'$eq': "admin"}}]}))
         return render_template("exercise_all.html",
                                exercise_list=user,
                                exercise_list_admin=admin)
@@ -228,32 +243,37 @@ def get_exercise_list():
 @app.route("/exercise/create", methods=["GET", "POST"])
 def create_exercise():
     """
-    Create new exercise, read form data validate youtube url, check if image provided before storing to DB
+    Create new exercise, read form data validate youtube url,
+    check if image provided before storing to DB
     If no image provided or invalid url, image replaced by default image
     :return exercise_category_list
     """
+    default_img = "https://res.cloudinary.com/dmwrfu8lh/image/" \
+                  "upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
     if "user" in session:
-        pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
+        pattern = re.compile(
+            "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
         exercise_category_list = list(
             mongo.db.categories.find().sort("category_name", 1))
         if request.method == "POST":
             yt = request.form.get("yt_url")
-            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
+            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
+                                 'https://youtube.com/embed/', yt)
             img_url = request.form.get("img_url")
             if img_url:
                 if bool(pattern.search(img_url)):
                     try:
                         img_cdn = upload_image(img_url)
                     except Error:
-
-                        flash("Invalid image URL provided, default used insteadd")
-                        img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                        flash(
+                            "Invalid image URL provided, default used instead")
+                        img_cdn = default_img
                 else:
                     flash("Invalid image URL provided, default used instead")
-                    img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                    img_cdn = default_img
             else:
                 flash("No image URL provided, default used instead")
-                img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                img_cdn = default_img
             submit = {
                 "exercise_name": request.form.get("exercise_name"),
                 "description": request.form.get("description"),
@@ -273,7 +293,8 @@ def create_exercise():
                 "exercise_history": []
             }
             mongo.db.exercises.insert_one(submit)
-            flash_text = "{} Successfully Created".format(submit["exercise_name"])
+            flash_text = "{} Successfully Created".format(
+                submit["exercise_name"])
             flash(flash_text)
             print(flash_text)
             return redirect(url_for("get_exercise_list"))
@@ -289,7 +310,8 @@ def get_exercise(exercise_id):
     """
         Display individual exercise
     """
-    single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+    single_exercise = mongo.db.exercises.find_one(
+        {"_id": ObjectId(exercise_id)})
     return render_template("exercise_single.html", exercise=single_exercise)
 
 
@@ -299,29 +321,35 @@ def edit_exercise(exercise_id):
         Modify individual exercise,
         if modifying admin created, exercise will be cloned
     """
+    default_img = "https://res.cloudinary.com/dmwrfu8lh/image/" \
+                  "upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
     if "user" in session:
-        pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
+        pattern = re.compile(
+            "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
         exercise_category_list = list(
             mongo.db.categories.find().sort("category_name", 1))
-        single_exercise = mongo.db.exercises.find_one({"_id": ObjectId(exercise_id)})
+        single_exercise = mongo.db.exercises.find_one(
+            {"_id": ObjectId(exercise_id)})
         print(single_exercise)
         if request.method == "POST":
             yt = request.form.get("yt_url")
-            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/', 'https://youtube.com/embed/', yt)
+            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
+                                 'https://youtube.com/embed/', yt)
             img_url = request.form.get("img_url")
             if img_url:
                 if bool(pattern.search(img_url)):
                     try:
                         img_cdn = upload_image(img_url)
                     except Error:
-                        flash("Invalid image URL provided, default used instead")
-                        img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                        flash(
+                            "Invalid image URL provided, default used instead")
+                        img_cdn = default_img
                 else:
                     flash("Invalid image URL provided, default used instead")
-                    img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                    img_cdn = default_img
             else:
                 flash("No image URL provided, default used instead")
-                img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
+                img_cdn = default_img
 
             submit = {
                 "exercise_name": request.form.get("exercise_name"),
@@ -347,7 +375,8 @@ def edit_exercise(exercise_id):
             else:
                 mongo.db.exercises.update_one({"_id": ObjectId(exercise_id)},
                                               {"$set": submit})
-            flash_text = "{} Successfully Updated".format(submit["exercise_name"])
+            flash_text = "{} Successfully Updated".format(
+                submit["exercise_name"])
             flash(flash_text)
             return redirect(url_for("get_exercise", exercise_id=exercise_id))
         return render_template("exercise_edit_single.html",
@@ -361,7 +390,8 @@ def edit_exercise(exercise_id):
 @app.route("/exercise/delete/<exercise_id>", methods=["GET", "POST"])
 def delete_exercise(exercise_id):
     """
-    Search user_profile DB for exercise history and delete any record containing exercise_id
+    Search user_profile DB for exercise history
+    and delete any record containing exercise_id
     :param exercise_id:
     :return: message to user
     """
@@ -371,7 +401,8 @@ def delete_exercise(exercise_id):
         )
         if get_exercise_history:
             for exercise in get_exercise_history:
-                mongo.db.user_profile.delete_many({"_id": ObjectId(exercise['_id'])})
+                mongo.db.user_profile.delete_many(
+                    {"_id": ObjectId(exercise['_id'])})
         mongo.db.exercises.delete_many({"_id": ObjectId(exercise_id)})
 
         flash("Exercise Successfully Deleted")
@@ -389,13 +420,18 @@ def search():
     if "user" in session:
         query = request.form.get("query")
         if query != '':
-            exercises = list(mongo.db.exercises.find({"$text": {"$search": query},
-                                                      "$and": [{"created_by": {'$eq': session['user']}}]
-                                                      }))
+            exercises = list(
+                mongo.db.exercises.find({"$text": {"$search": query},
+                                         "$and": [{"created_by": {
+                                             '$eq': session['user']}}]
+                                         }))
             admin = list(mongo.db.exercises.find({"$text": {"$search": query},
-                                                  "$and": [{"created_by": {'$eq': 'admin'}}]
+                                                  "$and": [{"created_by": {
+                                                      '$eq': 'admin'}}]
                                                   }))
-            return render_template("exercise_all.html", exercise_list=exercises, exercise_list_admin=admin)
+            return render_template("exercise_all.html",
+                                   exercise_list=exercises,
+                                   exercise_list_admin=admin)
         else:
             return redirect(url_for('get_exercise_list'))
     else:
@@ -403,7 +439,7 @@ def search():
         return redirect(url_for("login"))
 
 
-# ========================handle login logout register=================================================
+# ==========handle login logout register======================================
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -470,7 +506,8 @@ def profile():
     except (TypeError, KeyError):
         return redirect(url_for("login"))
     if "user" in session:
-        user_history = list(mongo.db.user_profile.find({"username": {"$eq": session["user"]}}))
+        user_history = list(
+            mongo.db.user_profile.find({"username": {"$eq": session["user"]}}))
         return render_template("profile.html", user_history=user_history)
     return redirect(url_for("index"))
 
@@ -487,6 +524,7 @@ def logout():
 def page_not_found(*args, **kwargs):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

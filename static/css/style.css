@@ -5,8 +5,19 @@ body {
     max-width: 100%;
     overflow-x: hidden;
     background-image: url("../img/tile_background_tile.png");
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main{
+    /*min-height: 100%;*/
+    flex: 1 0 auto;
+
 }
 
+.page-footer{
+
+}
 .header-font {
     font-family: "Bangers", sans-serif;
 }
@@ -565,6 +576,10 @@ body {
 
 .profile-container h2{
     text-transform: uppercase;
+}
+
+.footer-container{
+
 }
 
 /*Media queries*/

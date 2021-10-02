@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 // get list of exercises from active workout anc cycle trough it
 let cards_divs = document.getElementsByClassName("col-wrapper-single-exercise");
 let hidden_inputs = document.getElementsByClassName("hidden_inputs");
@@ -7,7 +8,7 @@ function addNewInput(id, repsVal, weightVal){
     newInput.setAttribute("type", "hidden");
     newInput.setAttribute("name", `info_${id}[]`);
     newInput.setAttribute("value", `${repsVal},${weightVal}`);
-    return newInput
+    return newInput;
 } 
 
 function submitMyForm(id){
@@ -25,7 +26,7 @@ function handleSubmit(event){
     let responce = addNewInput(id, repsVal, weightVal);
     let children =this.querySelector('.hidden_inputs');
     children.appendChild(responce);
-    let saveCompletedData = document.getElementById(`save_completed_id_${id}`)
+    let saveCompletedData = document.getElementById(`save_completed_id_${id}`);
     let newLi = document.createElement("li");
     newLi.appendChild(document.createTextNode(`${repsVal} REPS @ ${weightVal}kg`));
     saveCompletedData.insertBefore(newLi, saveCompletedData.lastChild);

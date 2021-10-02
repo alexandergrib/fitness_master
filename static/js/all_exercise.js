@@ -1,4 +1,4 @@
-
+/*jshint esversion: 6 */
 
 /*
 Toggle switch to show all exercises or only created by user
