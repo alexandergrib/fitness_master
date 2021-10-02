@@ -233,10 +233,10 @@ main{
 .workout-wrapper {
     max-width: 655px;
     width: 80%;
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translate(-50%, 0px);
-
+    margin-bottom: 15px;
 }
 
 #delete_item {
@@ -571,7 +571,6 @@ main{
 
 .profile-container {
     display: block;
-    height: 300px;
 }
 
 .profile-container h2{
