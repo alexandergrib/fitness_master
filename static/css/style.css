@@ -16,7 +16,7 @@ body {
 }
 
 .loading-container {
-    max-width: 655px; /*500*/
+    max-width: 655px;
     margin: 0 auto;
     position: fixed;
     width: 50vw;
@@ -49,10 +49,8 @@ body {
     top: 10px;
     z-index: 2;
     height: 27px;
-    /*font-size: 20px;*/
     padding: 0;
     margin: 0;
-    /*line-height: 15px;*/
     width: fit-content;
     text-transform: uppercase;
 }
@@ -93,10 +91,10 @@ body {
     position: relative;
     background-image: url('../img/anastasia-hisel-tpivPdQgC20-unsplash.jpg');
     width: 100% !important;
-    height: 500px; /* You must set a specified height */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: 'Raleway', sans-serif;
     background-color: #E9E0D9;
 }
@@ -105,10 +103,7 @@ body {
     width: 100% !important;
 }
 
-/*.section-first img {*/
-/*    width: auto;*/
-/*    height: 500px;*/
-/*}*/
+
 
 .section-first-header {
     position: absolute;
@@ -136,15 +131,9 @@ body {
     background: transparent url(../img/cloud.svg) no-repeat center;
     background-size: cover;
     overflow: hidden;
-    /* max-width: 400px; */
-    /* max-height: 200px; */
-    /* position: relative; */
     position: absolute;
-    /* top: -35px; */
     top: 66%;
     left: 2%;
-    /* float: right; */
-    /* width: 30vw; */
     width: 25rem;
     height: 12.5rem;
     transform: rotate(-18deg);
@@ -307,9 +296,7 @@ body {
     right: -41px;
     width: 38px;
     height: 44px;
-    /* font-size: 22px; */
     text-align: center;
-    /* margin: 0 auto; */
     border-radius: 15px 0 0 15px;
 }
 
@@ -387,7 +374,6 @@ body {
 .exercise--img {
     width: 250px;
     height: 100%;
-    /*object-fit: contain;*/
     margin-top: 5px;
     border-radius: 45%;
 }
@@ -413,7 +399,6 @@ body {
 .workout-exercise-single-overlay {
     display: none;
     position: absolute;
-    /* right: 20%; */
     transform: translate(0, 20%);
     font-size: 8rem;
     color: green;
@@ -424,7 +409,6 @@ body {
 .workout-exercise-single-wrapper {
     background-color: white;
     width: 100%;
-    /*height: 25vh;*/
     border-radius: 10px;
     box-shadow: 5px 5px 14px #aaaaaa;
     margin: 0 auto;
@@ -439,10 +423,7 @@ body {
     display: flex;
     justify-content: center;
     width: 150px;
-    /*height: 100px;*/
     height: auto;
-    /*border-radius: 50%;*/
-    /*background-color: antiquewhite;*/
     object-fit: fill;
     overflow: hidden;
 }
@@ -450,7 +431,6 @@ body {
 .workout-exercise-single-wrapper img {
     border-radius: 50%;
     height: auto;
-    /*object-fit: fill;*/
     display: block;
     max-width: 100%;
 }
@@ -470,14 +450,12 @@ body {
 .workout-exercise-single-stats {
     padding: 0;
     background-color: #aaaaaa;
-    /* border: 1px solid darkblue; */
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
     display: block;
 }
 
 .workout-exercise-single-stats ol {
-    /*list-style-type: inside;*/
     padding: 0 15px;
 }
 
@@ -493,8 +471,6 @@ body {
 
 .workout-exercise-complete__btn {
     margin-bottom: 20px;
-
-
 }
 
 .workout-exercise-complete__btn .waves-button-input {
@@ -503,10 +479,7 @@ body {
 
 .workout--row {
     background-image: url('../img/tile_background_cards.png');
-    /*margin: 20px;*/
     background-repeat: repeat;
-    /*background-position: 0 0;*/
-    /*transition: 2s cubic-bezier(0.645, 0.045, 0.355, 1);*/
     background-color: #e7e7e7;
 }
 
@@ -539,7 +512,6 @@ body {
 .workout-card span {
     margin: 0 5px;
     padding: 10px 0;
-
 }
 
 .workout-card .workout-card--exercises-list {
@@ -579,16 +551,18 @@ body {
     font-size: 1rem;
     line-height: 1.25rem;
 }
+
 .my-chart th{
     font-size: 0.6rem;
-    transform: rotate(-90deg);
-    bottom: -2.6rem !important;
-    height: 2.6rem;
+    text-align: center;
+    bottom: calc(var(--labels-size)*-1 - var(--primary-axis-width) - 1rem) !important;
 }
+
 .profile-container {
     display: block;
     height: 300px;
 }
+
 .profile-container h2{
     text-transform: uppercase;
 }
@@ -613,10 +587,7 @@ body {
         font-size: 1rem;
         line-height: 2rem;
     }
-
-
 }
-
 
 @media only screen and (max-width: 400px) {
     .exercise--card--description {
@@ -669,7 +640,6 @@ body {
     }
 }
 
-
 @media only screen and (max-width: 600px) {
     .center-on-small {
         text-align: center;
@@ -694,5 +664,4 @@ body {
         font-size: 1rem;
         height: 33px;
     }
-
 }

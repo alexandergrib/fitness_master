@@ -25,7 +25,6 @@ $(document).ready(function () {
     var li_count = 2;
     $('#add_more').click(function(){
         li_count += 1;
-        // alert("clicked");        
         $("#steps_list li:last").before(
             "<li style='margin-left:3rem;'><label for=step"+li_count+"><input id=step" + 
             li_count + " name='steps' minlength='3' maxlength='1500' type='text' class='validate' required>"+

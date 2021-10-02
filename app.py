@@ -3,7 +3,7 @@ import re
 from datetime import datetime
 
 
-from cloudinary.exceptions import Error, NotFound
+from cloudinary.exceptions import Error
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -36,8 +36,7 @@ def index():
 @app.route("/workout")
 def get_workout():
     """
-    Display workout html page. 
-    :return  list of user workouts
+    Display workout html page.
     """
     if "user" in session:
         workout_list = list(mongo.db.routines.find().sort("routine_name", 1))
@@ -51,7 +50,6 @@ def get_workout():
 def create_workout():
     """
     Create new workout, receive form data and create new DB record
-    :return: [status]
     """
     if "user" in session:
         exercise_list = list(mongo.db.exercises.find({"$or": [{"created_by": {"$eq": "admin"}},
@@ -87,7 +85,6 @@ def edit_workout(workout_id):
     """
     Edit existing workout. Takes arguments: [workout_id], query DB, 
     update DB with new data,
-    :return: [status]
     """
     if "user" in session:
         if request.method == "POST":
@@ -113,7 +110,6 @@ def edit_workout(workout_id):
         single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
         exercise_list = list(mongo.db.exercises.find({"$or": [{"created_by": {"$eq": "admin"}},
                                                               {"created_by": {"$eq": session["user"]}}]}
-
                                                      ))
         return render_template("edit_workout.html",
                                workout_list=single_workout,
@@ -208,7 +204,7 @@ def update_workout_data(query):
 def get_exercise_list():
     """
         Query DB for user created exercises and admin/system created
-        Return: exercise_list, exercise_list_admin
+        :return exercise_list, exercise_list_admin
     """
     if "user" in session:
         user = list(mongo.db.exercises.find({"$and": [{"created_by": {'$eq': session["user"]}}]}))
@@ -224,7 +220,9 @@ def get_exercise_list():
 @app.route("/exercise/create", methods=["GET", "POST"])
 def create_exercise():
     """
-    Create new exercise, read form data validate youtube url, check if image provided before store to DB
+    Create new exercise, read form data validate youtube url, check if image provided before storing to DB
+    If no image provided or invalid url, image replaced by default image
+    :return exercise_category_list
     """
     if "user" in session:
         pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
@@ -291,7 +289,7 @@ def get_exercise(exercise_id):
 def edit_exercise(exercise_id):
     """
         Modify individual exercise,
-        if modifying admin created exercise will be cloned 
+        if modifying admin created, exercise will be cloned
     """
     if "user" in session:
         pattern = re.compile("(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
@@ -452,7 +450,7 @@ def login():
 @app.route("/profile/", methods=["GET", "POST"])
 def profile():
     """
-    User profile check if user exists, if not redirects to login page
+    User profile check if user exists, if not redirects to home page
     """
     # grab the session user's username from db
     if request.method == "POST":
