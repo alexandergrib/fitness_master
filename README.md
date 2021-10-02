@@ -219,43 +219,19 @@ N | Section | Test | Result
 2 | User account | Logging in to the created account. | &#9745;
 3 | User account | Logout functionality. | &#9745;
 4 | Exercises | Adding new exercise, works as it should. Adding new exercise possible to only logged-in user  |  &#9745;
-4 | Exercises | * System and user exercises are displayed.<br> * Turning off "Show system exercises" hides all non user records. <br> * State of the switch preserved if the page get reloaded  |  &#9745;
-4 | Exercises |  Search for full exercise name or a full word whiting the description working as it should. <br> *(Partial text is not functioning at the moment example: full word "food", searching for "foo" would not show any result) |  &#9745;
-4 | Exercises | Clicking on exercise card will take to exercise detailed info |  &#9745;
-4 | Exercises |  Clicking "EDIT" link whiting detailed exercise info page will take user to the form page where user can update any field |  &#9745;
-4 | Exercises | Update any fields whiting EDIT exercise page press "UPDATE EXERCISE" button: <br> - results gets updated <br> - Flash message displayed  |  &#9745;
-4 | Exercises |   |  &#9745;
-4 | Exercises |   |  &#9745;
-4 | Exercises |   |  &#9745;
-4 | Exercises |   |  &#9745;
-4 | Exercises |   |  &#9745;
+5 | Exercises | * System and user exercises are displayed.<br> * Turning off "Show system exercises" hides all non user records. <br>    *  State of the switch preserved if the page get reloaded  |  &#9745;
+6 | Exercises |  Search for full exercise name or a full word whiting the description working as it should. <br>   *(Partial text is not functioning at the moment example: full word "food", searching for "foo" would not show any result) |  &#9745;
+7 | Exercises | Clicking on exercise card will take to exercise detailed info |  &#9745;
+8 | Exercises/edit |  Clicking "EDIT" link whiting detailed exercise info page will take user to the form page where user can update any field |  &#9745;
+9 | Exercises/edit | Update any fields whiting EDIT exercise page press "UPDATE EXERCISE" button: <br> - results gets updated <br> - Flash message displayed  |  &#9745;
+10 | Workouts | Create new workout functionality |  &#9745;
+11 | Workouts/create | Pick exercises are displaying user and system exercises |  &#9745;
+12 | Workouts | Click on newly created workout card, takes you to "Start workout" page  |  &#9745;
+13 | Workouts/start | All selected workouts are displayed |  &#9745;
+14 | Workouts/start |  On any exercise card dial "reps" and "weight" then press to "add to session" button <br> 1. "current session" will display newly added line <br> 2. Repeat previous step to add few more <br> 3. Press "complete exercise" to save progress <br> 4. Newly saved progress would be displayed on the "Last 5 set" section |  &#9745;
+15 | Workouts/profile | Displaying username  |  &#9745;
+16 | Workouts/profile | Displaying latest workout weights progress  |  &#9745;
 
-
-
-
-* Adding a game using form, works as it should. Adding a game is only possible when logged in. &#9745;
-* Game is displayed on the games page, works well. &#9745;
-* Game info is displayed on a separate page when clicked into. Works as it should. &#9745;
-* Edit game, works as it should, only editable by the user that submitted it. &#9745;
-* Delete game works as it should, only able to delete if you submitted the review. &#9745;
-* Add a game button visible in nav if the user is logged in. &#9745;
-* Edit/Delete game buttons visible if you are the user who entered the review. &#9745;
-* Login and Singup buttons are only visible if you are not signed in. &#9745;
-* If the username already exists in the database, prompts the user that it already exists. &#9745;
-* If a user enters a login url when already logged in it will redirect to home with a flash message. &#9745;
-* Search function, not 100%, returns 505 if no criteria specified(caught with custom 505). [**NOW CORRECTED**]
-* All links work. &#9745;
-* Games can only be entered once on the database. (checks title) &#9745;
-* Developer being added to a separate collection when the user submits a game review if it doesn't already exist in the database. works &#9745;
-* Flash messages appear when appropriate to ensure completed action to the user, or if errors occur. &#9745;
-* All fields required when adding/editing games so no fields are empty on the game description page. &#9745;
-* Correct data is displayed for each field in edit form. &#9745;
-* Automatically converts youtube videos to embed to display video in iframe. &#9745;
-* Custom 505 error page. &#9745;
-* Delete modal appears when the first delete button clicked, and the game only deleted from the database after the Confirmation delete clicked. &#9745;
-* Confirm password on signup page works as expected. &#9745;
-* Search function works as expected, empty search returns all entries, each criteria can be searched separately.
-  Also saves your search criteria after search is complete. &#9745;
  
 No automated testing was conducted.
 </details>
@@ -267,10 +243,13 @@ Current errors:
 </summary>
 
 1. ***FIXED***  ~~issue with static directory, images have to be in static/css~~ -- fixed, file structure error.
-2. fixe
-3. fixed
+2. When deleting exercise, its name still shown in the workout card, until this card get modified by user and new exercises are reselected.
+    * Left as it is at the moment.
+    * Possible fix, query db when deleting exercises, and remove record from workout list containing that exercise.
+    * Better solution to use relational DB in the future.
 4. fixed
 5. fixed
+6. fixed
 </details>
 
 ---

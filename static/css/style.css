@@ -551,6 +551,13 @@ body {
 
 
 /*=======profile===================*/
+.profile-container .collapsible-header:hover{
+    background-color: coral;
+}
+
+.profile-container .collapsible-body{
+    height: 28rem;
+}
 .my-chart {
     height: 300px;
     width: 100%;
@@ -563,8 +570,8 @@ body {
 
 .note {
     position: absolute;
-    bottom: -15px;
-    right: 0;
+    bottom: -50px;
+    right: -10%;
     font-size: 8px;
 }
 
@@ -572,7 +579,12 @@ body {
     font-size: 1rem;
     line-height: 1.25rem;
 }
-
+.my-chart th{
+    font-size: 0.6rem;
+    transform: rotate(-90deg);
+    bottom: -2.6rem !important;
+    height: 2.6rem;
+}
 .profile-container {
     display: block;
     height: 300px;

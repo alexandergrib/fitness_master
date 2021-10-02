@@ -43,7 +43,7 @@
                                                                 <tr>
                                                                     <th scope="row">
                                                                     {% set list1 = exercise.date.split("/") %}
-                                                                        {{ list1[0] }}/{{ list1[1] }}
+                                                                        {{ list1[0] }}/{{ list1[1] }} <br>{{ exercise.exercise_name }}
                                                                     </th>
                                                                     {#Set 150kg maximum weight limit#}
                                                                     <td style="--size: calc({% if exercise.weight |int >= 150 %}150{% else %}{{ exercise.weight }}{% endif %} / 150)">
@@ -55,9 +55,10 @@
                                                                 </tr>
                                                         {% endif %}
                                                     {% endfor %}
-                                                <div class="note"><span>*Display based on weight of 100%/150kg </span></div>
+
                                                 </tbody>
                                             </table>
+                                            <div class="note"><span>*Display based on weight of 100%/150kg </span></div>
                                         </div>
                                     </div>
                                 </div>
