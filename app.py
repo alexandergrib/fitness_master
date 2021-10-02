@@ -238,18 +238,15 @@ def create_exercise():
                 if bool(pattern.search(img_url)):
                     try:
                         img_cdn = upload_image(img_url)
+                    except Error:
 
-                    #     Trying to catch(cloudinary.exceptions.Error: Resource not found ) error when wrong url provided.
-                    # I was unable to use imported Error from cloudinary hence have to go broader rout by catching all possible exceptions via Exept.
-                    except Exception:
-
-                        flash("Invalid image URL provided, so used default instead")
+                        flash("Invalid image URL provided, default used insteadd")
                         img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
                 else:
-                    flash("Invalid image URL provided, so used default instead")
+                    flash("Invalid image URL provided, default used instead")
                     img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
             else:
-                flash("No image URL provided, so used default instead")
+                flash("No image URL provided, default used instead")
                 img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
             submit = {
                 "exercise_name": request.form.get("exercise_name"),
@@ -310,14 +307,14 @@ def edit_exercise(exercise_id):
                 if bool(pattern.search(img_url)):
                     try:
                         img_cdn = upload_image(img_url)
-                    except KeyError:
-                        flash("Invalid image URL provided, so used default instead")
+                    except Error:
+                        flash("Invalid image URL provided, default used instead")
                         img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
                 else:
-                    flash("Invalid image URL provided, so used default instead")
+                    flash("Invalid image URL provided, default used instead")
                     img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
             else:
-                flash("No image URL provided, so used default instead")
+                flash("No image URL provided, default used instead")
                 img_cdn = "https://res.cloudinary.com/dmwrfu8lh/image/upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
 
             submit = {
