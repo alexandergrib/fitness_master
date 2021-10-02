@@ -2,7 +2,7 @@ import os
 import re
 from datetime import datetime
 
-
+from bson.errors import InvalidId
 from cloudinary.exceptions import Error
 from flask import (
     Flask, flash, render_template,
@@ -107,7 +107,11 @@ def edit_workout(workout_id):
             print(flash_text)
             return redirect(url_for("get_workout"))
 
-        single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+        try:
+            single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+        except InvalidId:
+            flash("Invalid ID provided please try again")
+            return redirect(url_for("index"))
         exercise_list = list(mongo.db.exercises.find({"$or": [{"created_by": {"$eq": "admin"}},
                                                               {"created_by": {"$eq": session["user"]}}]}
                                                      ))
@@ -137,7 +141,11 @@ def start_workout(workout_id):
         :return workout_list, exercise_history, exercise_list
     """
     if "user" in session:
-        single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+        try:
+            single_workout = mongo.db.routines.find_one({"_id": ObjectId(workout_id)})
+        except InvalidId:
+            flash("Invalid ID provided please try again")
+            return redirect(url_for("index"))
         exercise_list = list(mongo.db.exercises.find())
         exercise_history = list(mongo.db.user_profile.find(
             {"$and": [{"username": {"$eq": session["user"]}},
@@ -474,6 +482,11 @@ def logout():
     session.pop("user")
     return redirect(url_for("index"))
 
+
+@app.errorhandler(404)
+def page_not_found(*args, **kwargs):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
