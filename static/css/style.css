@@ -259,7 +259,7 @@ main{
     margin-top: 50px;
     max-width: 655px;
     width: 80%;
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translate(-50%, 0px);
     background-color: #fff;
