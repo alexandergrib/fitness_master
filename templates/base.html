@@ -2,33 +2,33 @@
 <html lang="en">
 <head>
 
- <!-- Metas -->
+    <!-- Metas -->
     <meta name="description" content="An exercise tracking website"/>
     <meta name="keywords" content="Fitness, workout, activity, tracking, dairy"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="canonical" href="https://github.com/alexandergrib/fitness_master/"/>
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow"/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
- <!-- Facebook, LinkedIn, Google  -->
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Fitness Master" />
+    <!-- Facebook, LinkedIn, Google  -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:title" content="Fitness Master"/>
     <meta property="og:description" content="An exercise tracking website, track your activity smarter"/>
-{#        <meta name="image" property="og:image" content="static/docs/finalpage.png"/>#}
-{#        <meta property="og:image:alt" content="An image of the final site on a range of screen sizes"/>#}
+    {#        <meta name="image" property="og:image" content="static/docs/finalpage.png"/>#}
+    {#        <meta property="og:image:alt" content="An image of the final site on a range of screen sizes"/>#}
     <meta property="og:url" content="https://fitness-master.herokuapp.com/"/>
-    <meta property="og:site_name" content="Fitness Master" />
-    <meta name="author" content="Alexander G" />
- <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Fitness Master" />
+    <meta property="og:site_name" content="Fitness Master"/>
+    <meta name="author" content="Alexander G"/>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Fitness Master"/>
     <meta name="twitter:description" content="An exercise tracking website, track your activity smarter"/>
-{#        <meta name="twitter:image" content="static/docs/finalpage.png" />#}
-{#        <meta name="twitter:image:alt" content="An image of the final site on a range of screen sizes"/>#}
+    {#        <meta name="twitter:image" content="static/docs/finalpage.png" />#}
+    {#        <meta name="twitter:image:alt" content="An image of the final site on a range of screen sizes"/>#}
 
 
-<!-- Materialize CDN -->
+    <!-- Materialize CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
           type="text/css">
 
@@ -36,17 +36,17 @@
     {% endblock %}
 
 
- <!-- Local stylesheet -->
+    <!-- Local stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
 
 
- <!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
           integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA=="
           crossorigin="anonymous" type="text/css">
 
 
- <!-- Favicon -->
+    <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180"
           href="{{ url_for('static', filename='img/favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32"
@@ -108,12 +108,12 @@
 <div class="breadcrumbs">
     <div class="row">
         <div class="col s12">
-                <div class="breadcrumbs-wrapper">
-                    <ul>
-                        {% block breadcrumbs %}
-                        {% endblock %}
-                    </ul>
-                </div>
+            <div class="breadcrumbs-wrapper">
+                <ul>
+                    {% block breadcrumbs %}
+                    {% endblock %}
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -131,15 +131,15 @@
     {% endwith %}
 </section>
 
-   <!-- Loading module so user doesn't see empty page -->
-      <div class="loading-container">
-        <div class="container">
-            <span>Please wait while page loading</span>
-          <div class="progress">
+<!-- Loading module so user doesn't see empty page -->
+<div class="loading-container">
+    <div class="container">
+        <span>Please wait while page loading</span>
+        <div class="progress">
             <div class="indeterminate"></div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
 <main class="container-fluid main-container">
     {% block content %}
@@ -149,29 +149,30 @@
 {% if not index_page %}
     <!-- Footer template from materialize example -->
     <footer class="page-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">Footer Content</h5>
-            <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-          </div>
-          <div class="col l4 offset-l2 s12">
-            <h5 class="white-text">Links</h5>
-            <ul>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-              <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
         <div class="container">
-        © 2014 Copyright Text
-        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Footer Content</h5>
+                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
+                        content.</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2014 Copyright Text
+                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+        </div>
     </footer>
 {% endif %}
 
@@ -179,8 +180,8 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    {% block scripts %}
-    {% endblock %}  
+{% block scripts %}
+{% endblock %}
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

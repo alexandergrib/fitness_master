@@ -4,16 +4,15 @@ import cloudinary.uploader
 import cloudinary.api
 from bson import ObjectId
 from bson.errors import InvalidId
+
 if os.path.exists("env.py"):
     import env
 
-
 cloudinary.config(
-  cloud_name=os.environ.get("cloud_name"),
-  api_key=os.environ.get("api_key"),
-  api_secret=os.environ.get("api_secret")
+    cloud_name=os.environ.get("cloud_name"),
+    api_key=os.environ.get("api_key"),
+    api_secret=os.environ.get("api_secret")
 )
-
 
 """
 https://cloudinary.com/documentation/resizing_and_cropping#control_gravity

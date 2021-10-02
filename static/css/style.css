@@ -9,15 +9,17 @@ body {
     min-height: 100vh;
     flex-direction: column;
 }
-main{
+
+main {
     /*min-height: 100%;*/
     flex: 1 0 auto;
 
 }
 
-.page-footer{
-
+.page-footer {
+    margin-top: 10px;
 }
+
 .header-font {
     font-family: "Bangers", sans-serif;
 }
@@ -115,7 +117,6 @@ main{
 }
 
 
-
 .section-first-header {
     position: absolute;
     top: 1.5rem;
@@ -193,12 +194,14 @@ main{
 .section-second h2 {
     font-size: 2.4rem;
 }
-.section-second img{
+
+.section-second img {
     width: 309px;
     height: auto;
     border: 1px solid black;
     background-color: #aaaaaa;
 }
+
 /* second third*/
 .section-third {
     text-align: center;
@@ -207,7 +210,8 @@ main{
 .section-third h2 {
     font-size: 2.4rem;
 }
-.section-third p{
+
+.section-third p {
     font-size: 1.6em;
 }
 
@@ -534,13 +538,14 @@ main{
 
 
 /*=======profile===================*/
-.profile-container .collapsible-header:hover{
+.profile-container .collapsible-header:hover {
     background-color: coral;
 }
 
-.profile-container .collapsible-body{
+.profile-container .collapsible-body {
     height: 28rem;
 }
+
 .my-chart {
     height: 300px;
     width: 100%;
@@ -563,21 +568,21 @@ main{
     line-height: 1.25rem;
 }
 
-.my-chart th{
+.my-chart th {
     font-size: 0.6rem;
     text-align: center;
-    bottom: calc(var(--labels-size)*-1 - var(--primary-axis-width) - 1rem) !important;
+    bottom: calc(var(--labels-size) * -1 - var(--primary-axis-width) - 1rem) !important;
 }
 
 .profile-container {
     display: block;
 }
 
-.profile-container h2{
+.profile-container h2 {
     text-transform: uppercase;
 }
 
-.footer-container{
+.footer-container {
 
 }
 
