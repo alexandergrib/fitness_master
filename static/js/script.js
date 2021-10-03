@@ -40,9 +40,5 @@ $(document).ready(function () {
 
 //hide loading container
 document.body.onload = function () {
-  document.querySelector(".loading-container").classList.add("hide");
-
+    document.querySelector(".loading-container").classList.add("hide");
 };
-window.onload = function what(){
-    document.getElementById("copyright_year").innerHTML = new Date().getFullYear();
-}
