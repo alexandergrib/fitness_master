@@ -17,10 +17,10 @@ Where they can explore different exercises or be able to create their own .
 
 ## Contents
 <p align="center">
-  <img width="40%" src= "static/images/headerImg.PNG">
+  <img width="40%" src= "./readme_screenshots/screen_shot.png">
 </p>
  
-<p align="center"><a href= 'http://fitness-master.herokuapp.com/' target = "_blank">
+<p align="center"><a href= 'https://fitness-master.herokuapp.com/' target = "_blank">
 Fitness Master</a></p>
  
 ## Table of Contents
@@ -50,10 +50,9 @@ Fitness Master</a></p>
 ## About
 The purpose of this project was to build an app where users can tailor their exercise routines to suit their need and keep record of their achievements.
 
+---
 
 ## User Experience (UX)
-
----
 
 ### User Stories
 
@@ -66,9 +65,7 @@ The purpose of this project was to build an app where users can tailor their exe
   * Be able to review my progress
   * Be able to see my workout history(Names) in my profile
   * Be able to see my workout history in details (Expandable details)
-  * Be able to see graphs of progress on weight on each exercise
-
-    
+  * Be able to see graphs of progress on weight on each exercise    
 
 ### UI
 
@@ -95,7 +92,7 @@ The purpose of this project was to build an app where users can tailor their exe
 ### Wireframes
 Wireframes are my initial design, so you may notice that final website design does not contain everything that was planned at the start of the project.
 Some missing features are possible future improvements for the project. They may be implemented at the later stage.
-<link to wireframes screenshots>
+  * [wireframes.pdf](readme_screenshots/wireframes.pdf)
 
 ### Database Schema
 
@@ -129,9 +126,6 @@ GET |  /profile/ | User profile
 GET | /logout | Logout user
 
 
-
-
-
 ---
 
 ## Features
@@ -160,9 +154,10 @@ GET | /logout | Logout user
 
 ###  Future updates
 
-1. a
-2. b
-3. c
+1. Rework login logic to use id as identifier instead of username. This would help in case user decide to change username but keep all the records.
+2. Create change/update password for user.
+3. Display calendar in the profile to show on which  day workout was completed.
+
 
 ---
  
@@ -203,8 +198,8 @@ Below I have listed the programming languages, technologies, frameworks and reso
 * [pep8](http://pep8online.com/)
  
 I personally tested the website on some of my own personal systems of which include:
-1.
-2.
+1. Windows10 Google Chrome, Mozilla, Edge browsers
+2. [https://www.webpagetest.org/](https://www.webpagetest.org/) To test for errors and performance
 
 
 ### Manual testing  (need rework)
@@ -509,7 +504,7 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
  
 A thank you to my friends and family for testing the website for me.
 Also a thank you to my mentor for the help and support.
-[Aidan](https://github.com/aidant842/MilestoneProject3) for his README template
+[Aidan](https://github.com/aidant842/MilestoneProject3) for this README template
 [Back to top ↑](#fitness-master)
 
 
