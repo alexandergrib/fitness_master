@@ -35,8 +35,13 @@
             <h2>START YOUR JOURNEY</h2>
 
             <h4> How to start?</h4>
-            <p>Please use register to open account and start tracking your exercises </p>
-            <p>Ready to start your new challenge?</p>
+            {% if session.user %}
+                <p>Create your workout routine by selecting our exercises or create your own.</p>
+                <p>Ready to start your new challenge?</p>
+            {% else %}
+                <p>Please use register to open account and start tracking your exercises </p>
+                <p>Ready to start your new challenge?</p>
+            {% endif %}
         </div>
         {% if session.user %}
 

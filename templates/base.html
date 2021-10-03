@@ -5,7 +5,7 @@
     <!-- Metas -->
     <meta name="description" content="An exercise tracking website"/>
     <meta name="keywords" content="Fitness, workout, activity, tracking, dairy"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5.0, minimum-scale=0.999"/>
     <link rel="canonical" href="https://github.com/alexandergrib/fitness_master/"/>
     <meta name="robots" content="index, follow"/>
     <meta charset="UTF-8">
@@ -152,25 +152,27 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer
-                        content.</p>
+                    <h5 class="white-text">About us</h5>
+                    <p class="grey-text text-lighten-4">Located in the heart of London, here at Fitness master Leisure
+                        Centre we're dedicated to making our community happier and healthier. Our wide range of health
+                        and fitness activities means you'll find something that suits you. We'll make sure of it!</p>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>
                     <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('index') }}">Home</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('get_workout') }}">Workouts</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('get_exercise_list') }}">Exercises</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('profile') }}">Profile</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
-                © 2014 Copyright Text
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+                © <span id="copyright_year"></span> Copyright
+                <a class="grey-text text-lighten-4 right" target="_blank" href="https://github.com/alexandergrib/fitness_master/">  &nbsp;&nbsp; Github</a>
+                <span class="grey-text text-lighten-4 right">Designed by Alexander  &nbsp;&nbsp;</span>
             </div>
         </div>
     </footer>
@@ -184,5 +186,8 @@
 {% endblock %}
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>
+    document.getElementById("copyright_year").innerHTML = new Date().getFullYear();
+</script>
 </body>
 </html>
