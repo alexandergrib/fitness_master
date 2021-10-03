@@ -76,7 +76,6 @@ def create_workout():
                 flash_text = "{} Successfully Created".format(
                     submit["workout_name"])
                 flash(flash_text)
-                print(flash_text)
                 return redirect(url_for("get_workout"))
         return render_template("create_workout.html",
                                exercise_list=exercise_list)
@@ -110,9 +109,7 @@ def edit_workout(workout_id):
             flash_text = "{} Successfully Updated".format(
                 submit["workout_name"])
             flash(flash_text)
-            print(flash_text)
             return redirect(url_for("get_workout"))
-
         try:
             single_workout = mongo.db.routines.find_one(
                 {"_id": ObjectId(workout_id)}
@@ -213,9 +210,7 @@ def update_workout_data(query):
             "created_by": exercise_data["created_by"],
             "exercise_history": exercise_history
         }
-
         mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
-
         return redirect(url_for("start_workout", workout_id=workout_id))
 
 
@@ -224,7 +219,6 @@ def complete_workout(workout_id):
     try:
         fetch_workout = mongo.db.routines.find_one(
             {"_id": ObjectId(workout_id)})
-
         fetch_workout['completed'] = True
         mongo.db.routines.update({"_id": ObjectId(workout_id)}, fetch_workout)
         flash("Workout complete")
@@ -311,9 +305,7 @@ def create_exercise():
             flash_text = "{} Successfully Created".format(
                 submit["exercise_name"])
             flash(flash_text)
-            print(flash_text)
             return redirect(url_for("get_exercise_list"))
-
         return render_template("create_exercise.html",
                                exercise_category_list=exercise_category_list)
     else:
@@ -345,7 +337,6 @@ def edit_exercise(exercise_id):
             mongo.db.categories.find().sort("category_name", 1))
         single_exercise = mongo.db.exercises.find_one(
             {"_id": ObjectId(exercise_id)})
-        print(single_exercise)
         if request.method == "POST":
             yt = request.form.get("yt_url")
             replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
@@ -365,7 +356,6 @@ def edit_exercise(exercise_id):
             else:
                 flash("No image URL provided, default used instead")
                 img_cdn = default_img
-
             submit = {
                 "exercise_name": request.form.get("exercise_name"),
                 "description": request.form.get("description"),
