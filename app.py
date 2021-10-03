@@ -219,6 +219,21 @@ def update_workout_data(query):
         return redirect(url_for("start_workout", workout_id=workout_id))
 
 
+@app.route("/workout/complete/<workout_id>", methods=["POST", "GET"])
+def complete_workout(workout_id):
+    try:
+        fetch_workout = mongo.db.routines.find_one(
+            {"_id": ObjectId(workout_id)})
+
+        fetch_workout['completed'] = True
+        mongo.db.routines.update({"_id": ObjectId(workout_id)}, fetch_workout)
+        flash("Workout complete")
+        return redirect(url_for('get_workout'))
+    except Error:
+        flash("Can't find this workout")
+        return redirect(url_for("index"))
+
+
 # ---------------------------------exercise section-------------------------
 
 @app.route("/exercise")
