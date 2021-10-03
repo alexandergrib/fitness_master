@@ -535,7 +535,12 @@ main {
     font-size: 1.1rem;
 }
 
-
+#save_workout{
+    text-align: center;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
 /*=======profile===================*/
 .profile-container .collapsible-header:hover {
     background-color: coral;
