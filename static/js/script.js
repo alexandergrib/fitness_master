@@ -41,4 +41,6 @@ $(document).ready(function () {
 //hide loading container
 document.body.onload = function () {
   document.querySelector(".loading-container").classList.add("hide");
+  document.getElementById("copyright_year").innerHTML = new Date().getFullYear();
 };
+

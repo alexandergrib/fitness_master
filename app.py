@@ -525,12 +525,6 @@ def page_not_found(*args, **kwargs):
     return render_template('404.html'), 404
 
 
-# this added to solve cash control issue raised by lighthouse audit
-# https://stackoverflow.com/questions/23112316/using-flask-how-do-i-modify-the-cache-control-header-for-all-output
-@app.after_request
-def add_header(response):
-    response.cache_control.max_age = 300
-    return response
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
