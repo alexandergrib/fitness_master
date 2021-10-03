@@ -17,7 +17,7 @@ Where they can explore different exercises or be able to create their own .
 
 ## Contents
 <p align="center">
-  <img width="40%" src= "./readme_screenshots/screen_shot.png">
+  <img width="40%" src= "readme_screenshots/screen_shot.png">
 </p>
  
 <p align="center"><a href= 'https://fitness-master.herokuapp.com/' target = "_blank">
@@ -185,6 +185,7 @@ Below I have listed the programming languages, technologies, frameworks and reso
 * **[Slack](https://slack.com/)** specifically the code institute room in slack.
 * **[Grammarly](https://www.grammarly.com/)** to correct grammar and spelling mistakes.
 * **[Charts CSS](https://chartscss.org/)** to display charts for each workout completed
+* **[animate.style](https://animate.style/)** to display animations
 * **[Stackoverflow](https://stackoverflow.com)** to help me solve unsolvable
 
 ---
@@ -206,7 +207,8 @@ I personally tested the website on some of my own personal systems of which incl
       * All other score looks good
 
 
-### Manual testing  (need rework)
+### Manual testing
+
 <details>
 <summary>
 Testing conducted
@@ -235,6 +237,26 @@ N | Section | Test | Result
 No automated testing was conducted.
 </details>
 
+<details>
+<summary>
+User stories testing
+</summary>
+
+N | Section | Test | Result
+|:---:|---|---|:---:|
+1 | Create personalized workout routines | <img width="20%" src= "readme_screenshots/user_test_1.png"> |   &#9745;
+2 | Have selection exercises to choose from | <img width="20%" src= "readme_screenshots/user_test_2.png"> |   &#9745;
+3 | Be able to read about each individual exercise in details, how to do it, and which area of the body it targets | <img width="20%" src= "readme_screenshots/user_test_3.png"> |   &#9745;
+4 | Be able to add my own exercises or modify existing ones to suit my needs | <img width="20%" src= "readme_screenshots/user_test_4.png"> |   &#9745;
+5 | Be able to track my workout by monitoring amounts of reps, sets and weight | <img width="20%" src= "readme_screenshots/user_test_5.png"> |   &#9745;
+6 | Be able to save my progress   | <img width="20%" src= "readme_screenshots/user_test_6.png"> |   &#9745;
+7 | Be able to review my progress  | <img width="20%" src= "readme_screenshots/user_test_7.png"> |   &#9745;
+8 | Be able to see my workout history(Names) in my profile  | <img width="20%" src= "readme_screenshots/user_test_8.png"> |   &#9745;
+9 | Be able to see my workout history in details (Expandable details)  | <img width="20%" src= "readme_screenshots/user_test_9.png"> |   &#9745;
+10 | Be able to see graphs of progress on weight on each exercise   | <img width="20%" src= "readme_screenshots/user_test_10.png"> |   &#9745;
+
+</details>
+
 ### Errors
 <details>
 <summary>
@@ -246,14 +268,12 @@ Current errors:
     * Left as it is at the moment.
     * Possible fix, query db when deleting exercises, and remove record from workout list containing that exercise.
     * Better solution to use relational DB in the future.
-4. fixed
-5. fixed
-6. fixed
+
 </details>
 
 ---
 ## Code Notes
-
+* In base.html I had to put script inside {% if %} statement because I would only need to load this script when this section gets rendered on the webpage, otherwise I was getting error ```Cannot set property 'innerHTML' of null```
 ---
 
 ## Deployment
@@ -491,24 +511,31 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
     The application is now running locally.
 </details>
 
+
 ---
 ## Credits
 ### Code
 
+   * Animations are done with help of [animate.style](https://animate.style/)
+   * Website built based on [MaterializeCSS](https://materializecss.com/)    
+
 
 ### Images
-
-* All background images came from [Google-Images](https://www.google.com/imghp?hl=en)
-
+* [https://cloudinary.com/](https://cloudinary.com/)
+* [Google-Images](https://www.google.com/imghp?hl=en)
+* [https://unsplash.com/](https://unsplash.com/)
+* User uploaded images are credits to their source and be used as is. As a website owner I don't take any responsibility for user provided content. (If any images found in breach of the copyrights please contact me.)
 
 ---
 
 
 ## Acknowledgements
  
-A thank you to my friends and family for testing the website for me.
-Also a thank you to my mentor for the help and support.
-[Aidan](https://github.com/aidant842/MilestoneProject3) for this README template
+* A thank you to my friends and family for testing the website for me.
+* Thank you to my mentor for the help and support.
+* [Aidan](https://github.com/aidant842/MilestoneProject3) for this README template
+* A big thank you to my teammates on slack, for their enormous help and support if any issue arise.
+
 [Back to top ↑](#fitness-master)
 
 
