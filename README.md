@@ -243,7 +243,7 @@ User stories testing
 </summary>
 
 N | Section | Test | Result
-|:---:|---|---|:---:|
+|:---:|---|:---:|:---:|
 1 | Create personalized workout routines | <img width="20%" src= "readme_screenshots/user_test_1.png"> |   &#9745;
 2 | Have selection exercises to choose from | <img width="20%" src= "readme_screenshots/user_test_2.png"> |   &#9745;
 3 | Be able to read about each individual exercise in details, how to do it, and which area of the body it targets | <img width="20%" src= "readme_screenshots/user_test_3.png"> |   &#9745;
