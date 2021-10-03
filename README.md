@@ -199,7 +199,11 @@ Below I have listed the programming languages, technologies, frameworks and reso
  
 I personally tested the website on some of my own personal systems of which include:
 1. Windows10 Google Chrome, Mozilla, Edge browsers
-2. [https://www.webpagetest.org/](https://www.webpagetest.org/) To test for errors and performance
+2. [https://www.webpagetest.org/](https://www.webpagetest.org/) To test for errors and performance 
+   1. [Results](https://www.webpagetest.org/result/211003_AiDcEY_4d6b4e0c4aa299fd1a2e344dd9aa87cb/1/details/)
+      * Score ```F``` for Security score has to be setup on the server side of heroku
+      * Score ```F``` for Compress Transfer has to be setup on the server side of heroku
+      * All other score looks good
 
 
 ### Manual testing  (need rework)
