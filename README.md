@@ -98,11 +98,11 @@ Some missing features are possible future improvements for the project. They may
 
 I started planning database after I have done my wireframes to justify which fields I would require and what collections I would have to use.
 After initial discussion with my mentor I have settled with current database schema.
- * link to pdf file where each collection described in details
+ * [Database schema](readme_screenshots/database_structure.pdf)
 
 ### Database Model
 
- * link to pdf file with db model screenshot
+  * [Database model](readme_screenshots/database_diagram.png)
 
 
 #### CRUD
