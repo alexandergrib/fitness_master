@@ -229,7 +229,6 @@ def complete_workout(workout_id):
 
 
 # ---------------------------------exercise section-------------------------
-
 @app.route("/exercise")
 def get_exercise_list():
     """
@@ -260,6 +259,7 @@ def create_exercise():
     default_img = "https://res.cloudinary.com/dmwrfu8lh/image/" \
                   "upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
     if "user" in session:
+        # Checks if user provided valid image
         pattern = re.compile(
             "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
         exercise_category_list = list(
@@ -336,6 +336,7 @@ def edit_exercise(exercise_id):
     default_img = "https://res.cloudinary.com/dmwrfu8lh/image/" \
                   "upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
     if "user" in session:
+        # Checks if user provided valid image
         pattern = re.compile(
             "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
         exercise_category_list = list(
@@ -428,8 +429,6 @@ def delete_exercise(exercise_id):
 
 
 # ============search===================
-
-
 @app.route("/exercise/search", methods=["GET", "POST"])
 def search():
     if "user" in session:
@@ -455,8 +454,6 @@ def search():
 
 
 # ==========handle login logout register======================================
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -517,7 +514,7 @@ def profile():
         mongo.db.users.find_one({
             "username": session["user"]
         })["username"]
-    except (TypeError, KeyError):
+    except Error:
         return redirect(url_for("login"))
     if "user" in session:
         user_history = list(
