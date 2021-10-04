@@ -266,8 +266,13 @@ def create_exercise():
             mongo.db.categories.find().sort("category_name", 1))
         if request.method == "POST":
             yt = request.form.get("yt_url")
-            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
-                                 'https://youtube.com/embed/', yt)
+
+            if yt:
+                replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
+                                     'https://youtube.com/embed/', yt)
+            else:
+                replace_url = "https://youtube.com/embed/wtFPIOV2bWM"
+                flash("No video url provided, default used instead")
             img_url = request.form.get("img_url")
             if img_url:
                 if bool(pattern.search(img_url)):
@@ -287,7 +292,7 @@ def create_exercise():
                 "exercise_name": request.form.get("exercise_name"),
                 "description": request.form.get("description"),
                 "about": request.form.get("about"),
-                "img_url": img_cdn,  # request.form.get("img_url"),
+                "img_url": img_cdn,
                 "exercise_sets": request.form.get("exercise_sets"),
                 "exercise_reps": request.form.get("exercise_reps"),
                 "exercise_category": request.form.getlist("exercise_category"),
@@ -339,8 +344,13 @@ def edit_exercise(exercise_id):
             {"_id": ObjectId(exercise_id)})
         if request.method == "POST":
             yt = request.form.get("yt_url")
-            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
-                                 'https://youtube.com/embed/', yt)
+            if yt:
+                replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
+                                     'https://youtube.com/embed/', yt)
+            else:
+                replace_url = "https://youtube.com/embed/wtFPIOV2bWM"
+                flash("No video url provided, default used instead")
+
             img_url = request.form.get("img_url")
             if img_url:
                 if bool(pattern.search(img_url)):

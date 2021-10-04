@@ -159,13 +159,18 @@
                     <a href="{{ url_for('get_exercise_list') }}" class="btn-large red text-shadow">
                         Cancel <i class="fas fa-times-circle right"></i>
                     </a>
+                {% if exercise.created_by != "admin" %}
                     <button type="submit" class="btn-large light-blue darken-1 text-shadow">
                         Update Exercise <i class="fas fa-edit right"></i>
                     </button>
-                    {% if exercise.created_by != "admin" %}
-                        <a class="waves-effect waves-light btn btn-large red darken-1 text-shadow modal-trigger"
+                    <a class="waves-effect waves-light btn btn-large red darken-1 text-shadow modal-trigger"
                            href="#delete_item">DELETE Exercise</a>
-                    {% endif %}
+                {% else %}
+                    <button type="submit" class="btn-large light-blue darken-1 text-shadow">
+                        Copy Exercise <i class="fas fa-edit right"></i>
+                    </button>
+
+                {% endif %}
                 </div>
             </div>
         </form>
