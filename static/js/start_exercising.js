@@ -13,13 +13,11 @@ function addNewInput(id, repsVal, weightVal){
 
 function submitMyForm(id){
     let form = document.getElementById(id);
-    console.log('form submitted');
     form.submit();
 }
 
 function handleSubmit(event){
-    event.preventDefault();  
-    console.log('input added');
+    event.preventDefault();
     let id = this.elements[2].name.replace('id_','');
     let repsVal = this.elements[0].value;
     let weightVal = this.elements[1].value;
