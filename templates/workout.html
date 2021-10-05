@@ -59,6 +59,16 @@
                                                 {% endfor %}
                                             </ul>
                                         </li>
+                                        <li>
+                                            <span class="workout-card--completed_date">
+                                                Last completed:
+                                                {% if workout.completed %}
+                                                    {{ workout.modified_date }}
+                                                {% else %}
+                                                    Never completed
+                                                {% endif %}
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

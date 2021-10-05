@@ -534,7 +534,10 @@ main {
     line-height: 30px;
     font-size: 1.1rem;
 }
-
+.workout-card--completed_date{
+    font-size: 1rem !important;
+    float: right;
+}
 #save_workout{
     text-align: center;
     position: relative;
