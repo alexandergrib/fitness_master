@@ -98,11 +98,11 @@ Some missing features are possible future improvements for the project. They may
 
 I started planning database after I have done my wireframes to justify which fields I would require and what collections I would have to use.
 After initial discussion with my mentor I have settled with current database schema.
- * link to pdf file where each collection described in details
+ * [Database schema](readme_screenshots/database_structure.pdf)
 
 ### Database Model
 
- * link to pdf file with db model screenshot
+  * [Database model](readme_screenshots/database_diagram.png)
 
 
 #### CRUD
@@ -230,8 +230,9 @@ N | Section | Test | Result
 12 | Workouts | Click on newly created workout card, takes you to "Start workout" page  |  &#9745;
 13 | Workouts/start | All selected workouts are displayed |  &#9745;
 14 | Workouts/start |  On any exercise card dial "reps" and "weight" then press to "add to session" button <br> 1. "current session" will display newly added line <br> 2. Repeat previous step to add few more <br> 3. Press "complete exercise" to save progress <br> 4. Newly saved progress would be displayed on the "Last 5 set" section |  &#9745;
-15 | Workouts/profile | Displaying username  |  &#9745;
-16 | Workouts/profile | Displaying latest workout weights progress  |  &#9745;
+15 | Workouts/start | Press "save workout" button this will save current workout. Then de-select "show completed" switch. Should hide all workouts that marked as completed. | &#9745;
+16 | Workouts/profile | Displaying username  |  &#9745;
+17 | Workouts/profile | Displaying latest workout weights progress  |  &#9745;
 
  
 No automated testing was conducted.

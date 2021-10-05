@@ -229,7 +229,6 @@ def complete_workout(workout_id):
 
 
 # ---------------------------------exercise section-------------------------
-
 @app.route("/exercise")
 def get_exercise_list():
     """
@@ -260,14 +259,20 @@ def create_exercise():
     default_img = "https://res.cloudinary.com/dmwrfu8lh/image/" \
                   "upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
     if "user" in session:
+        # Checks if user provided valid image
         pattern = re.compile(
             "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
         exercise_category_list = list(
             mongo.db.categories.find().sort("category_name", 1))
         if request.method == "POST":
             yt = request.form.get("yt_url")
-            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
-                                 'https://youtube.com/embed/', yt)
+
+            if yt:
+                replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
+                                     'https://youtube.com/embed/', yt)
+            else:
+                replace_url = "https://youtube.com/embed/wtFPIOV2bWM"
+                flash("No video url provided, default used instead")
             img_url = request.form.get("img_url")
             if img_url:
                 if bool(pattern.search(img_url)):
@@ -287,7 +292,7 @@ def create_exercise():
                 "exercise_name": request.form.get("exercise_name"),
                 "description": request.form.get("description"),
                 "about": request.form.get("about"),
-                "img_url": img_cdn,  # request.form.get("img_url"),
+                "img_url": img_cdn,
                 "exercise_sets": request.form.get("exercise_sets"),
                 "exercise_reps": request.form.get("exercise_reps"),
                 "exercise_category": request.form.getlist("exercise_category"),
@@ -331,6 +336,7 @@ def edit_exercise(exercise_id):
     default_img = "https://res.cloudinary.com/dmwrfu8lh/image/" \
                   "upload/v1630497794/fitness_master/250_c8bkf4_opgryc.png"
     if "user" in session:
+        # Checks if user provided valid image
         pattern = re.compile(
             "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)")
         exercise_category_list = list(
@@ -339,8 +345,13 @@ def edit_exercise(exercise_id):
             {"_id": ObjectId(exercise_id)})
         if request.method == "POST":
             yt = request.form.get("yt_url")
-            replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
-                                 'https://youtube.com/embed/', yt)
+            if yt:
+                replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
+                                     'https://youtube.com/embed/', yt)
+            else:
+                replace_url = "https://youtube.com/embed/wtFPIOV2bWM"
+                flash("No video url provided, default used instead")
+
             img_url = request.form.get("img_url")
             if img_url:
                 if bool(pattern.search(img_url)):
@@ -418,8 +429,6 @@ def delete_exercise(exercise_id):
 
 
 # ============search===================
-
-
 @app.route("/exercise/search", methods=["GET", "POST"])
 def search():
     if "user" in session:
@@ -445,8 +454,6 @@ def search():
 
 
 # ==========handle login logout register======================================
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -507,7 +514,7 @@ def profile():
         mongo.db.users.find_one({
             "username": session["user"]
         })["username"]
-    except (TypeError, KeyError):
+    except Error:
         return redirect(url_for("login"))
     if "user" in session:
         user_history = list(
