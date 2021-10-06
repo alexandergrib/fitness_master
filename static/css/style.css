@@ -425,8 +425,12 @@ main {
     width: 100%;
     border-radius: 10px;
     box-shadow: 5px 5px 14px #aaaaaa;
-    margin: 0 auto;
+    margin: 25px auto;
     max-width: 655px;
+    border: 1px solid rgba(0, 0, 0, 0.22);
+}
+.workout-exercise-single-wrapper .row{
+    margin-bottom: 1px;
 }
 
 .workout-exercise-single-card-name {
@@ -468,7 +472,7 @@ main {
 
 .workout-exercise-single-stats {
     padding: 0;
-    background-color: #aaaaaa;
+    background-color: #aaaaaa4f;
     border-bottom-right-radius: inherit;
     border-bottom-left-radius: inherit;
     display: block;
