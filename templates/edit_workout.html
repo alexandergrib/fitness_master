@@ -66,28 +66,14 @@
                     </label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12">
-                    <label>
-                        {% if workout_list.saved %}
-                            <input type="checkbox" class="filled-in" checked="checked" id="is_saved" name="is_saved"/>
-                        {% else %}
-                            <input type="checkbox" class="filled-in" id="is_saved" name="is_saved"/>
-                        {% endif %}
-                        <span>Saved</span>
-                    </label>
-                </div>
-            </div>
+
 
             <!--date, name -->
             <div class="row">
                 <div class="col s12">
                     <ul>
-                        <li>Date created: {{ workout_list.created_date }}</li>
                         <li>Created by: {{ workout_list.created_by }}</li>
-                        <li>Completed date: {{ workout_list.completed_date }}</li>
                         <li>Modified date: {{ workout_list.modified_date }}</li>
-                        <li>Saved: {{ workout_list.saved }}</li>
                         <li>Completed date: {{ workout_list.completed }}</li>
                     </ul>
 

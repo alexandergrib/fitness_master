@@ -93,7 +93,7 @@ def edit_workout(workout_id):
     if "user" in session:
         if request.method == "POST":
             is_completed = True if request.form.get("is_completed") else False
-            is_saved = True if request.form.get("is_saved") else False
+
             submit = {
                 "workout_name": request.form.get("workout_name"),
                 "workout_sets": "",
@@ -102,7 +102,7 @@ def edit_workout(workout_id):
                 "modified_date": datetime.now().strftime("%d/%m/%Y"),
                 "weight": "",
                 'completed': is_completed,
-                'saved': is_saved,
+                'saved': False,
                 "created_by": session["user"]
             }
             mongo.db.routines.update({"_id": ObjectId(workout_id)}, submit)
