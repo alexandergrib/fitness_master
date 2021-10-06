@@ -454,6 +454,11 @@ main {
     font-size: 1.7rem;
 }
 
+.how-to-info{
+    font-size: 0.7rem;
+    margin-left: 10px;
+}
+
 .workout-exercise-single-more-info {
     font-size: 16px;
     position: relative;

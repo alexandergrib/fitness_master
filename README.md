@@ -269,6 +269,10 @@ Current errors:
     * Left as it is at the moment.
     * Possible fix, query db when deleting exercises, and remove record from workout list containing that exercise.
     * Better solution to use relational DB in the future.
+    
+3. I was trying to create mongoDB query filter where I have system created exercises and user able to modify system exercise by cloning it. As a result I have system and user modified with the similar/same name, and both are displayed to user. I was unable to create filter which will hide system exercises once they are cloned by user. After spending hours in search for solution I decided to go in different approach.
+
+   * Now user still able to clone system exercises, and they are both displayed to user(even if they have same name), but *```I gave user an option to hide all system exercises on the HTML page.```*
 
 </details>
 
@@ -526,7 +530,7 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
 * [Google-Images](https://www.google.com/imghp?hl=en)
 * [https://unsplash.com/](https://unsplash.com/)
 * User uploaded images are credits to their source and be used as is. As a website owner I don't take any responsibility for user provided content. (If any images found in breach of the copyrights please contact me.)
-
+* [image placeholders](https://placehold.it/250x250)
 ---
 
 
@@ -540,35 +544,3 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
 [Back to top ↑](#fitness-master)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Sources credits
-
-image placeholders https://placehold.it/250x500
-
-https://images.unsplash.com/photo-1623200216581-969d9479cf7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fHN0cmV0Y2h8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60
-Photo by <a href="https://unsplash.com/@helloatma?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Anastasia Hisel</a> on <a href="https://unsplash.com/s/photos/stretch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-Photo by <a href="https://unsplash.com/@victorfreitas?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Victor Freitas</a> on <a href="https://unsplash.com/s/photos/old-empty-gym?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
-
-problems encountered:
-
-- Was trying to create mongoDB query filter where i have system created exercises and user able to modify system exercise by cloning it. As a result i have system and user modified with the similar/same name, and both are displayed to user. I was unable to create filter which will hide system exercises once they are cloned by user. After spending hours in search for solution i decided to go in different aproach.
-Now user still able to clone system exercises and they are both displyaed to user, but i gave user an option to hide all system exercises on the thml page.
