@@ -1,34 +1,60 @@
 
 .container{
-    max-width: 100vw;
-    max-height: 100vh;
     position: relative;
     text-align: center;
     text-transform: uppercase;
+    background-color: #BA8A6F;
 }
 
 .img_bg{
-    height: 98vh;
+    height: 1024px;
     width: 100%;
-    background:  center no-repeat url("/static/img/1-79.jpg");
-    background-color: #cccccc;
+    background: #cccccc center no-repeat url("/static/img/1-79.jpg");
     background-size: cover;
 }
 
 .text{
     position: absolute;
     left: 50%;
-    top: 50%;
-    font-size: 3rem;
+    top: 0;
+    font-size: 2rem;
     color: #e0c078;;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
+}
+.text span{
+    font-size: 20rem;
+    color: bisque;
+    z-index: 1;
+}
+.text h1, .text h2{
+    z-index: 10;
 }
 
 .text a{
-    font-size: 4rem;
+    font-size: 3rem;
     color: aliceblue;
 }
 
 .text a:hover{
     color: #3655e6;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .img_bg{
+        height: 768px;
+    }
+    .text{
+        font-size: 1rem;
+    }
+
+    .text span {
+        font-size: 10rem;
+    }
+    .text a {
+        font-size: 1.5rem;
+    }
+
+
 }
