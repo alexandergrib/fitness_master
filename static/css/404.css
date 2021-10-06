@@ -1,19 +1,19 @@
 
-.container{
+.container {
     position: relative;
     text-align: center;
     text-transform: uppercase;
     background-color: #BA8A6F;
 }
 
-.img_bg{
+.img_bg {
     height: 1024px;
     width: 100%;
     background: #cccccc center no-repeat url("/static/img/1-79.jpg");
     background-size: cover;
 }
 
-.text{
+.text {
     position: absolute;
     left: 50%;
     top: 0;
@@ -21,37 +21,40 @@
     color: #e0c078;;
     transform: translate(-50%);
 }
-.text span{
+
+.text span {
     font-size: 20rem;
     color: bisque;
     z-index: 1;
 }
-.text h1, .text h2{
+
+.text h1, .text h2 {
     z-index: 10;
 }
 
-.text a{
+.text a {
     font-size: 3rem;
     color: aliceblue;
 }
 
-.text a:hover{
+.text a:hover {
     color: #3655e6;
 }
 
-
 @media only screen and (max-width: 600px) {
 
-    .img_bg{
+    .img_bg {
         height: 768px;
     }
-    .text{
+
+    .text {
         font-size: 1rem;
     }
 
     .text span {
         font-size: 10rem;
     }
+
     .text a {
         font-size: 1.5rem;
     }

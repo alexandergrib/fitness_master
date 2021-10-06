@@ -11,7 +11,6 @@
     <li><span class="underline"> Create Exercise</span></li>
 {% endblock %}
 
-
 {% block content %}
     <h2 class="center-align">Create exercise</h2>
     <!-- Cards container -->
@@ -26,7 +25,8 @@
                         <label for="exercise_name">Exercise Name</label>
                     </div>
                 </div>
-        <!-- Desription -->
+
+        <!-- Description -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
@@ -35,6 +35,7 @@
                     <label for="description">Description</label>
                 </div>
             </div>
+
                 <!-- about -->
             <div class="row">
                 <div class="input-field col s12">
@@ -85,7 +86,6 @@
                 </div>
             </div>
 
-
             <!-- exercise category -->
             <div class="input-field col s12">
                 <i class="fas fa-pencil-alt prefix light-blue-text text-darken-4"></i>
@@ -118,7 +118,6 @@
                 </div>
             </div>
 
-
             <!-- Exercise Steps -->
             <div class="row">
                 <div class="input-field col s12">
@@ -146,19 +145,18 @@
                 </div>
             </div>
 
-
         <!-- submit button -->
-                    <div class="row">
-                        <div class="col s12 center-align">
-                            <!-- cancel button -->
-                            <a href="{{ url_for('get_exercise_list') }}" class="btn-large red text-shadow">
-                                Cancel <i class="fas fa-times-circle right"></i>
-                            </a>
-                            <button type="submit" class="btn-large light-blue darken-1 text-shadow">
-                                Create Exercise <i class="fas fa-edit right"></i>
-                            </button>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col s12 center-align">
+                    <!-- cancel button -->
+                    <a href="{{ url_for('get_exercise_list') }}" class="btn-large red text-shadow">
+                        Cancel <i class="fas fa-times-circle right"></i>
+                    </a>
+                    <button type="submit" class="btn-large light-blue darken-1 text-shadow">
+                        Create Exercise <i class="fas fa-edit right"></i>
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 {% endblock %}

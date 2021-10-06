@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+
 {% block title %}
     workouts
 {% endblock %}
+
 {% block breadcrumbs %}
     <li><a href="{{ url_for('index') }}">home </a></li>
     <li><span>&gt;</span></li>
@@ -17,7 +19,6 @@
     <section>
         {% for exercise in exercise_list %}
             {% if exercise.exercise_name in workout_list.exercise_choices %}
-
                 <div class="workout-exercise-single-wrapper">
                     <div class="workout-exercise-single-overlay" id="exercise_{{ loop.index }}">
                         <i class="far fa-check-circle"></i>
@@ -46,7 +47,6 @@
                                                 <div class="row">
                                                     <div class="col s12">
                                                         <div class="col-wrapper-single-exercise">
-
                                                             <form action="{{ url_for('update_workout_data', query=exercise._id) }}"
                                                                   method="POST" id="{{ exercise._id }}">
                                                                 <div class="input-field inline">
@@ -69,14 +69,11 @@
                                                                            class="validate align-right">
                                                                     <label for="weight_{{ exercise._id }}">Weight in
                                                                         kg</label>
-
                                                                 </div>
                                                                 <div class="hidden_inputs">
                                                                     <input type="hidden" name="id_{{ exercise._id }}"
                                                                            value="{{ workout_list._id }}"/>
                                                                 </div>
-
-
                                                                 <br>
                                                                 <button class="btn-floating waves-effect waves-light"
                                                                         type="submit" name="action">
@@ -84,7 +81,6 @@
                                                                 </button>
                                                                 <span>Add to session</span>
                                                             </form>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -103,7 +99,6 @@
                             <div class="col s12 m5 center-on-small">
                                 <span>Current session</span>
                                 <ul id="save_completed_id_{{ exercise._id }}">
-
                                 </ul>
                                 <span>
                                     <input class="waves-effect waves-light btn workout-exercise-complete__btn"
@@ -120,7 +115,7 @@
                                             {% if exercise._id|string==item.exercise_id|string %}
                                                 {% if loop.index0 <=4 %}
                                                     <li>
-                                                       {{ item.reps }} REPS &#x40;
+                                                        {{ item.reps }} REPS &#x40;
                                                         {% if item.weight == '0' %}
                                                             BODY WEIGHT
                                                         {% else %}
@@ -133,23 +128,19 @@
                                     {% endfor %}
                                 </ol>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
-
-
-
             {% endif %}
         {% endfor %}
     </section>
-<section>
 
-<a class="waves-effect waves-light btn workout-exercise-complete__btn" href="{{ url_for('complete_workout', workout_id=workout_list._id) }}" id="save_workout">
-    Finish workout
-</a>
-</section>
+    <section>
+        <a class="waves-effect waves-light btn workout-exercise-complete__btn"
+           href="{{ url_for('complete_workout', workout_id=workout_list._id) }}" id="save_workout">
+            Finish workout
+        </a>
+    </section>
 
 {% endblock %}
 

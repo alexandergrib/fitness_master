@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block title %}
     Fitness Master
 {% endblock %}
@@ -29,11 +30,9 @@
         </div>
     </section>
 
-
     <section class="section-third">
         <div class="container">
             <h2>START YOUR JOURNEY</h2>
-
             <h3> How to start?</h3>
             {% if session.user %}
                 <p>Create your workout routine by selecting our exercises or create your own.</p>
@@ -44,10 +43,8 @@
             {% endif %}
         </div>
         {% if session.user %}
-
             <a href="{{ url_for("profile") }}" class="waves-effect waves-light btn-large">
                 <i class="fas fa-dumbbell"></i> PROFILE <i class="fas fa-dumbbell"></i></a>
-
         {% else %}
             <a href="{{ url_for("register") }}" class="waves-effect waves-light btn-large"><i
                     class="fas fa-dumbbell"></i> REGISTER <i class="fas fa-dumbbell"></i></a>
