@@ -264,15 +264,17 @@ N | Section | Test | Result
 Current errors:
 </summary>
 
-1. ***FIXED***  ~~issue with static directory, images have to be in static/css~~ -- fixed, file structure error.
-2. When deleting exercise, its name still shown in the workout card, until this card get modified by user and new exercises are reselected.
+1. When deleting exercise, its name still shown in the workout card, until this card get modified by user and new exercises are reselected.
     * Left as it is at the moment.
     * Possible fix, query db when deleting exercises, and remove record from workout list containing that exercise.
     * Better solution to use relational DB in the future.
     
-3. I was trying to create mongoDB query filter where I have system created exercises and user able to modify system exercise by cloning it. As a result I have system and user modified with the similar/same name, and both are displayed to user. I was unable to create filter which will hide system exercises once they are cloned by user. After spending hours in search for solution I decided to go in different approach.
+2. I was trying to create mongoDB query filter where I have system created exercises and user able to modify system exercise by cloning it. As a result I have system and user modified with the similar/same name, and both are displayed to user. I was unable to create filter which will hide system exercises once they are cloned by user. After spending hours in search for solution I decided to go in different approach.
 
    * Now user still able to clone system exercises, and they are both displayed to user(even if they have same name), but *```I gave user an option to hide all system exercises on the HTML page.```*
+
+3. Found inconsistency in records inside Exercise collection where field "origin" has not been populated, or created. Cannot reproduce this issue on my enviroment, as a precaution I created validation.
+   * in Edit exercise function I added ```"origin": single_exercise["origin"] if single_exercise['origin'] else session["user"]``` If "origin" field is empty for some reason this would fill it with username from session
 
 </details>
 

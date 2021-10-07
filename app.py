@@ -371,7 +371,7 @@ def edit_exercise(exercise_id):
                 "exercise_name": request.form.get("exercise_name"),
                 "description": request.form.get("description"),
                 "about": request.form.get("about"),
-                "img_url": img_cdn,  # request.form.get("img_url"),
+                "img_url": img_cdn,
                 "exercise_sets": request.form.get("exercise_sets"),
                 "exercise_reps": request.form.get("exercise_reps"),
                 "exercise_category": request.form.getlist("exercise_category"),
@@ -381,7 +381,7 @@ def edit_exercise(exercise_id):
                 'yt_url': replace_url,
                 'steps': request.form.getlist("steps"),
                 "created_by": session["user"],
-                "origin": single_exercise["origin"],
+                "origin": single_exercise["origin"] if single_exercise['origin'] else session["user"],
                 "is_system": False,
                 "exercise_history": single_exercise["exercise_history"]
             }
