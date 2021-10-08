@@ -602,6 +602,11 @@ main {
 
 .page-footer {
     margin-top: 10px;
+    background-color: #799bce;
+}
+
+.page-footer .footer-copyright{
+    background-color: rgb(238 110 115);
 }
 
 /*Media queries*/

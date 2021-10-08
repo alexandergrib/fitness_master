@@ -348,7 +348,10 @@ def edit_exercise(exercise_id):
         if request.method == "POST":
             yt = request.form.get("yt_url")
             if yt:
-                replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
+                if yt == single_exercise["yt_url"]:
+                    replace_url = single_exercise["yt_url"]
+                else:
+                    replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
                                      'https://youtube.com/embed/', yt)
             else:
                 replace_url = "https://youtube.com/embed/wtFPIOV2bWM"
@@ -356,16 +359,19 @@ def edit_exercise(exercise_id):
 
             img_url = request.form.get("img_url")
             if img_url:
-                if bool(pattern.search(img_url)):
-                    try:
-                        img_cdn = upload_image(img_url)
-                    except Error:
-                        flash(
-                            "Invalid image URL provided, default used instead")
-                        img_cdn = default_img
+                if img_url == single_exercise["img_url"]:
+                    img_cdn = single_exercise["img_url"]
                 else:
-                    flash("Invalid image URL provided, default used instead")
-                    img_cdn = default_img
+                    if bool(pattern.search(img_url)):
+                        try:
+                            img_cdn = upload_image(img_url)
+                        except Error:
+                            flash(
+                                "Invalid image URL provided, default used instead")
+                            img_cdn = default_img
+                    else:
+                        flash("Invalid image URL provided, default used instead")
+                        img_cdn = default_img
             else:
                 flash("No image URL provided, default used instead")
                 img_cdn = default_img
