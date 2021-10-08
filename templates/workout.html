@@ -32,7 +32,7 @@
                 </div>
             </div>
             <!--Generate list of workouts -->
-                {% for workout in workout_list %}
+                {% for workout in workout_list[::-1] %}
                     {% if workout.created_by == session['user'] %}
                         <!-- link to start workout -->
                         <a href="{{ url_for('start_workout', workout_id=workout._id) }}">
