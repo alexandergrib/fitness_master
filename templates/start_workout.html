@@ -52,7 +52,7 @@
                                                                 <div class="input-field inline">
                                                                     <input id="reps_{{ exercise._id }}"
                                                                            name="reps_{{ exercise._id }}"
-                                                                           value="{{ exercise.exercise_reps }}"
+                                                                           value="{{ exercise.exercise_reps |int + 0  }}"
                                                                            type="number"
                                                                            minlength="0"
                                                                            maxlength="5"
@@ -62,7 +62,7 @@
                                                                 <div class="input-field inline">
                                                                     <input id="weight_{{ exercise._id }}"
                                                                            name="weight_{{ exercise._id }}"
-                                                                           value="{{ exercise.weight }}"
+                                                                           value="{{ exercise.weight |int + 0 }}"
                                                                            type="number"
                                                                            minlength="0"
                                                                            maxlength="5"

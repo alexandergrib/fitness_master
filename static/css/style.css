@@ -16,7 +16,9 @@ main {
 
 }
 
-
+#no_history{
+    text-align: center;
+}
 
 .header-font {
     font-family: "Bangers", sans-serif;

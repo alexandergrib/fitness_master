@@ -273,9 +273,12 @@ Current errors:
 
    * Now user still able to clone system exercises, and they are both displayed to user(even if they have same name), but *```I gave user an option to hide all system exercises on the HTML page.```*
 
-3. Found inconsistency in records inside Exercise collection where field "origin" has not been populated, or created. Cannot reproduce this issue on my enviroment, as a precaution I created validation.
+3. Found inconsistency in records inside Exercise collection where field "origin" has not been populated, or created. Cannot reproduce this issue on my environment, as a precaution I created validation.
    * in Edit exercise function I added ```"origin": single_exercise["origin"] if single_exercise['origin'] else session["user"]``` If "origin" field is empty for some reason this would fill it with username from session
+   * **Fixed** Missing 2 field from update workout data function while updating exercise records.
 
+4. Peer review found bug where when creating new exercise user was unable to click on the "about" field
+   *  **Fixed**  ```<label for="about">About</label>``` was assigned to the wrong field.
 </details>
 
 ---

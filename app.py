@@ -200,15 +200,17 @@ def update_workout_data(query):
             "about": exercise_data["about"],
             "img_url": exercise_data["img_url"],
             "exercise_sets": exercise_data["exercise_sets"],
-            "exercise_reps": request.form.get("reps_" + query),
+            "exercise_reps": request.form.get("reps_" + query) if session["user"] == "admin" else exercise_data["exercise_reps"],
             "exercise_category": exercise_data["exercise_category"],
             "modified_date": datetime.now().strftime("%d/%m/%Y"),
-            "weight": request.form.get("weight_" + query),
+            "weight": request.form.get("weight_" + query) if session["user"] == "admin" else exercise_data["weight"],
             'exercise_comments': exercise_data["exercise_comments"],
             'yt_url': exercise_data["yt_url"],
             'steps': exercise_data["steps"],
             "created_by": exercise_data["created_by"],
-            "exercise_history": exercise_history
+            "exercise_history": exercise_history,
+            "is_system": exercise_data["is_system"],
+            "origin": exercise_data["origin"]
         }
         mongo.db.exercises.update({"_id": ObjectId(query)}, submit)
         return redirect(url_for("start_workout", workout_id=workout_id))
