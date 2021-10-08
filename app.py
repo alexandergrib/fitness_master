@@ -28,6 +28,8 @@ app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 mongo = PyMongo(app)
 
 
+app.debug = False
+
 @app.route("/")
 def index():
     return render_template("index.html", index_page=True)
@@ -169,6 +171,10 @@ def start_workout(workout_id):
 
 @app.route("/workout/start/update/<query>", methods=["POST", ])
 def update_workout_data(query):
+    """
+       Update existing workout. Takes arguments: [query], query DB,
+
+       """
     if request.method == "POST":
         exercise_data = mongo.db.exercises.find_one(
             {"_id": ObjectId(query)})  # fetch single exercise to be updated
@@ -185,7 +191,7 @@ def update_workout_data(query):
                 "date": datetime.now().strftime("%d/%m/%Y"),
                 "username": session['user'],
                 "exercise_name": exercise_data['exercise_name'],
-                "exercise_id": query,  # exercise_data["_id"],
+                "exercise_id": query,
                 "workout_id": workout_id,
                 "reps": i.split(",")[0],
                 "weight": i.split(",")[1],
@@ -200,10 +206,16 @@ def update_workout_data(query):
             "about": exercise_data["about"],
             "img_url": exercise_data["img_url"],
             "exercise_sets": exercise_data["exercise_sets"],
-            "exercise_reps": request.form.get("reps_" + query) if session["user"] == "admin" else exercise_data["exercise_reps"],
+            # If exercise reps belong to the admin then dont update them
+            "exercise_reps": request.form.get(
+                "reps_" + query) if session["user"] == "admin" else
+            exercise_data["exercise_reps"],
             "exercise_category": exercise_data["exercise_category"],
             "modified_date": datetime.now().strftime("%d/%m/%Y"),
-            "weight": request.form.get("weight_" + query) if session["user"] == "admin" else exercise_data["weight"],
+            # If exercise weight belong to the admin then dont update it
+            "weight": request.form.get(
+                "weight_" + query) if session["user"] == "admin" else
+            exercise_data["weight"],
             'exercise_comments': exercise_data["exercise_comments"],
             'yt_url': exercise_data["yt_url"],
             'steps': exercise_data["steps"],
@@ -218,6 +230,9 @@ def update_workout_data(query):
 
 @app.route("/workout/complete/<workout_id>", methods=["POST", "GET"])
 def complete_workout(workout_id):
+    """
+    Save completed workout
+    """
     try:
         fetch_workout = mongo.db.routines.find_one(
             {"_id": ObjectId(workout_id)})
@@ -268,7 +283,6 @@ def create_exercise():
             mongo.db.categories.find().sort("category_name", 1))
         if request.method == "POST":
             yt = request.form.get("yt_url")
-
             if yt:
                 replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
                                      'https://youtube.com/embed/', yt)
@@ -352,7 +366,7 @@ def edit_exercise(exercise_id):
                     replace_url = single_exercise["yt_url"]
                 else:
                     replace_url = re.sub(r'^[a-zA-Z]+\W+\w+.\w+\/',
-                                     'https://youtube.com/embed/', yt)
+                                         'https://youtube.com/embed/', yt)
             else:
                 replace_url = "https://youtube.com/embed/wtFPIOV2bWM"
                 flash("No video url provided, default used instead")
@@ -368,10 +382,12 @@ def edit_exercise(exercise_id):
                             img_cdn = upload_image(img_url)
                         except Error:
                             flash(
-                                "Invalid image URL provided, default used instead")
+                                "Invalid image URL provided, \
+                                default used instead")
                             img_cdn = default_img
                     else:
-                        flash("Invalid image URL provided, default used instead")
+                        flash("Invalid image URL provided, \
+                         default used instead")
                         img_cdn = default_img
             else:
                 flash("No image URL provided, default used instead")
@@ -390,7 +406,8 @@ def edit_exercise(exercise_id):
                 'yt_url': replace_url,
                 'steps': request.form.getlist("steps"),
                 "created_by": session["user"],
-                "origin": single_exercise["origin"] if single_exercise['origin'] else session["user"],
+                "origin": single_exercise["origin"] if single_exercise[
+                    'origin'] else session["user"],
                 "is_system": False,
                 "exercise_history": single_exercise["exercise_history"]
             }

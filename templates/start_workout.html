@@ -32,9 +32,12 @@
                                             <span>{{ exercise.exercise_name|truncate(26, False, '...', 0) }}</span>
                                             <div class="workout-exercise-single-more-info">
                                                 <a href="{{ url_for('get_exercise', exercise_id=exercise._id) }}"
-                                                   class="tooltipped right" data-position="top"
-                                                   data-tooltip="Open '{{ exercise.exercise_name }}' Exercise"><i
-                                                        class="fas fa-info-circle right"></i></a></div>
+                                                   class="tooltipped right"
+                                                   data-position="top"
+                                                   data-tooltip="Open '{{ exercise.exercise_name }}' Exercise">
+                                                    <i class="fas fa-info-circle right"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="container">
@@ -67,8 +70,7 @@
                                                                            minlength="0"
                                                                            maxlength="5"
                                                                            class="validate align-right">
-                                                                    <label for="weight_{{ exercise._id }}">Weight in
-                                                                        kg</label>
+                                                                    <label for="weight_{{ exercise._id }}">Weight in kg</label>
                                                                 </div>
                                                                 <div class="hidden_inputs">
                                                                     <input type="hidden" name="id_{{ exercise._id }}"
