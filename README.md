@@ -186,7 +186,6 @@ Below I have listed the programming languages, technologies, frameworks and reso
 * **[Grammarly](https://www.grammarly.com/)** to correct grammar and spelling mistakes.
 * **[Charts CSS](https://chartscss.org/)** to display charts for each workout completed
 * **[animate.style](https://animate.style/)** to display animations
-* **[Stackoverflow](https://stackoverflow.com)** to help me solve unsolvable
 
 ---
 
@@ -271,11 +270,11 @@ Current errors:
     
 2. I was trying to create mongoDB query filter where I have system created exercises and user able to modify system exercise by cloning it. As a result I have system and user modified with the similar/same name, and both are displayed to user. I was unable to create filter which will hide system exercises once they are cloned by user. After spending hours in search for solution I decided to go in different approach.
 
-   * Now user still able to clone system exercises, and they are both displayed to user(even if they have same name), but *```I gave user an option to hide all system exercises on the HTML page.```*
+   * Now user still able to clone system exercises, and they are both displayed to user(even if they have same name), but *```I gave user an option to hide all system exercises on the HTML page via selector switch.```*
 
 3. Found inconsistency in records inside Exercise collection where field "origin" has not been populated, or created. Cannot reproduce this issue on my environment, as a precaution I created validation.
    * in Edit exercise function I added ```"origin": single_exercise["origin"] if single_exercise['origin'] else session["user"]``` If "origin" field is empty for some reason this would fill it with username from session
-   * **Fixed** Missing 2 field from update workout data function while updating exercise records.
+   * **Fixed** Added missing 2 field from update workout data function while updating exercise records.
 
 4. Peer review found bug where when creating new exercise user was unable to click on the "about" field
    *  **Fixed**  ```<label for="about">About</label>``` was assigned to the wrong field.
@@ -528,7 +527,7 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
 
    * Animations are done with help of [animate.style](https://animate.style/)
    * Website built based on [MaterializeCSS](https://materializecss.com/)    
-
+   * Youtube for videos used in exercises
 
 ### Images
 * [https://cloudinary.com/](https://cloudinary.com/)

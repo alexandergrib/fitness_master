@@ -37,28 +37,28 @@
                                         <table class="charts-css column show-heading show-data-on-hover hide-data reverse-data  show-labels show-data-axes show-primary-axis">
                                             <caption>{{ workouts }}</caption>
                                             <tbody>
-                                            {% for exercise in exercises|sort(reverse=true, attribute="date") %}
-                                                {% if exercise.weight != "0" %}
-                                                    {% if loop.index0 <=9 %}
-                                                        <!--  in  each workout group all exercises by id-->
-                                                        <tr>
-                                                            <th scope="row">
-                                                                {% set list1 = exercise.date.split("/") %}
-                                                                {{ list1[0] }}/{{ list1[1] }}
-                                                                <span>{{ exercise.exercise_name }}</span>
-                                                                <!--: {{ exercise.exercise_name }} -->
-                                                            </th>
-                                                            <!--Set 150kg maximum weight limit -->
-                                                            <td style="--size: calc({% if exercise.weight |int >= 150 %}150{% else %}{{ exercise.weight }}{% endif %} / 150)">
-                                                                {% if exercise.weight |int == 0 %}
-                                                                {% else %}
-                                                                    {{ exercise.weight }}kg
-                                                                {% endif %}
-                                                            </td>
-                                                        </tr>
+                                                {% for exercise in exercises|sort(reverse=true, attribute="date") %}
+                                                    {% if exercise.weight != "0" %}
+                                                        {% if loop.index0 <=9 %}
+                                                            <!--  in  each workout group all exercises by id-->
+                                                            <tr>
+                                                                <th scope="row">
+                                                                    {% set list1 = exercise.date.split("/") %}
+                                                                    {{ list1[0] }}/{{ list1[1] }}
+                                                                    <span>{{ exercise.exercise_name }}</span>
+                                                                    <!--: {{ exercise.exercise_name }} -->
+                                                                </th>
+                                                                <!--Set 150kg maximum weight limit -->
+                                                                <td style="--size: calc({% if exercise.weight |int >= 150 %}150{% else %}{{ exercise.weight }}{% endif %} / 150)">
+                                                                    {% if exercise.weight |int == 0 %}
+                                                                    {% else %}
+                                                                        {{ exercise.weight }}kg
+                                                                    {% endif %}
+                                                                </td>
+                                                            </tr>
+                                                        {% endif %}
                                                     {% endif %}
-                                                {% endif %}
-                                            {% endfor %}
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                         <div class="note"><span>*Display based on weight of 100%/150kg </span></div>
