@@ -277,7 +277,11 @@ Current errors:
    * **Fixed** Added missing 2 field from update workout data function while updating exercise records.
 
 4. Peer review found bug where when creating new exercise user was unable to click on the "about" field
-   *  **Fixed**  ```<label for="about">About</label>``` was assigned to the wrong field.
+   * **Fixed**  ```<label for="about">About</label>``` was assigned to the wrong field.
+
+5. On the workouts page I wanted to display message if no workouts exists in database. Due to the data returned to the template (All workouts for the user + non user workouts) I unable to validate it if no records exists for current user.
+   1. Can be done with JS display/hide message
+   2. In the future updates it is possible to filter data using mongo aggregate functionality before sending over to the template. I need to study more MongoDB functionality to effectively implement it.
 </details>
 
 ---

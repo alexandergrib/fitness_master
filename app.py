@@ -27,6 +27,7 @@ app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
 mongo = PyMongo(app)
 
+
 @app.route("/")
 def index():
     return render_template("index.html", index_page=True)
