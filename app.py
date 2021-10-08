@@ -359,6 +359,7 @@ def edit_exercise(exercise_id):
 
             img_url = request.form.get("img_url")
             if img_url:
+                # Check if image exists
                 if img_url == single_exercise["img_url"]:
                     img_cdn = single_exercise["img_url"]
                 else:
