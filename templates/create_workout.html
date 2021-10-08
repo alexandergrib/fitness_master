@@ -33,8 +33,7 @@
                     {% for exercise in exercise_list %}
                         {% if exercise.created_by == "admin" %}
                             <option value="{{ exercise.exercise_name }}"
-                                    data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }} [SYSTEM]
-                            </option>
+                                    data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }} &lbrack;SYSTEM&rbrack;</option>
                         {% else %}
                             <option value="{{ exercise.exercise_name }}"
                                     data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>

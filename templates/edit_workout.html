@@ -42,8 +42,7 @@
                                         data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }}</option>
                             {% elif exercise.created_by == "admin" %}
                                 <option value="{{ exercise.exercise_name }}"
-                                        data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }} [SYSTEM]
-                                </option>
+                                        data-icon="{{ exercise.img_url }}">{{ exercise.exercise_name }} &lbrack;SYSTEM&rbrack;</option>
                             {% endif %}
 
                         {% endif %}
