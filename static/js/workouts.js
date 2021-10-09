@@ -1,4 +1,4 @@
-
+/*jshint esversion: 6 */
 //example from here https://stackoverflow.com/questions/18076013/setting-session-variable-using-javascript
 let workoutSwitch = document.getElementById('show_completed');
 let completedDivs = document.getElementsByClassName("completed");

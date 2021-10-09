@@ -38,7 +38,7 @@ Fitness Master</a></p>
 - [Technologies used](#Technologies-used)
 - [Testing](#Testing)
     - [Manual testing](#Testing)
-    - [Errors](#Errors)
+- [Errors](#Errors)
 - [Code Notes](#Code-Notes)
 - [Deployment](#Deployment)
 - [Credits](#Deployment)
@@ -192,10 +192,17 @@ Below I have listed the programming languages, technologies, frameworks and reso
 ## Testing
 
 * [HTML validator](https://validator.w3.org/#validate_by_input)
+  * No issues
 * [CSS validator](https://jigsaw.w3.org/css-validator/#validate_by_input)
+  * CSS validator showing lots of ```is an unknown vendor extension``` in vendors css files.
+  * In my own styles.css I only get info ```Due to their dynamic nature, CSS variables are currently not statically checked```
+  
 * [JsHint](https://jshint.com)
+  * Warning ```eval can be harmful.``` (all_exercises.js, workouts.js) I have to use eval here to get True boolean value for the checkbox. 
+
 * Testing [checklist](https://geteasyqa.com/qa/test-website/)
 * [pep8](http://pep8online.com/)
+  * No issues
  
 I personally tested the website on some of my own personal systems of which include:
 1. Windows10 Google Chrome, Mozilla, Edge browsers
