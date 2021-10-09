@@ -200,17 +200,43 @@ Below I have listed the programming languages, technologies, frameworks and reso
 I personally tested the website on some of my own personal systems of which include:
 1. Windows10 Google Chrome, Mozilla, Edge browsers
 2. [https://www.webpagetest.org/](https://www.webpagetest.org/) To test for errors and performance 
-   1. [Results](https://www.webpagetest.org/result/211003_AiDcEY_4d6b4e0c4aa299fd1a2e344dd9aa87cb/1/details/)
+   1. [Results](https://www.webpagetest.org/result/211009_AiDc5N_a4c6e1f8dd76b710619eb03b3da95216/)
       * Score ```F``` for Security score has to be setup on the server side of heroku
-      * Score ```F``` for Compress Transfer has to be setup on the server side of heroku
+      * Score ```D``` for Compress Transfer has to be setup on the server side of heroku
       * All other score looks good
 
 
 ### Manual testing
 
+
+General navigation testing
+1. Upon landing onto main page, navigate to register page and create new account.
+2. Once account created page will redirect you onto profile page. From here navigate to individual exercises page.
+3. Page will show system exercises from here you can create your own, or you can copy and modify system exercises.
+4. You can open each individual exercise to read more about it.
+5. Navigate to workouts page to create you personalized routine.
+6. Create new workout, enter your workout name, and select exercises you wish to use in this workout then press create workout button.
+7. After creating workout press on newly created workout tab this will take you to the start workout page
+8. While you progressing with each exercise in the workout you need to add each set to session using '+' button.
+9. Once you complete session for first exercise you need to complete exercise session to store you records.
+10. Then you can progress onto next exercise.
+11. Once you complete all exercises in the workout you need to press finish workout.
+12. After finishing workout you will be redirected to the workouts page where you can choose to display on not completed workouts.
+13. Navigate back to the profile page
+14. If you used any "equipment" which required to use weights, this weight which you save during the workout will be displayed in the charts.
+15. If you didn't use any weights and recorded your session with weight "0" you may see an empty chart.
+16. If you wish to delete any of yours exercises you can do that in the edit tab.
+17. Navigate to the exercise you wish to delete, open it, the click on EDIT icon.
+18. At the bottom of the page you will find delete button.
+19. If you wish to delete workout.
+20. Navigate to the workouts page.
+21. Find workout you wish to remove and press on the EDIT icon.
+22. From edit page you will find DELETE button.
+
+---
 <details>
 <summary>
-Testing conducted
+Detail testing
 </summary>
 
 N | Section | Test | Result
@@ -224,18 +250,22 @@ N | Section | Test | Result
 7 | Exercises | Clicking on exercise card will take to exercise detailed info |  &#9745;
 8 | Exercises/edit |  Clicking "EDIT" link whiting detailed exercise info page will take user to the form page where user can update any field |  &#9745;
 9 | Exercises/edit | Update any fields whiting EDIT exercise page press "UPDATE EXERCISE" button: <br> - results gets updated <br> - Flash message displayed  |  &#9745;
-10 | Workouts | Create new workout functionality |  &#9745;
-11 | Workouts/create | Pick exercises are displaying user and system exercises |  &#9745;
-12 | Workouts | Click on newly created workout card, takes you to "Start workout" page  |  &#9745;
-13 | Workouts/start | All selected workouts are displayed |  &#9745;
-14 | Workouts/start |  On any exercise card dial "reps" and "weight" then press to "add to session" button <br> 1. "current session" will display newly added line <br> 2. Repeat previous step to add few more <br> 3. Press "complete exercise" to save progress <br> 4. Newly saved progress would be displayed on the "Last 5 set" section |  &#9745;
-15 | Workouts/start | Press "save workout" button this will save current workout. Then de-select "show completed" switch. Should hide all workouts that marked as completed. | &#9745;
-16 | Workouts/profile | Displaying username  |  &#9745;
-17 | Workouts/profile | Displaying latest workout weights progress  |  &#9745;
+10 | Exercises/delete | Delete exercise from database |  &#9745;
+11 | Workouts | Create new workout functionality |  &#9745;
+12 | Workouts/create | Pick exercises are displaying user and system exercises |  &#9745;
+13 | Workouts | Click on newly created workout card, takes you to "Start workout" page  |  &#9745;
+14 | Workouts/start | All selected workouts are displayed |  &#9745;
+15 | Workouts/start |  On any exercise card dial "reps" and "weight" then press to "add to session" button <br> 1. "current session" will display newly added line <br> 2. Repeat previous step to add few more <br> 3. Press "complete exercise" to save progress <br> 4. Newly saved progress would be displayed on the "Last 5 set" section |  &#9745;
+16 | Workouts/start | Press "save workout" button this will save current workout. Then de-select "show completed" switch. Should hide all workouts that marked as completed. | &#9745;
+17 | Workouts/delete | Delete selected workout |  &#9745;
+18 | Profile | Displaying username  |  &#9745;
+19 | Profile | Displaying latest workout weights progress  |  &#9745;
 
  
 No automated testing was conducted.
 </details>
+
+---
 
 <details>
 <summary>
@@ -256,6 +286,8 @@ N | Section | Test | Result
 10 | Be able to see graphs of progress on weight on each exercise   | <img width="20%" src= "readme_screenshots/user_test_10.png"> |   &#9745;
 
 </details>
+
+---
 
 ### Errors
 <details>
@@ -285,8 +317,10 @@ Current errors:
 </details>
 
 ---
+
 ## Code Notes
 * In base.html I had to put script inside {% if %} statement because I would only need to load this script when this section gets rendered on the webpage, otherwise I was getting error ```Cannot set property 'innerHTML' of null```
+
 ---
 
 ## Deployment
@@ -385,7 +419,7 @@ The following steps were used for deployment on Heroku:
     - replace `test` with the name (case-sensitive!) of the database used for your project.
 
     key: `SECRET_KEY`   
-    value: value of SECRET_KEY as entered in the project's env.py file, **without quotes** . 
+    value: value of SECRET_KEY as entered into the project's env.py file, **without quotes** . 
 
 13. Whilst in the "Config vars" section add the rest of the required [Cloudinary](https://cloudinary.com/) requirements.
     
@@ -526,12 +560,13 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
 
 
 ---
+
 ## Credits
 ### Code
 
    * Animations are done with help of [animate.style](https://animate.style/)
    * Website built based on [MaterializeCSS](https://materializecss.com/)    
-   * Youtube for videos used in exercises
+   * YouTube for videos used in exercises
 
 ### Images
 * [https://cloudinary.com/](https://cloudinary.com/)
@@ -539,6 +574,7 @@ I used Gitpod for development, so the following steps will be specific to Gitpod
 * [https://unsplash.com/](https://unsplash.com/)
 * User uploaded images are credits to their source and be used as is. As a website owner I don't take any responsibility for user provided content. (If any images found in breach of the copyrights please contact me.)
 * [image placeholders](https://placehold.it/250x250)
+
 ---
 
 
