@@ -218,7 +218,7 @@ I personally tested the website on some of my own personal systems of which incl
 
 General navigation testing
 1. Upon landing onto main page, navigate to register page and create new account.
-2. Once account created page will redirect you onto profile page. From here navigate to individual exercises page.
+2. Once account created page will redirect you onto main page. From here navigate to individual exercises page.
 3. Page will show system exercises from here you can create your own, or you can copy and modify system exercises.
 4. You can open each individual exercise to read more about it.
 5. Navigate to workouts page to create you personalized routine.
