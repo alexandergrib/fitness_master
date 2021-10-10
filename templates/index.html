@@ -20,7 +20,7 @@
     </section>
     <section class="section-second">
         <div class="container-fluid">
-            <h2>TRACK YOUR FITNESS ACTIVITY</h2>
+            <h2>TRACK YOUR FITNESS ACTIVITY AND VISUALIZE YOUR PROGRESS</h2>
             <div class="gallery">
                 <img src="{{ url_for("static", filename="img/profile_demo.jpg") }}"
                      width="309"
@@ -35,7 +35,7 @@
             <h2>START YOUR JOURNEY</h2>
             <h3> How to start?</h3>
             {% if session.user %}
-                <p>Create your workout routine by selecting our exercises or create your own.</p>
+                <p>Create your <strong>workout</strong> routine by selecting our exercises or create your own.</p>
                 <p>Ready to start your new challenge?</p>
             {% else %}
                 <p>Please use register to open account and start tracking your exercises </p>

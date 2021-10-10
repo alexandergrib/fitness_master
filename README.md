@@ -9,10 +9,7 @@
 
 # Fitness Master
 
-Fitness master is the website that have a target audience who love going to the gym and like to keep tracking of their activity by storing their exercise data.
-Where they can explore different exercises or be able to create their own .
-
-
+Fitness master is a website with a target audience of people who love going to the gym and need to track their activity and be able to see their training progress. They need a place to store their exercise data, explore different exercises or be able to create their own.
 
 
 ## Contents
@@ -48,7 +45,8 @@ Fitness Master</a></p>
 
 ---
 ## About
-The purpose of this project was to build an app where users can tailor their exercise routines to suit their need and keep record of their achievements.
+
+The purpose of this project was to build a website where users can tailor their exercise routines to suit their needs and keep record of their achievements.
 
 ---
 
@@ -58,51 +56,65 @@ The purpose of this project was to build an app where users can tailor their exe
 
 #### As a first time user I want to:
 
-  * Create personalized workout routines
-  * Have selection exercises to choose from
-  * Be able to read about each individual exercise in details, how to do it, and which area of the body it targets
-  * Be able to add my own exercises or modify existing ones to suit my needs
-  * Be able to track my workout by monitoring amounts of reps, sets and weight
-  * Be able to save my progress 
+  * Have a selection of exercises to choose from when I want to change my exercises or find new ones
+  * Be able to read about each individual exercise in detail specifically how to do it and which area of the body it targets
+  * Be able to add my own exercises or modify existing ones to suit my training needs
+  * Be able to track my workout session by monitoring number of reps, sets and weight
+  * Be able to save my progress before the next training session
 
 #### As a returning user I want to:
 
-  * Be able to review my progress
-  * Be able to see my workout history(Names) in my profile
-  * Be able to see my workout history in details (Expandable details)
-  * Be able to see graphs of progress on weight on each exercise    
+  * Be able to log into my account
+  * Be able to review my saved sessions and see my progress
+  * Be able to see my workout history(by Names) in my profile
+  * Be able to see my workout history in detail (through expandable details)
+  * Be able to have graphs of the progress on weight for each exercise
+  * Be able to view statistics for the last 5 sessions for each exercise within workout
+  * Be able to hide SYSTEM exercises and use only exercises added by me 
+
+#### As an owner of the website I want to:
+  * Ensure my first-time users are able to find an easy way to "Register" and set up their first exercise workouts
+  * Provide my returning users the ability to log in and view access their saved workouts and saved training progress
+  * Users should be able to edit their existing workouts by adding new exercises to them
+  * Users need to be able to find new exercises to try using the database with the information on how to do the exercise and which body party it targets
+  * Users should also be able to add their own exercise and add it to their saved workout
+  * Users should be able to create one or multiple workouts to keep their training diverse
+  * My Account page should give showed the users they past sessions and visualize their progress in weight through a graph
+  * Users to have the ability to view statistics for the last 5 sessions for each exercise within workout
+  * Users to have the ability to hide SYSTEM exercises and use only Users-added exercises
+
+
+
 
 ### UI
 
-  * A responsive and top attached Navbar.
-  * Form to add individual exercise.
-  * Form to add individual workout.
-  * A search function for users to find exercise based on search criteria.
-  * Form to modify a exercise.
-  * Form to modify workout.
-  * Graphs to display user progress.
-  * A registration/login form.
-  * A loading page was implemented to stop poor impressions from data loading slowly.
-  * A footer to provide some information and social links.
+  * A responsive and top attached Navbar
+  * A form to add individual exercise
+  * A form to add individual workout
+  * A search function for users to find exercises based on a keyword input 
+  * A form to modify an exercise
+  * A form to modify a workout
+  * Graphs to display user progress populated using saved previously completed exercise
+  * A registration/login form for the first time and returning users
+  * A loading page was implemented to stop poor impressions from data loading slowly
+  * A footer to provide some information and social links
 
 ### Design
 
   * The design of the website  is minimalistic but eye catching using sport themed [background.](static/img/tile_background_tile.png)
   * Main page has a nice image background as well as displaying an example of the fitness activity snapshot from user profile to catch attention of the new visitors.
-  * At the bottom of the page Register button displayed for the new users or Profile button for the logged-in users.
+  * At the bottom of the page Register button displayed for the new users or "Profile" button for the logged-in users.
   * Links and buttons have a hover effect.
-  * Exercise/workout containers have a background shadow to stand out from the page.
+  * Exercise/workout containers have a shadow to stand out from the page.
 
 
 ### Wireframes
-Wireframes are my initial design, so you may notice that final website design does not contain everything that was planned at the start of the project.
-Some missing features are possible future improvements for the project. They may be implemented at the later stage.
+WWireframes are my initial design, so you may notice that the final website design does not contain everything that was planned at the start of the project. Some missing features are possible future improvements for the project. They may be implemented at a later stage.
   * [wireframes.pdf](readme_screenshots/wireframes.pdf)
 
 ### Database Schema
 
-I started planning database after I have done my wireframes to justify which fields I would require and what collections I would have to use.
-After initial discussion with my mentor I have settled with current database schema.
+I started planning the database after I have done my wireframes to justify which fields I would require and what collections I would have to use. After the initial discussion with my mentor, I have settled with the current database schema.
  * [Database schema](readme_screenshots/database_structure.pdf)
 
 ### Database Model
@@ -137,9 +149,9 @@ GET | /logout | Logout user
 
 * Ability to Signup/login.
   * ```For user to be able track their exercises```
-* Ability to Add an exercise.
+* Ability to add an exercise.
   * ```User should be able to create their  own custom exercises```
-* Ability to Edit exercise.
+* Ability to edit exercise.
   * ```User should be able to edit their own custom exercises or copy and modify system exercises```
 * Ability to delete exercise.
   * ```User should be able to delete their own custom exercises```
@@ -149,9 +161,9 @@ GET | /logout | Logout user
   * ```This feature ensures user are unable to change data on the system exercise, instead it gets copyied to the user account```
 * User unable to delete system exercises
   * ```Safety feature to prevent user accidentaly remove system exercise```
-* Ability to Add a workout.
+* Ability to edd a workout.
   * ```User should be able to create their own custom workouts```
-* Ability to Edit workout.
+* Ability to edit workout.
   * ```User should be able to modify their own custom workouts```
 * Ability to delete workout.
   * ```User should be able to delete their own custom workouts```
