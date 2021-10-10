@@ -9,7 +9,7 @@
 
 # Fitness Master
 
-Fitness master is the website that have a target auditory who love going to the gym and like to keep tracking of their activity by storing their exercise data.
+Fitness master is the website that have a target audience who love going to the gym and like to keep tracking of their activity by storing their exercise data.
 Where they can explore different exercises or be able to create their own .
 
 
@@ -56,12 +56,17 @@ The purpose of this project was to build an app where users can tailor their exe
 
 ### User Stories
 
+#### As a first time user I want to:
+
   * Create personalized workout routines
   * Have selection exercises to choose from
   * Be able to read about each individual exercise in details, how to do it, and which area of the body it targets
   * Be able to add my own exercises or modify existing ones to suit my needs
   * Be able to track my workout by monitoring amounts of reps, sets and weight
   * Be able to save my progress 
+
+#### As a returning user I want to:
+
   * Be able to review my progress
   * Be able to see my workout history(Names) in my profile
   * Be able to see my workout history in details (Expandable details)
@@ -82,7 +87,7 @@ The purpose of this project was to build an app where users can tailor their exe
 
 ### Design
 
-  * The design of the website  is minimalistic but eye catching using sport themed background.
+  * The design of the website  is minimalistic but eye catching using sport themed [background.](static/img/tile_background_tile.png)
   * Main page has a nice image background as well as displaying an example of the fitness activity snapshot from user profile to catch attention of the new visitors.
   * At the bottom of the page Register button displayed for the new users or Profile button for the logged-in users.
   * Links and buttons have a hover effect.
@@ -131,25 +136,44 @@ GET | /logout | Logout user
 ## Features
 
 * Ability to Signup/login.
+  * ```For user to be able track their exercises```
 * Ability to Add an exercise.
+  * ```User should be able to create their  own custom exercises```
 * Ability to Edit exercise.
+  * ```User should be able to edit their own custom exercises or copy and modify system exercises```
 * Ability to delete exercise.
+  * ```User should be able to delete their own custom exercises```
 * Ability to show/hide system exercises
+  * ```User should be able to hide system exercises if user wish to see only the one created by them self```
 * When modifying system exercise, that exercise gets cloned and derived from original.
+  * ```This feature ensures user are unable to change data on the system exercise, instead it gets copyied to the user account```
 * User unable to delete system exercises
+  * ```Safety feature to prevent user accidentaly remove system exercise```
 * Ability to Add a workout.
+  * ```User should be able to create their own custom workouts```
 * Ability to Edit workout.
+  * ```User should be able to modify their own custom workouts```
 * Ability to delete workout.
+  * ```User should be able to delete their own custom workouts```
 * A loading page.
-* Ability to save current workout session statistics for individual exercise whiting that workout.
-* Ability to view statistics for the last 5 sessions for each exercise whiting workout.
+  * ```In case of slow internet connection user will see loading bar showing  that data id still loading```
+* Ability to save current workout session statistics for individual exercise within that workout.
+  * ```To track users exercises reps/weight user can save their session withing each workout for individual exercise```
+* Ability to view statistics for the last 5 sessions for each exercise within workout.
+  * ```Each exercise within workout display history of user previous session limited to the last 5 records to keep within minimalistic design```
 * A fully functioning search for exercises based on either exercise name or description text(word/phrase).
+  * ```Users are able to find exercise of their interest by performing search which looks for any word within header or desription of exercise```
 * Ability to view historical weight progress for each exercise.
+  * ```Users are prsented with chart to help them track their workouts weight```
 * The project contains a few security features, such as:
   * validating login.
+    * ```Username is checked for dublicates and ensures that no same accounts are created. User will be notified if username is exists in the database.```
   * hashing passwords.
+    * ```To provide extra security measures all password are encrypted before they are stored in the database```
   * environment variables are hidden.
+    * ```All vital informaiton for the server to function is hidden```
   * debug is turned off in the production version.
+    * ```To ensure no server errors are visible to the user. Debug is turned off and user will get 4xx or 5xx page.```
 
 
 ###  Future updates
@@ -192,17 +216,17 @@ Below I have listed the programming languages, technologies, frameworks and reso
 ## Testing
 
 * [HTML validator](https://validator.w3.org/#validate_by_input)
-  * No issues
+  * [No issues](readme_screenshots/html_validator.png)
 * [CSS validator](https://jigsaw.w3.org/css-validator/#validate_by_input)
-  * CSS validator showing lots of ```is an unknown vendor extension``` in vendors css files.
+  * [CSS validator showing lots of ```is an unknown vendor extension``` in vendors css files.](readme_screenshots/css_validator.png)
   * In my own styles.css I only get info ```Due to their dynamic nature, CSS variables are currently not statically checked```
   
 * [JsHint](https://jshint.com)
-  * Warning ```eval can be harmful.``` (all_exercises.js, workouts.js) I have to use eval here to get True boolean value for the checkbox. 
+  * [Warning](readme_screenshots/js_validator.png) ```eval can be harmful.``` (all_exercises.js, workouts.js) I have to use eval here to get True boolean value for the checkbox. 
 
 * Testing [checklist](https://geteasyqa.com/qa/test-website/)
 * [pep8](http://pep8online.com/)
-  * No issues
+  * [No issues](readme_screenshots/pep8.png)
  
 I personally tested the website on some of my own personal systems of which include:
 1. Windows10 Google Chrome, Mozilla, Edge browsers
@@ -215,6 +239,8 @@ I personally tested the website on some of my own personal systems of which incl
 
 ### Manual testing
 
+I opened the live site in the browser and clicked links as appropriate and input data where necessary.  I also tried to check inputs by entering incorrect information or missing any altogether to ensure logic flows correctly.
+I also tried to access pages where user login required by entering corresponding url into navigation bar, to ensure users get redirected either back to the home page or 404 page.
 
 General navigation testing
 1. Upon landing onto main page, navigate to register page and create new account.
@@ -253,10 +279,10 @@ N | Section | Test | Result
 3 | User account | Logout functionality. | &#9745;
 4 | Exercises | Adding new exercise, works as it should. Adding new exercise possible to only logged-in user  |  &#9745;
 5 | Exercises | * System and user exercises are displayed.<br> * Turning off "Show system exercises" hides all non user records. <br>    *  State of the switch preserved if the page get reloaded  |  &#9745;
-6 | Exercises |  Search for full exercise name or a full word whiting the description working as it should. <br>   *(Partial text is not functioning at the moment example: full word "food", searching for "foo" would not show any result) |  &#9745;
+6 | Exercises |  Search for full exercise name or a full word within the description working as it should. <br>   *(Partial text is not functioning at the moment example: full word "food", searching for "foo" would not show any result) |  &#9745;
 7 | Exercises | Clicking on exercise card will take to exercise detailed info |  &#9745;
-8 | Exercises/edit |  Clicking "EDIT" link whiting detailed exercise info page will take user to the form page where user can update any field |  &#9745;
-9 | Exercises/edit | Update any fields whiting EDIT exercise page press "UPDATE EXERCISE" button: <br> - results gets updated <br> - Flash message displayed  |  &#9745;
+8 | Exercises/edit |  Clicking "EDIT" link within detailed exercise info page will take user to the form page where user can update any field |  &#9745;
+9 | Exercises/edit | Update any fields within EDIT exercise page press "UPDATE EXERCISE" button: <br> - results gets updated <br> - Flash message displayed  |  &#9745;
 10 | Exercises/delete | Delete exercise from database |  &#9745;
 11 | Workouts | Create new workout functionality |  &#9745;
 12 | Workouts/create | Pick exercises are displaying user and system exercises |  &#9745;
