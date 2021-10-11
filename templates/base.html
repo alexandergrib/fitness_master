@@ -57,7 +57,6 @@
           href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='img/favicon/site.webmanifest') }}">
 
-
     <title>
         {% block title %}
             Fitness Master
@@ -120,8 +119,8 @@
         </div>
     </div>
 
+    <!-- flash messages -->
     <div>
-        <!-- flash messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -148,8 +147,8 @@
         {% endblock %}
     </main>
 
+    <!-- Footer template from materialize example -->
     {% if not index_page %}
-        <!-- Footer template from materialize example -->
         <footer class="page-footer">
             <div class="container">
                 <div class="row">
