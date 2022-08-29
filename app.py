@@ -14,8 +14,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from helpers import upload_image
 
-if os.path.exists("env.py"):
-    import env
+# if os.path.exists("env.py"):
+#     from env import *
 
 app = Flask(__name__)
 
@@ -563,5 +563,7 @@ def page_not_found(*args, **kwargs):
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
+            port=os.environ.get("PORT"),
             debug=False)
+
+
