@@ -17,7 +17,8 @@ Fitness master is a website with a target audience of people who love going to t
   <img width="40%" src= "readme_screenshots/screen_shot.png">
 </p>
  
-<p align="center"><a href="http://milestone3.ddnsfree.com:8014/" target ="_blank">Fitness Master</a></p>
+<p align="center"><a href="<p align="center"><a href="https://fitness.gradko.ovh/" target ="_blank">Fitness Master</a></p>
+" target ="_blank">Fitness Master</a></p>
  
 ## Table of Contents
  
